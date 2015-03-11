@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Common;
+using System.Web.Mvc;
+
+namespace MYDZ.WebUI.Member
+{
+    public class MemberController : BaseController
+    {
+        public ViewResult Index() { 
+            return View();
+        }
+    }
+}

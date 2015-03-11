@@ -1,0 +1,154 @@
+﻿<div class="tool_wrap tool_wrap_shortcut">
+    <ul class="tool_wrap_hd">
+        <li>
+            <h2>商品管理</h2>
+        </li>
+        <li class="tool_wrap_ico">
+            <a href="javascript:void();" hidefocus="true" class="tool_ico_stretch" title="收缩/展开"></a>
+        </li>
+    </ul>
+    <ul class="tool_wrap_bd">
+        <li>
+            <a href="/Merchandise/OnSale.html" hidefocus="true">商品管理</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">添加商品 <i></i></a>
+            <ul class="tool_wrap_bd">
+            <li><a href="javascript:void();">平台导入</a> </li>
+            <li><a href="\Merchandise\AddGoods.html">手动添加</a> </li>
+            <li><a href="javascript:void();">CSV文件</a> </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">商品管理3</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">商品管理4</a>
+        </li>
+    </ul>
+</div>
+
+<div class="tool_wrap">
+    <ul class="tool_wrap_hd">
+        <li>
+            <h2>订单管理</h2>
+        </li>
+        <li class="tool_wrap_ico">
+            <a href="javascript:void();" hidefocus="true" class="tool_ico_stretch" title="收缩/展开"></a>
+        </li>
+    </ul>
+    <ul class="tool_wrap_bd">
+        <li>
+            <a href="javascript:void();" hidefocus="true">订单管理1</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">订单管理2</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">订单管理3</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">订单管理4</a>
+        </li>
+    </ul>
+</div>
+
+<div class="tool_wrap">
+    <ul class="tool_wrap_hd">
+        <li>
+            <h2>店铺管理</h2>
+        </li>
+        <li class="tool_wrap_ico">
+            <a href="javascript:void();" hidefocus="true" class="tool_ico_stretch" title="收缩/展开"></a>
+        </li>
+    </ul>
+    <ul class="tool_wrap_bd">
+        <li>
+            <a href="javascript:void();" hidefocus="true">店铺管理1</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">店铺管理2</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">店铺管理3</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">店铺管理4</a>
+        </li>
+    </ul>
+</div>
+
+<div class="tool_wrap">
+    <ul class="tool_wrap_hd">
+        <li>
+            <h2>客户管理</h2>
+        </li>
+        <li class="tool_wrap_ico">
+            <a href="javascript:void();" hidefocus="true" class="tool_ico_stretch" title="收缩/展开"></a>
+        </li>
+    </ul>
+    <ul class="tool_wrap_bd">
+        <li>
+            <a href="javascript:void();" hidefocus="true">客户管理1</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">客户管理2</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">客户管理3</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">客户管理4</a>
+        </li>
+    </ul>
+</div>
+
+<div class="tool_wrap">
+    <ul class="tool_wrap_hd">
+        <li>
+            <h2>客服绩效</h2>
+        </li>
+        <li class="tool_wrap_ico">
+            <a href="javascript:void();" hidefocus="true" class="tool_ico_stretch" title="收缩/展开"></a>
+        </li>
+    </ul>
+    <ul class="tool_wrap_bd">
+        <li>
+            <a href="javascript:void();" hidefocus="true">客服绩效1</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">客服绩效2</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">客服绩效3</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">客服绩效4</a>
+        </li>
+    </ul>
+</div>
+
+<div class="tool_wrap">
+    <ul class="tool_wrap_hd">
+        <li>
+            <h2>营销推广</h2>
+        </li>
+        <li class="tool_wrap_ico">
+            <a href="javascript:void();" hidefocus="true" class="tool_ico_stretch" title="收缩/展开"></a>
+        </li>
+    </ul>
+    <ul class="tool_wrap_bd">
+        <li>
+            <a href="javascript:void();" hidefocus="true">营销推广1</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">营销推广2</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">营销推广3</a>
+        </li>
+        <li>
+            <a href="javascript:void();" hidefocus="true">营销推广4</a>
+        </li>
+    </ul>
+</div>

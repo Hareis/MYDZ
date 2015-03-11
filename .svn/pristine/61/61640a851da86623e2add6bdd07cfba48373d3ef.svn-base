@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="@Url.Content("~/css/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/control.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Validation/style.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/js/jquery-1.11.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/PopWindow.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Validation/Validform_v5.3.2_min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Validation/Validform.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/Skin.js")" type="text/javascript"></script>
+</head>
+<body>
+<div style="padding:30px 15px;">
+@using (Html.BeginForm("Feedback", "UserControl", FormMethod.Post, new { id = "FeedbackForm" })) { 
+    <div class="table_item">										
+        <span class="table_hd">											
+            <span class="require"></span>请留下您对该应用的意见和建议!	
+        </span>										
+        <div class="table_bd">						
+            <textarea style="width:300px;height:120px;" autocomplete="off" datatype="*" nullmsg="请留下您对该应用的意见和建议"></textarea>
+            <div class="msg_info"><span class="Validform_checktip"></span><i></i></div>
+        </div>										
+    </div>
+    
+    <div class="table_item">										
+        <span class="table_hd">											
+            <span class="require"></span>您常用的联系方式是？						
+        </span>										
+        <div class="table_bd">											
+            <input type="text" autocomplete="off" />
+        </div>										
+    </div>
+    
+    <div class="table_item">										
+        <span class="table_hd">											
+            <span class="require"></span>您常用的电子邮箱是？				
+        </span>										
+        <div class="table_bd">											
+            <input type="text" autocomplete="off" />
+        </div>										
+    </div>
+    
+    <div class="table_action">                                
+        <button type="submit">提交</button>    
+    </div>
+}
+</div>
+
+<script type="text/javascript">
+    (function (window, $) {
+
+        Skin.Controller.Init();
+
+        Validform.Controller.Init({
+            form: "#FeedbackForm",
+            beforeSubmit: function () {
+                PopWindow.Controller.Init({ type: "loading", opacity: 0 });
+            }
+        }).config({
+            ajaxPost: true,
+            callback: function (data) {
+                PopWindow.Controller.Clear();
+                PopWindow.Controller.Init({ type: data.Status ? "success" : "error", title: data.Msg, opacity: 0, Complete: function () { window.parent.PopWindow.Controller.Clear(); } });
+            }
+        });
+
+    })(window, jQuery);
+</script>
+</body>
+</html>

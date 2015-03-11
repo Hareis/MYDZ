@@ -1,0 +1,109 @@
+﻿@{
+    Layout = "~/Views/Shared/_SubMaster.cshtml";
+    ViewBag.Title = "出售中的商品 - 魔云店长";
+}
+<link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/select2.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/Merchandise/OnSale.js")" type="text/javascript"></script>
+
+<div class="btn_wrap">
+    <div class="btn_wrap_hd">
+        <span class="title"><i></i>数据查询</span>
+    </div>
+    <div class="btn_wrap_bd">
+        <ul>
+            <li><label>商品标题：</label></li>
+            <li><input type="text" value="" /></li>
+            <li><label>商品类目：</label></li>
+            <li>
+                <select>
+                    <option>全部商品类目</option>
+                    <option>测试类目1</option>
+                    <option>测试类目2</option>
+                    <option>测试类目3</option>
+                    <option>测试类目4</option>
+                    <option>测试类目5</option>
+                </select>
+            </li>
+        </ul>
+    </div>
+    <div class="btn_wrap_bd">
+        <ul>
+            <li><label>店铺类目：</label></li>
+            <li>
+                <select multiple="multiple" style="width:600px;">
+                    <option>店铺类目1</option>
+                    <option>店铺类目2</option>
+                    <option>店铺类目3</option>
+                    <option>店铺类目4</option>
+                    <option>店铺类目5</option>
+                    <option>测试类目6</option>
+                    <option>测试类目7</option>
+                    <option>测试类目8</option>
+                    <option>测试类目9</option>
+                    <option>测试类目10</option>
+                    <option>测试类目11</option>
+                    <option>测试类目12</option>
+                    <option>测试类目13</option>
+                    <option>测试类目14</option>
+                    <option>测试类目15</option>
+                    <option>测试类目16</option>
+                    <option>测试类目17</option>
+                    <option>测试类目18</option>
+                </select></li>
+        </ul>
+    </div>
+    <div class="btn_wrap_bd clear_border">
+        <ul>
+            <li><label style="padding-left:66px;">&nbsp;</label></li>
+            <li><button hidefocus="true" name="Search">搜索商品</button></li>
+            <li><a href="/Merchandise/OnSale.html" hidefocus="hidefocus" class="reset">重置</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="fix_body_wrap">
+    <div class="body_wrap">
+        <div class="tab">
+            <ul>
+                <li>
+                    <a href="javascript:void();" class="selected">出售中商品(32)</a>
+                    <a href="javascript:void();">橱窗推荐商品</a>
+                    <a href="javascript:void();">未推荐商品</a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab_tool">
+            <ul>
+                <li>
+                    <label class="checkbox checked"><span><input name="chk_all" type="checkbox" hidefocus="true"></span><em>全选</em></label>
+                </li>
+                <li>
+                    <a href="javascript:void();">批量下架</a>
+                </li>
+                <li>
+                    <a href="javascript:void();">批量修改</a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab_sort">
+            <ul>
+                <li>
+                    <a href="javascript:void();" title="">上架时间<i class="down"></i></a>
+                </li>
+                <li>
+                    <a href="javascript:void();" class="sort_current" title="">下架时间<i></i></a>
+                </li>
+                <li>
+                    <a href="javascript:void();" title="">修改时间<i></i></a>
+                </li>
+                <li>
+                    <a href="javascript:void();" title="">商品数量<i></i></a>
+                </li>
+                <li>
+                    <a href="javascript:void();" title="">商品销量<i></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

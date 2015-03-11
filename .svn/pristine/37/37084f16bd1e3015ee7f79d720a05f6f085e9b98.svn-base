@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>运费</title>
+    <link href="@Url.Content("~/css/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/control.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/js/jquery-1.11.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/jquery-ui.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/PopWindow.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/Skin.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/master.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/js/select2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Validation/Validform_v5.3.2_min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Validation/Validform.js")" type="text/javascript"></script>
+    <style type="">
+        tr td
+        {
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("SetupdateGoods", "Merchandise", FormMethod.Post, new { id = "QueryCriteria" }))
+        { 
+            <div>
+                <div class="table_item">
+                    <span class="table_hd"><span class="require"></span>
+                        <label style="color: Red;">
+                            *</label>运费模板</span>
+                    <div class="table_bd">
+                        <select class="FreightTemples" name="CodPostageId" style="width: 150px;" datatype="/^[0-9].*$/" errormsg="请选择一项">
+                            <option value="0">请选择</option>
+                            @{foreach (MYDZ.Entity.Goods.DeliveryTemplate item in (ViewData["list"] as List<MYDZ.Entity.Goods.DeliveryTemplate>))
+                              {
+                                <option value="@item.TemplateId">@item.Name</option>
+                              }
+                            }
+                        </select>
+                        <span class="table_msg"><i></i><span></span></span>
+                        <input type="hidden" name="ListGoodsId" />
+                    </div>
+                    <span class="table_msg"><i></i><span></span></span>
+                </div>
+                <div class="table_action">
+                    <button type="submit" hidefocus="true">
+                        提交</button>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        getmsg();
+        $('.FreightTemples').select2();
+        function getmsg() {
+            var productlist = null;
+            var Msg = window.location.search.substr(1);
+            Msg = decodeURI(Msg);
+            var aryVars = Msg.split('&');
+            var obj = new Object();
+            for (var i = 0; i < aryVars.length; i++) {
+                var aryPair = aryVars[i].split('=');
+                obj[aryPair[0]] = aryPair[1];
+            }
+            for (var key in obj) {
+                productlist = obj[key];
+            }
+            var GoodsId = productlist.split(',');
+            $(".SelectNumber").text(GoodsId.length);
+            $('input[name=ListGoodsId]').val(GoodsId);
+        }
+
+    });
+    (function (window, $) {
+        Skin.Controller.Init();
+        Validform.Controller.Init({
+            form: "#QueryCriteria",
+            beforeSubmit: function () {
+                PopWindow.Controller.Init({ type: "loading", opacity: 0 });
+                if($('.FreightTemples').val()==="0")
+                {
+                    PopWindow.Controller.Init({ type: "prompt", opacity: 0, width: 352, height: 198, title: "请选择一个运费模板" });
+                     PopWindow.Controller.Clear();
+                    return false;
+                }
+                if ($('.input[name=ListGoodsId]').val() === null) { return false; }
+            }
+        }).config({
+            ajaxPost: true,
+            callback: function (data) {
+                PopWindow.Controller.Clear();
+                if (!data.ErrorMsg === null) {
+                    PopWindow.Controller.Init({ type: "prompt", opacity: 0, width: 352, height: 198, title: "失败！原因：" + data.ErrorMsg.toString() });
+                }
+            }
+        });
+
+    })(window, jQuery);
+</script>
+</html>

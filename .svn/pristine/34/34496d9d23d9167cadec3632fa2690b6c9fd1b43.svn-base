@@ -1,0 +1,174 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Common;
+using System.Web.Mvc;
+using MYDZ.Business.Business_Logic.Order;
+using MYDZ.Entity.ClientUser;
+using MYDZ.Entity.Order;
+using MYDZ.Entity.Print;
+using MYDZ.Business.DataBase_BLL.Print;
+using MYDZ.Business.DataBase_BLL.Order;
+using System.Collections;
+using MYDZ.Config.Font;
+
+namespace MYDZ.WebUI.OrderManagement
+{
+    public class OrderManagementController : BaseController
+    {
+        InitTradeInfo iti = new InitTradeInfo();
+
+        /// <summary>
+        /// 首页
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult OrderIndex()
+        {
+            return View();
+        }
+
+
+        /*
+         taobao.trades.sold.get - 获取三个月内已卖出的在线订单，适用于用户初始化的时候使用，ISV不应该用此接口来获取增量订单。不建议使用或尽量少用此接口。
+         taobao.trades.sold.increment.get – 获取增量订单，适用于用户初始化后，增量同步发生变更的订单，ISV不应该用此接口来获取三个月内的订单。
+         taobao.trade.fullinfo.get - 获取单笔订单详情。
+        */
+        /// <summary>
+        /// 三个月内订单（未完成）
+        /// </summary>
+        /// <param name="TradesSold"></param>
+        /// <param name="Tid">查询时交易ID</param>
+        /// <returns></returns>
+        public ActionResult BacklogOrders(TradesSoldGet TradesSold, string Tid)
+        {
+            tbClientUser clientuser = GetUser("UserInfo");
+            string ErrorMsg = null;
+            if (string.IsNullOrEmpty(Tid))
+            {
+                if (TradesSold.StartCreated == null)
+                {
+                    TradesSold.StartCreated = Convert.ToDateTime(DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd HH:mm:ss"));
+                }
+                if (TradesSold.EndCreated == null)
+                {
+                    TradesSold.EndCreated = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                }
+                ViewData["ListTrade"] = iti.GetTradesSold(clientuser.UserShops[0].SessionKey, TradesSold, out ErrorMsg);
+            }
+            else
+            {
+                ViewData["ListTrade"] = iti.GetTrade(clientuser.UserShops[0].SessionKey, Tid, out ErrorMsg);
+            }
+            ViewData["ErrorMsg"] = ErrorMsg;
+            return View();
+        }
+
+        /// <summary>
+        /// 获取增量订单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetSoldIncrement(TradesSoldGet TradesSold)
+        {
+            tbClientUser clientuser = GetUser("UserInfo");
+            string ErrorMsg = null;
+            ViewData["ListTrade"] = iti.GetTradesSoldIncrement(clientuser.UserShops[0].SessionKey, TradesSold, out ErrorMsg);
+            ViewData["ErrorMsg"] = ErrorMsg;
+            return View();
+        }
+
+
+        /// <summary>
+        /// 给订单添加备注
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult AddTradeDesc(string Tid, string Memo, string Flag)
+        {
+            string errorMsg = null;
+            tbClientUser clientuser = GetUser("UserInfo");
+            int intflag = 0;
+            if (string.IsNullOrEmpty(Flag))
+            {
+                intflag = 0;
+            }
+            else
+            {
+                intflag = int.Parse(Flag);
+            }
+            if (iti.AddTradeMemo(clientuser.UserShops[0].SessionKey, Tid, Memo, intflag, out errorMsg) != null)
+            {
+                return Json(new { Result = true, ErrorMsg = "" });
+            }
+            else
+            {
+                return Json(new { Result = false, ErrorMsg = errorMsg });
+            }
+        }
+
+        /// <summary>
+        /// 修改收货地址
+        /// </summary>
+        /// <param name="TradeShipping"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult UpdateReciveAddress(TradeShippingaddressUpdate TradeShipping) //public Trade UpdateTradeShippingAddress(string token, TradeShippingaddressUpdate TradeShipping, out string ErrorMsg)
+        {
+            string errorMsg = null;
+            tbClientUser clientuser = GetUser("UserInfo");
+            if (iti.UpdateTradeShippingAddress(clientuser.UserShops[0].SessionKey, TradeShipping, out errorMsg) != null)
+            {
+                return Json(new { Result = true, ErrorMsg = "" });
+            }
+            else
+            {
+                return Json(new { Result = false, ErrorMsg = errorMsg });
+            }
+        }
+
+        /// <summary>
+        /// 打印模板
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult Template(string param = "")
+        {
+            int LId = 0;
+            IList<MYDZ.Entity.Order.StoreLogistics> list = new List<MYDZ.Entity.Order.StoreLogistics>();
+            tbPrintPlaneSingle Print = new tbPrintPlaneSingle();
+            tbPrintPlaneSingle TPrint = new tbPrintPlaneSingle();
+            StoreLogistics slt = null;
+
+            tbClientUser clientuser = GetUser("UserInfo");
+            if (!String.IsNullOrEmpty(param))
+            {
+                int.TryParse(param, out LId);
+            }
+            list = BStoreLogistics.SelectByUser(ViewBag.UserId);
+            if (list.Count > 0)
+            {
+                slt = new StoreLogistics();
+                slt = list.FirstOrDefault((e => { return e.Logistics.LogisticsId == ViewBag.LId; }));
+                LId = slt != null ? LId : list.First().Logistics.LogisticsId;
+                slt = slt != null ? slt : list.First();
+            }
+            else
+            {
+                // Response.Redirect("/Delivery.html");
+            }
+
+            Print = PrintPlaneSingle.Select(LId, clientuser.UserId);
+            TPrint = Print.PlaneId <= 0 ? PrintPlaneSingle.Select(LId, 0) : new tbPrintPlaneSingle();
+            
+            Hashtable ht = new Hashtable();
+            ht.Add("List_StoreLogistics", list);
+            ht.Add("Print", Print);
+            ht.Add("TPrint", TPrint);
+            ht.Add("LId", LId);
+            ht.Add("slt", slt);
+            ht.Add("fontConfig", FontConfigs.GetConfig().FontInfo);
+            ViewBag.HashTable_Info = ht;
+
+            return View();
+        }
+    }
+}

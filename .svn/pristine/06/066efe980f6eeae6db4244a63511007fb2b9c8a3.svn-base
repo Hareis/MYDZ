@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Interface.Shop;
+using MYDZ.Entity.Shop;
+
+namespace MYDZ.Business.DataBase_BLL.Shop
+{
+    public class BShopInfo
+    {
+        public static IShopInfo SetShopInfo = (IShopInfo)DALFactory.DataAccess.Create("Shop.ShopInfo");
+        /// <summary>
+        /// 添加一条数据
+        /// </summary>
+        /// <param name="ShopScore"></param>
+        /// <returns></returns>
+        public static int InsertShopInfo(tbShopInfo ShopInfo)
+        {
+            return SetShopInfo.InsertShopInfo(ShopInfo);
+        }
+        /// <summary>
+        /// 更新一条数据
+        /// </summary>
+        /// <param name="ShopScore"></param>
+        /// <returns></returns>
+        public static bool UpdateShopInfo(tbShopInfo ShopInfo)
+        {
+            return SetShopInfo.UpdateShopInfo(ShopInfo);
+        }
+        /// <summary>
+        /// 查询数据( by ShopId)
+        /// </summary>
+        /// <param name="ScoreId"></param>
+        /// <returns></returns>
+        public static tbShopInfo SelecttbShopInfoByShopId(string ShopId)
+        {
+            return SetShopInfo.SelecttbShopInfoByShopId(ShopId);
+        }
+    }
+}

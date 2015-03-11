@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B86C0845-C60B-4DBA-A541-A99694B33CE0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MYDZ.Entity</RootNamespace>
+    <AssemblyName>MYDZ.Entity</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClientUser\tbClientUser.cs" />
+    <Compile Include="ClientUser\tbClientUserCredit.cs" />
+    <Compile Include="ClientUser\tbClientUserGender.cs" />
+    <Compile Include="ClientUser\tbClientUserLevel.cs" />
+    <Compile Include="ClientUser\tbClientUserLog.cs" />
+    <Compile Include="ClientUser\tbClientUserShop.cs" />
+    <Compile Include="ClientUser\tbClientUserStatus.cs" />
+    <Compile Include="ClientUser\tbClientUserType.cs" />
+    <Compile Include="ClientUser\tbFeedback.cs" />
+    <Compile Include="Goods\DeliveryTemplate.cs" />
+    <Compile Include="Goods\DeliveryTime.cs" />
+    <Compile Include="Goods\DescModuleInfo.cs" />
+    <Compile Include="Goods\FoodSecurity.cs" />
+    <Compile Include="Goods\Item.cs" />
+    <Compile Include="Goods\ItemAdd.cs" />
+    <Compile Include="Goods\ItemImg.cs" />
+    <Compile Include="Goods\ItemUpdate.cs" />
+    <Compile Include="Goods\LocalityLife.cs" />
+    <Compile Include="Goods\Location.cs" />
+    <Compile Include="Goods\MpicVideo.cs" />
+    <Compile Include="Goods\PaimaiInfo.cs" />
+    <Compile Include="Goods\PropImg.cs" />
+    <Compile Include="Goods\Skus.cs" />
+    <Compile Include="Goods\TopFee.cs" />
+    <Compile Include="Goods\Video.cs" />
+    <Compile Include="Menu\tbMenuInfo.cs" />
+    <Compile Include="Menu\tbRoleInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Response.cs" />
+    <Compile Include="Shop\SellerCat.cs" />
+    <Compile Include="Shop\ShopCat.cs" />
+    <Compile Include="Shop\tbShopInfo.cs" />
+    <Compile Include="Shop\tbShopScore.cs" />
+    <Compile Include="Goods\Enum\Banner.cs" />
+    <Compile Include="Goods\QueryCriteria.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

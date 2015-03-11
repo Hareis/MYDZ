@@ -1,0 +1,65 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Business.TB_Logic.Goods;
+using Top.Api.Response;
+using MYDZ.Entity.Goods;
+using System.Collections;
+using System.Threading;
+
+namespace MYDZ.Business.Business_Logic.Goods
+{
+    public class InitGoodsInfo
+    {
+        GetGoods getgoods = new GetGoods();
+        SetGoods setgoods = new SetGoods();
+        /// <summary>
+        /// 查询仓库中的商品
+        /// </summary>
+        /// <param name="SessionKey"></param>
+        /// <param name="TotalNum"></param>
+        /// <returns></returns>
+        public IList<Item> ReturnInventoryByCriteria(string token, ref int TotalNum, QueryCriteriaForInventory Query)
+        {
+            IList<Item> list = getgoods.SearchInventoryByCriteria(token, ref TotalNum, Query);
+            return list;
+        }
+        /// <summary>
+        /// 查询出售中的商品
+        /// </summary>
+        /// <param name="SessionKey"></param>
+        /// <param name="TotalNum"></param>
+        /// <returns></returns>
+        public IList<Item> ReturnOnsalesByCriteria(string token, ref int TotalNum, QueryCriteriaForOnSales Query)
+        {
+            IList<Item> list = getgoods.SearchOnsalesByCriteria(token, ref TotalNum, Query);
+            return list;
+        }
+
+        /// <summary>
+        /// 批量下架商品
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="list"></param>
+        public void BatchUnShelve(string token, string ListGoodId)
+        {
+            string[] list= ListGoodId.Split(',');
+            Hashtable ht = new Hashtable();
+            ht.Add("token", token);
+            ht.Add("list", list);
+            //Thread t1 = new Thread(UnShelveRun);
+            //t1.Start(ht);
+            UnShelveRun(ht);
+        }
+        private void UnShelveRun(Object Obj)
+        {
+            Hashtable ht = (Hashtable)Obj;
+            foreach (string item in (ht["list"] as string[]))
+            {
+                setgoods.UnShelve(ht["token"].ToString(), long.Parse(item));
+            }
+            
+        }
+    }
+}

@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Entity.ItemCats;
+using Top.Api;
+using MYDZ.Business.TB_Logic.ItemCats;
+
+namespace MYDZ.Business.Business_Logic.ItemCats
+{
+    public class GetItemCat
+    {
+        GetItemCats gic = new GetItemCats();
+        /// <summary>
+        /// 查询商家被授权品牌列表和类目列表 
+        /// </summary>SellerAuthorize
+        public void  GetAuthorizeItemcat(string sessionKey)
+        {
+            
+        }
+
+        /// <summary>
+        /// 获取后台供卖家发布商品的标准商品类目
+        /// </summary>
+        /// <param name="Cids"></param>
+        /// <param name="ParentCid"></param>
+        /// <returns></returns>
+        public List<ItemCat> GetItemcats(string Cids, string ParentCid)
+        {
+            return gic.GetItemcats(Cids, ParentCid);
+        }
+    }
+}

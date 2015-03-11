@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Entity.Order;
+using MYDZ.Business.TB_Logic.Order;
+
+namespace MYDZ.Business.Business_Logic.Order
+{
+    public class InitTradeInfo
+    {
+        GetTradeInfo gti = new GetTradeInfo();
+
+        /// <summary>
+        /// 查询卖家已卖出的交易数据（根据创建时间）
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="TradesSold"></param>
+        /// <param name="ErrorMsg"></param>
+        /// <returns></returns>
+        public List<Trade> GetTradesSold(string token, TradesSoldGet TradesSold, out string ErrorMsg)
+        {
+            return gti.GetTradesSold(token, TradesSold, out ErrorMsg);
+        }
+
+        /// <summary>
+        /// 获取单笔交易的部分信息(性能高) 
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="tid"></param>
+        /// <param name="ErrorMsg"></param>
+        /// <returns></returns>
+        public List<Trade> GetTrade(string token, string tid, out string ErrorMsg)
+        {
+            return gti.GetTrade(token, tid, out ErrorMsg);
+        }
+    }
+}

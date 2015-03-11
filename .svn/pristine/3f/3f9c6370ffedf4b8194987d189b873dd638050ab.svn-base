@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2E027F27-DC51-4827-89F0-E7ECFD8D4D7F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MYDZ.Data</RootNamespace>
+    <AssemblyName>MYDZ.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\MYDZ.Web\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServer\ClientUser\ClientUser.cs" />
+    <Compile Include="SqlServer\ClientUser\ClientUserCredit.cs" />
+    <Compile Include="SqlServer\ClientUser\ClientUserShop.cs" />
+    <Compile Include="SqlServer\Item\DeliveryTime.cs" />
+    <Compile Include="SqlServer\Item\DescModuleInfo.cs" />
+    <Compile Include="SqlServer\Item\FoodSecurity.cs" />
+    <Compile Include="SqlServer\Item\Item.cs" />
+    <Compile Include="SqlServer\Item\ItemImg.cs" />
+    <Compile Include="SqlServer\Item\LocalityLife.cs" />
+    <Compile Include="SqlServer\Item\Location.cs" />
+    <Compile Include="SqlServer\Item\MpicVideo.cs" />
+    <Compile Include="SqlServer\Item\PaimaiInfo.cs" />
+    <Compile Include="SqlServer\Item\PropImg.cs" />
+    <Compile Include="SqlServer\Item\Skus.cs" />
+    <Compile Include="SqlServer\Item\Video.cs" />
+    <Compile Include="SqlServer\Order\BuyerInfo.cs" />
+    <Compile Include="SqlServer\Order\ConfigDetail.cs" />
+    <Compile Include="SqlServer\Order\ConsigneeInfo.cs" />
+    <Compile Include="SqlServer\Order\Logistic.cs" />
+    <Compile Include="SqlServer\Order\OrderPrint.cs" />
+    <Compile Include="SqlServer\Order\OrdersConfig.cs" />
+    <Compile Include="SqlServer\Order\OrdersDetail.cs" />
+    <Compile Include="SqlServer\Order\OrderShipping.cs" />
+    <Compile Include="SqlServer\Order\OrdersInfo.cs" />
+    <Compile Include="SqlServer\Order\OrdersStatus.cs" />
+    <Compile Include="SqlServer\Order\OrderSync.cs" />
+    <Compile Include="SqlServer\Order\OtherConfig.cs" />
+    <Compile Include="SqlServer\Order\StoreLogistics.cs" />
+    <Compile Include="SqlServer\Print\PrintContent.cs" />
+    <Compile Include="SqlServer\Print\PrintPlaneSingle.cs" />
+    <Compile Include="SqlServer\Print\PrintPlaneSingleDetail.cs" />
+    <Compile Include="SqlServer\Shop\ShopInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SqlServer\Shop\ShopScore.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MYDZ.DBUtility\MYDZ.DBUtility.csproj">
+      <Project>{DE20DCEC-E178-423C-9C93-D4058B18EB5E}</Project>
+      <Name>MYDZ.DBUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MYDZ.Entity\MYDZ.Entity.csproj">
+      <Project>{B86C0845-C60B-4DBA-A541-A99694B33CE0}</Project>
+      <Name>MYDZ.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MYDZ.Interface\MYDZ.Interface.csproj">
+      <Project>{4B9BEC02-A073-4A1E-9BA4-7EF935FAA391}</Project>
+      <Name>MYDZ.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

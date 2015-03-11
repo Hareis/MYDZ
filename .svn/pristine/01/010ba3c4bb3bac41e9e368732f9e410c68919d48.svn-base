@@ -1,0 +1,4 @@
+﻿@{
+    Layout = "~/Views/Shared/_SubMaster.cshtml";
+    ViewBag.Title = "仓库中的商品 - 魔云店长";
+}

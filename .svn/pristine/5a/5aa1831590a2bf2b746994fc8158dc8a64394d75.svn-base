@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Config;
+using System.Collections;
+
+namespace MYDZ.Business
+{
+    /// <summary>
+    /// 仅存在业务逻辑层
+    /// </summary>
+    internal class CommonFunc
+    {
+        public static Hashtable GetDataCache(string UserId)
+        {
+           return (Hashtable)DataCache.GetCache("UserInfo" + UserId);
+        }        
+    }
+}

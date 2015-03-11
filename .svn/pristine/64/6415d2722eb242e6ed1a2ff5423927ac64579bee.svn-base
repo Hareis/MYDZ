@@ -1,0 +1,220 @@
+﻿@model IList<MYDZ.Entity.Goods.Item>
+@{
+    Layout = null;
+    int pagesize = 10;
+    int totalnum = int.Parse(ViewBag.totalNum.ToString());
+    int totalPage = totalnum % pagesize == 0 ? int.Parse((totalnum / pagesize).ToString()) : int.Parse((totalnum / pagesize).ToString()) + 1;
+}
+<style>
+    .item-title-div p a
+    {
+        color: #4682b4;
+    }
+    .editdiv a img
+    {
+        float: right;
+        position: relative;
+    }
+    .edit-item-title
+    {
+        position: relative;
+        top: -14px;
+        display: block;
+        text-indent: -9999em;
+        width: 16px;
+        height: 16px;
+        overflow: hidden;
+    }
+    .edit-item-price, .edit-item-stoke
+    {
+        position: relative;
+        width: 16px;
+        top: -14px;
+        display: block;
+        text-indent: -9999em;
+    }
+    
+    .item-title-div p
+    {
+        text-align: left;
+        margin: 0px 5px;
+        width: 160px;
+    }
+    .item-price-div p, .item-stoke-div p
+    {
+        width: 80px;
+    }
+    
+    .editdiv .item-title-div textarea
+    {
+        padding: 2px;
+        height: 28px;
+    }
+    .editdiv .item-price-div textarea, .editdiv .item-stoke-div textarea
+    {
+        padding: 2px;
+        height: 20px;
+        width: 70px;
+    }
+    .saveicon
+    {
+        top: -21px;
+    }
+    .save
+    {
+        display: none;
+    }
+    .edita
+    {
+        visibility:hidden;
+    }
+    .hide-div
+    {
+        display: none;
+    }
+    .show-div
+    {
+        display: none;
+    }
+</style>
+<table class="data_table" cellpadding="0" cellspacing="0" border="0">
+    <tr align="center" style="text-align: center;">
+        <th style="width: 31px;">
+        </th>
+        <th style="width: 100px;">
+            图片
+        </th>
+        <th style="width: 80px;">
+            商家编码
+        </th>
+        <th style="width: 190px;">
+            商品标题
+        </th>
+        <th style="width: 100px;">
+            价格(￥)
+        </th>
+        <th style="width: 100px;">
+            库存(件)
+        </th>
+        <th style="width: 80px;">
+            总销量(件)
+        </th>
+        <th style="width: 130px;">
+            最后修改时间
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+    @{ if (Model == null)
+       {        
+        <tr>
+            <td colspan="8">
+                <h2 style="text-align: center; margin: 10px;">
+                    Sorry,未查找到您想要的数据！</h2>
+            </td>
+        </tr>        
+       }
+       else
+       {
+           foreach (MYDZ.Entity.Goods.Item item in Model)
+           {
+        <tr class="data_table_item">
+            <td>
+                <label class="checkbox">
+                    <span>
+                        <input name="CheckboxGoods" type="checkbox" hidefocus="false"></span>
+                    <input type="text" name="GoodsId" value="@item.NumIid" style=" display:none;" /></label>
+            </td>
+            <td>
+                @{
+               string url = null;
+               if (string.IsNullOrEmpty(item.PicUrl))
+               {
+                   url = "../../images/NoImage.ico";
+               }
+               else
+               {
+                   url = item.PicUrl + "_80x80.jpg";
+               }
+                }
+                <a class="table_img" target="_blank" href="javascript:void();">
+                    <img src='@url' alt="" />
+                </a>
+            </td>
+            <td>
+                <label class="outerGoodsID">
+                    @item.OuterId</label>
+            </td>
+            <td class="editdiv ">
+                <div class="item-title-div">
+                    <div class="item-title-div-edit edit">
+                        <p>
+                            <a href="javascript:void(0);">@item.Title</a></p>
+                        <a href="javascript:void(0); " title="编辑宝贝标题" class="edit-item-title-a edita">
+                            <img class="edit-item-title" src="../../images/write.ico" /></a></div>
+                    <div class="item-title-div-save save">
+                        <p>
+                            <textarea rows="2">@item.Title</textarea></p>
+                        <a href="javascript:void(0); " title="保存标题" class="save-item-title-a savea">
+                            <img class="save-item-title saveicon" src="../../images/Save.ico" /></a>
+                    </div>
+                </div>
+            </td>
+            <td class="editdiv">
+                <div class="item-price-div">
+                    <div class="item-price-div-edit edit">
+                        <p>
+                            <a href="javascript:void(0);">@item.Price</a></p>
+                        <a href="javascript:void(0); " title="编辑金额" class="edit-item-price-a edita">
+                            <img class="edit-item-price" src="../../images/write.ico" /></a></div>
+                    <div class="item-price-div-save save">
+                        <p>
+                            <textarea rows="2">@item.Price</textarea></p>
+                        <a href="javascript:void(0); " title="保存金额" class="save-item-price-a savea">
+                            <img class="save-item-price saveicon" src="../../images/Save.ico" /></a>
+                    </div>
+                </div>
+            </td>
+            <td class="editdiv ">
+                <div class="item-stoke-div">
+                    <div class="item-stoke-div-edit edit">
+                        <p>
+                            <a href="javascript:void(0);">@item.Num</a></p>
+                        <a href="javascript:void(0); " title="编辑库存" class="edit-item-stoke-a edita">
+                            <img class="edit-item-stoke" src="../../images/write.ico" /></a></div>
+                    <div class="item-stoke-div-save save">
+                        <p>
+                            <textarea rows="2">@item.Num</textarea></p>
+                        <a href="javascript:void(0); " title="保存库存" class="save-item-stoke-a savea">
+                            <img class="save-item-stoke saveicon" src="../../images/Save.ico" /></a>
+                    </div>
+                </div>
+            </td>
+            <td>
+                @item.SoldQuantity
+            </td>
+            /
+            <td>
+                @item.Modified
+            </td>
+            <td>
+                <div>
+                    <p>
+                        <button name="EditerGoodsById" value="" data="@item.NumIid">
+                            编辑宝贝</button>
+                    </p>
+                </div>
+            </td>
+        </tr>
+           }
+       }
+    }
+</table>
+<script type="text/javascript">
+    var PageConfig = {
+        PageIndex : 1,
+        MaxPageNumber : @totalPage,
+        MaxRowNumber : @ViewBag.totalNum
+    };
+</script>

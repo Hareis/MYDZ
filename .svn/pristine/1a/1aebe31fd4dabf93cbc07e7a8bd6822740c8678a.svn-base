@@ -1,0 +1,289 @@
+﻿@{
+    ViewBag.Title = "商品设置 - 魔云店长";
+    Layout = "~/Views/Shared/_SubMaster.cshtml";
+}
+<link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/select2.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/Page.js")" type="text/javascript"></script>
+@*<script src="@Url.Content("~/js/Merchandise/OnSale.js")" type="text/javascript"></script>*@
+<script src="@Url.Content("~/Validation/Validform_v5.3.2_min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Validation/Validform.js")" type="text/javascript"></script>
+<style>
+    .BatchEdit
+    {
+        position: relative;
+    }
+    .BatchEdit i
+    {
+        position: absolute;
+        top: 11px;
+        right: 5px;
+        display: block;
+        width: 0;
+        height: 0;
+        margin: 0px 0px 0px 0px;
+        vertical-align: middle;
+        border-top: 4px solid #333;
+        border-right: 4px solid transparent;
+        border-bottom: 0 dotted;
+        border-left: 4px solid transparent;
+    }
+    
+    .Nomargin
+    {
+        width: 74px;
+        position: absolute;
+        z-index: 2;
+        border: #DADADA 1px solid;
+        display: none;
+    }
+    .Nomargin li
+    {
+        text-align: center;
+        clear: both;
+        display: block;
+        margin: 0px;
+    }
+    .Nomargin li a
+    {
+        padding: 3px 0px;
+        border: 0px;
+        width: 74px;
+        text-align: center;
+    }
+    .ShowIco
+    {
+        display: block;
+    }
+    .HideIco
+    {
+        display: none;
+    }
+    table.data_table th
+    {
+        height: 36px;
+        background: #F2F2F2;
+        border-color: #BBBBBB;
+        border-width: 1px 1px 1px 0px;
+        border-style: solid;
+        text-align: center;
+        font: normal 12px '宋体';
+        line-height: 36px;
+        text-shadow: 0 1px 0 #fff;
+    }
+    table.data_table td
+    {
+        height: 106px;
+        line-height: 106px;
+        border-color: #BBBBBB;
+        border-width: 0px 1px 1px 0px;
+        border-style: solid;
+        text-align: center;
+        font: normal 12px '宋体';
+        text-shadow: 0 1px 0 #fff;
+    }
+    .showtemper
+    {
+        text-align: left;
+        margin: 0px 10px;
+    }
+    .showtemper a
+    {
+        color: #4682b4;
+    }
+    .editdiv text
+    {
+        width: 60px;
+    }
+</style>
+<div class="btn_wrap">
+    <div class="btn_wrap_hd">
+        <span class="title"><i></i>数据查询</span>
+    </div>
+    <div class="btn_wrap_bd">
+        <ul>
+            <li>
+                <label>
+                    商品标题：</label></li>
+            <li>
+                <input type="text" placeholder="请键入商品标题" name="Title" />
+            </li>
+        </ul>
+    </div>
+    <div class="btn_wrap_bd">
+        <ul>
+            <li>
+                <label>
+                    商品编号：</label>
+            </li>
+            <li>
+                <input type="text" datatype="^[A-Za-z0-9\u4e00-\u9fa5]+$" ignore="ignore" errormsg="请输入正确的商品ID或商家编码"
+                    placeholder="请键入商品ID或商家编码" name="BH" />
+                <div class="msg_info">
+                    <span class="Validform_checktip"></span><i></i>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="btn_wrap_bd clear_border">
+        <ul>
+            <li>
+                <label style="padding-left: 66px;">
+                    &nbsp;</label></li>
+            <li>
+                <button type="submit" hidefocus="true" name="Search">
+                    搜索商品</button></li>
+            <li><a href="/Merchandise/OnSale.html" hidefocus="hidefocus" class="reset">重置</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="fix_body_wrap">
+    <div class="body_wrap">
+        <div class="tab">
+            <ul>
+                <li><a href="javascript:void();" data="chushouzhong" class="selected GoodStatus">出售中商品<label
+                    class="TotalNumOnsales" style=""></label></a> <a href="javascript:void();" data="chuchuang"
+                        class="GoodStatus">已设置
+                        <label class="TotalNumOnsales">
+                        </label>
+                    </a><a href="javascript:void();" data="weituijian" class="GoodStatus">未设置
+                        <label class="TotalNumOnsales">
+                        </label>
+                    </a></li>
+            </ul>
+            <input type="hidden" name="HasShowcase" value="null" />
+        </div>
+        <div class="tab_tool">
+            <ul>
+                <li>
+                    <label class="checkbox">
+                        <span>
+                            <input name="chk_all" type="checkbox" hidefocus="true" style="margin-left: 8px;">
+                        </span><em>全选</em>
+                    </label>
+                    <input type="hidden" name="ListGoodId" value="" />
+                </li>
+                <li><a href="javascript:void();" class="BatchUnShelve">批量设置商品标题</a> </li>
+                @*               <li><a href="javascript:void();" class="BatchUnShelve">批量下架</a></li>
+                <li><a href="javascript:void();" class="BatchEdit">批量修改 &nbsp;<i></i></a>
+                    <ul class="Nomargin">
+                        <li><a href="javascript:void(0);" data="Freight">运费</a></li>
+                        <li><a href="javascript:void(0);" data="Stock">库存</a></li>
+                        <li><a href="javascript:void(0);" data="Title">标题</a></li>
+                        <li><a href="javascript:void(0);" data="Describe">描述</a></li>
+                        <li><a href="javascript:void(0);" data="Category">类目</a></li>
+                        <li><a href="javascript:void(0);" data="Coding">编码</a></li>
+                        <li><a href="javascript:void(0);" data="HotDot">卖点</a></li>
+                    </ul>
+                </li>*@
+            </ul>
+        </div>
+        <div class="tab_sort">
+            <ul>
+                @* <li><a href="javascript:void();" data="list_time" title="">上架时间<i></i></a> </li>
+                <li><a href="javascript:void();" data="delist_time" title="">下架时间<i></i></a> </li>
+                <li><a href="javascript:void();" data="modified" title="">修改时间<i></i></a> </li>
+                <li><a href="javascript:void();" data="num" title="">商品数量<i></i></a> </li>
+                <li><a href="javascript:void();" data="sold_quantity" title="">商品销量<i></i></a> </li>*@
+            </ul>
+            <input type="hidden" name="OrderBy" value="null" />
+        </div>
+    </div>
+</div>
+<div>
+    <div class="table_wrap">
+    </div>
+    <div class="page_box">
+        <table class="data_table" cellpadding="0" cellspacing="0" border="0">
+            <tr align="center" style="text-align: center;">
+                <th style="width: 31px;">
+                </th>
+                <th style="width: 100px;">
+                    图片
+                </th>
+                <th style="width: 250px;">
+                    商品标题
+                </th>
+                <th style="width: 100px;">
+                    重量(kg)
+                </th>
+                <th style="width: 180px;">
+                    商品简称
+                </th>
+                <th style="width: 100px;">
+                    操作
+                </th>
+            </tr>
+            @{ if (Model == null)
+               {        
+                <tr>
+                    <td colspan="8">
+                        <h2 style="text-align: center; margin: 10px;">
+                            Sorry,未查找到您想要的数据！</h2>
+                    </td>
+                </tr>        
+               }
+               else
+               {
+                   foreach (MYDZ.Entity.Goods.Item item in Model)
+                   {
+                       if (ViewData["listSkus"] != null)
+                       {
+                           foreach (MYDZ.Entity.Goods.Skus skus in ViewData["listSkus"] as IList<MYDZ.Entity.Goods.Skus>)
+                           {
+                               if(skus.NumIid==item.NumIid)
+                               {
+                                     <tr class="data_table_item">
+                    <td>
+                        <label class="checkbox">
+                            <span>
+                                <input name="CheckboxGoods" type="checkbox" hidefocus="false"></span>
+                            <input type="text" name="GoodsId" value="@item.NumIid" style=" display:none;" /></label>
+                    </td>
+                    <td>
+                        @{
+                           string url = null;
+                           if (string.IsNullOrEmpty(item.PicUrl))
+                           {
+                               url = "../../images/NoImage.ico";
+                           }
+                           else
+                           {
+                               url = item.PicUrl + "_80x80.jpg";
+                           }
+                        }
+                        <a class="table_img" target="_blank" href="javascript:void();">
+                            <img src='@url' alt="" />
+                        </a>
+                    </td>
+                    <td>
+                        <label class="outerGoodsID">
+                            @item.Title</label>
+                    </td>
+                    <td class="editdiv">
+                        <input type="text" target="SPZL" name="SPZL" placeholder="商品重量" value="" style="width: 60px;" />&nbsp;
+                    </td>
+                    <td class="editdiv">
+                        <input type="text" target="SPJC" name="SPJC" placeholder="商品简称" value="" style="width: 170px;" />&nbsp;
+                    </td>
+                    <td>
+                        <p>
+                            <a href="javascript:void();">保存设置</a></p>
+                        <p>
+                            <a href="javascript:void();">本页全部应用此重量</a></p>
+                    </td>
+                </tr>
+                               }
+                               else{
+                               
+                               }
+                           }                          
+                        
+                       }
+                   }
+               }
+            }
+        </table>
+    </div>
+</div>

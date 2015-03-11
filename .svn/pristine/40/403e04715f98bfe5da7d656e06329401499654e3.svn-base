@@ -1,0 +1,272 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Business.TB_Logic.Goods;
+using Top.Api.Response;
+using MYDZ.Entity.Goods;
+using System.Collections;
+using System.Threading;
+
+namespace MYDZ.Business.Business_Logic.Goods
+{
+    public class InitGoodsInfo
+    {
+        GetGoods getgoods = new GetGoods();
+        SetGoods setgoods = new SetGoods();
+        /// <summary>
+        /// 查询仓库中的商品
+        /// </summary>
+        /// <param name="SessionKey"></param>
+        /// <param name="TotalNum"></param>
+        /// <returns></returns>
+        public IList<Item> ReturnInventoryByCriteria(string token, ref int TotalNum, QueryCriteriaForInventory Query)
+        {
+            IList<Item> list = getgoods.SearchInventoryByCriteria(token, ref TotalNum, Query);
+            return list;
+        }
+        /// <summary>
+        /// 查询出售中的商品
+        /// </summary>
+        /// <param name="SessionKey"></param>
+        /// <param name="TotalNum"></param>
+        /// <returns></returns>
+        public IList<Item> ReturnOnsalesByCriteria(string token, ref int TotalNum, QueryCriteriaForOnSales Query)
+        {
+            IList<Item> list = getgoods.SearchOnsalesByCriteria(token, ref TotalNum, Query);
+            return list;
+        }
+
+        /// <summary>
+        /// 根据商品外部ID获取商品
+        /// </summary>
+        /// <param name="outerid"></param>
+        /// <param name="token"></param>
+        /// <param name="TotalNum"></param>
+        /// <returns></returns>
+        public IList<Item> GetGoodsByOuterId(string outerid, string token, ref int TotalNum)
+        {
+            return getgoods.GetGoodsByOuterId(outerid, token, ref TotalNum);
+        }
+
+        /// <summary>
+        /// 批量下架商品
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="list"></param>
+        public void BatchUnShelve(string token, string ListGoodId)
+        {
+            string[] list = ListGoodId.Split(',');
+            Hashtable ht = new Hashtable();
+            ht.Add("token", token);
+            ht.Add("list", list);
+            Thread Threadone = new Thread(UnShelveRun);
+            Threadone.Start(ht);
+            #region 线程执行操作
+        }
+        private void UnShelveRun(Object Obj)
+        {
+            Hashtable ht = (Hashtable)Obj;
+            foreach (string item in (ht["list"] as string[]))
+            {
+                setgoods.UnShelve(ht["token"].ToString(), long.Parse(item));
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// 简单更新商品信息
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="goods"></param>
+        /// <param name="ErrorMsg"></param>
+        /// <returns></returns>
+        public bool simpleupdategoods(string token, ItemUpdate goods, out string ErrorMsg)
+        {
+            if (goods.ListGoodsId == null || goods.ListGoodsId == "")
+            {
+                ErrorMsg = "未选中任何商品做修改！"; return false;
+            }
+            else
+            {
+                string[] ListGoodsId = goods.ListGoodsId.Split(',');
+                Hashtable ht = new Hashtable();
+                ht.Add("ListGoods", goods);
+                ht.Add("token", token);
+                ht.Add("ListGoodsId", ListGoodsId);
+                Thread Threadfour = new Thread(updategoodsRun);
+                Threadfour.Start(ht);
+                ErrorMsg = null;
+                return true;
+            }
+            #region 线程执行操作
+        }
+        private void updategoodsRun(Object Obj)
+        {
+            Hashtable ht = (Hashtable)Obj;
+            foreach (string itemId in (ht["ListGoodsId"] as string[]))
+            {
+                string ErrorMsg = null;
+                ItemUpdate goods = new ItemUpdate();
+                goods = (ht["ListGoods"] as ItemUpdate);
+                goods.NumIid = long.Parse(itemId);
+                setgoods.UpdateGoodsPrice(ht["token"].ToString(), goods, out ErrorMsg);
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// 批量更新商品库存
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="goods"></param>
+        /// <param name="ErrorMsg"></param>
+        /// <returns></returns>
+        public bool UpdateStoke(string token, ItemQuantityUpdate goods, out string ErrorMsg)
+        {
+            if (goods.ListGoodsId == null || goods.ListGoodsId == "")
+            {
+                ErrorMsg = "未选中任何商品做修改！"; return false;
+            }
+            else
+            {
+                string[] ListGoodsId = goods.ListGoodsId.Split(',');
+                Hashtable ht = new Hashtable();
+                ht.Add("ListGoods", goods);
+                ht.Add("token", token);
+                ht.Add("ListGoodsId", ListGoodsId);
+                Thread Threadthree = new Thread(StokeRun);
+                Threadthree.Start(ht);
+                ErrorMsg = null;
+                return true;
+            }
+            #region 线程执行操作
+        }
+        private void StokeRun(Object Obj)
+        {
+            Hashtable ht = (Hashtable)Obj;
+            foreach (string itemId in (ht["ListGoodsId"] as string[]))
+            {
+                string ErrorMsg = null;
+                ItemQuantityUpdate goods = new ItemQuantityUpdate();
+                goods = (ht["ListGoods"] as ItemQuantityUpdate);
+                goods.NumIid = long.Parse(itemId.ToString());
+                setgoods.UpdateGoodsStoke(ht["token"].ToString(), goods, out ErrorMsg);
+            }
+            #endregion
+        }
+        /// <summary>
+        /// 批量更新商品
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public bool ListToUpdategoods(string token, List<ItemUpdate> list)
+        {
+            Hashtable ht = new Hashtable();
+            ht.Add("ListGoods", list);
+            ht.Add("token", token);
+            Thread Threadtwo = new Thread(UpdategoodsRun);
+            Threadtwo.Start(ht);
+            return true;
+            #region 线程执行操作
+        }
+        private void UpdategoodsRun(Object Obj)
+        {
+            Hashtable ht = (Hashtable)Obj;
+            foreach (ItemUpdate goods in (ht["ListGoods"] as List<ItemUpdate>))
+            {
+                string ErrorMsg = null;
+                setgoods.UpdateGoodsPrice(ht["token"].ToString(), goods, out ErrorMsg);
+            }
+            #endregion
+        }
+        /// <summary>
+        /// 添加商品
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="goods"></param>
+        /// <param name="ErrorMsg"></param>
+        /// <returns></returns>
+        public bool addgoods(string token, ItemAdd goods, out string ErrorMsg)
+        {
+            return setgoods.AddGoods(token, goods, out ErrorMsg);
+        }
+
+        /// <summary>
+        /// 获取运费模板
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public List<DeliveryTemplate> GetDeliveryTemplates(string token)
+        {
+            return getgoods.DeliveryTemplates(token);
+        }
+
+        /// <summary>
+        /// 批量修改商品标题
+        /// </summary>
+        /// <param name="outerid"></param>
+        /// <param name="token"></param>
+        /// <param name="TotalNum"></param>
+        /// <returns></returns>
+        public bool updateGoodsTitle(ItemUpdate goods, string token)
+        {
+            IList<Item> list = new List<Item>();
+            int TotalNum = 0;
+            string ErrorMsg;
+            list = GetGoodsByOuterId(goods.ListGoodsId, token, ref TotalNum);
+            foreach (Item item in list)
+            {
+                string str = item.Title;
+                switch (goods.Updatedtype)
+                {
+                    case "1":
+                        str = goods.repalcword + str;
+                        break;
+                    case "2":
+                        str = str.Replace(goods.repalcword, goods.repalcedword);
+                        break;
+                    case "3":
+                        str = str + goods.repalcword;
+                        break;
+                }
+                goods.Title = str;
+                goods.ListGoodsId = item.NumIid.ToString() + ",";
+                simpleupdategoods(token, goods, out ErrorMsg);
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 批量修改商家编码
+        /// </summary>
+        /// <param name="goods"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public bool Updatecoding(ItemUpdate goods, string token)
+        {
+            IList<Item> list = new List<Item>();
+            int TotalNum = 0;
+            string ErrorMsg;
+            list = GetGoodsByOuterId(goods.ListGoodsId, token, ref TotalNum);
+            foreach (Item item in list)
+            {
+                string str = item.OuterId;
+                switch (goods.Updatedtype)
+                {
+                    case "1":
+                        str = goods.repalcword + str;
+                        break;
+                    case "3":
+                        str = str + goods.repalcword;
+                        break;
+                }
+                goods.OuterId = str;
+                goods.ListGoodsId = item.NumIid.ToString() + ",";
+                simpleupdategoods(token, goods, out ErrorMsg);
+            }
+            return true;
+        }
+    }
+}

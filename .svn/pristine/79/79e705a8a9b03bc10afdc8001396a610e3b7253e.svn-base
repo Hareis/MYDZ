@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Common;
+using System.Web.Mvc;
+
+namespace MYDZ.WebUI.OrderManagement
+{
+   public class OrderManagementController : BaseController
+    {
+       /// <summary>
+       /// 首页
+       /// </summary>
+       /// <returns></returns>
+       public ActionResult Index()
+       {
+           return View();
+       }
+    }
+}

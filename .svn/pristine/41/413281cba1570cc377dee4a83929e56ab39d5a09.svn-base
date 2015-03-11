@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Entity.Order;
+using MYDZ.Business.TB_Logic.Order;
+
+namespace MYDZ.Business.Business_Logic.Order
+{
+    public class InitTradeInfo
+    {
+        GetTradeInfo gti = new GetTradeInfo();
+
+        /// <summary>
+        /// 查询卖家已卖出的交易数据（根据创建时间）
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="TradesSold"></param>
+        /// <param name="ErrorMsg"></param>
+        /// <returns></returns>
+        public List<Trade> GetTradesSold(string token, TradesSoldGet TradesSold, out string ErrorMsg)
+        {
+            return gti.GetTradesSold(token, TradesSold, out ErrorMsg);
+        }
+
+        /// <summary>
+        /// 获取单笔交易的部分信息(性能高) 
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="tid"></param>
+        /// <param name="ErrorMsg"></param>
+        /// <returns></returns>
+        public List<Trade> GetTrade(string token, string tid, out string ErrorMsg)
+        {
+            return gti.GetTrade(token, tid, out ErrorMsg);
+        }
+
+        /// <summary>
+        /// 查询卖家已卖出的增量交易数据（根据修改时间）
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="TradesSold"></param>
+        /// <param name="ErrorMsg"></param>
+        /// <returns></returns>
+        public List<Trade> GetTradesSoldIncrement(string token, TradesSoldGet TradesSold, out string ErrorMsg)
+        {
+            return gti.GetTradesSoldIncrement(token, TradesSold, out ErrorMsg);
+        }
+
+        /// <summary>
+        /// 添加备注
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="Tid"></param>
+        /// <param name="Memo"></param>
+        /// <param name="Flag"></param>
+        /// <param name="ErrorMsg"></param>
+        /// <returns></returns>
+        public Trade AddTradeMemo(string token, string Tid, string Memo, int Flag, out string ErrorMsg)
+        {
+            return gti.AddTradeMemo(token, Tid, Memo, Flag, out ErrorMsg);
+        }
+
+        /// <summary>
+        /// 更改收货地址
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="TradeShipping"></param>
+        /// <param name="ErrorMsg"></param>
+        /// <returns></returns>
+        public Trade UpdateTradeShippingAddress(string token, TradeShippingaddressUpdate TradeShipping, out string ErrorMsg)
+        {
+            return gti.UpdateTradeShippingAddress(token, TradeShipping, out ErrorMsg);
+        }
+    }
+}

@@ -1,0 +1,18 @@
+﻿<%@ WebHandler Language="C#" Class="upload" %>
+
+public class upload : System.Web.IHttpHandler
+{
+
+    public void ProcessRequest(System.Web.HttpContext context)
+    {        
+        context.Response.ContentType = "text/plain";
+    }
+
+    public bool IsReusable
+    {
+        get
+        {
+            return false;
+        }
+    }
+}

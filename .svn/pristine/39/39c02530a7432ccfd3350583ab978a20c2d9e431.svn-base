@@ -1,0 +1,944 @@
+﻿@{
+    Layout = "~/Views/Shared/_SubMaster.cshtml";
+    ViewBag.Title = "魔云店长 - 添加商品";
+}
+<link href="../../css/select2.css" rel="stylesheet" type="text/css" />
+<link href="../../Validation/style.css" rel="stylesheet" type="text/css" />
+<link href="../../css/AddGoodsPage.css" rel="stylesheet" type="text/css" />
+<link href="../../js/editable/css/froala_editor.min.css" rel="stylesheet" type="text/css" />
+<link href="../../js/editable/css/themes/gray.min.css" rel="stylesheet" type="text/css" />
+<link href="../../js/editable/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../../js/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="../../js/select2.min.js" type="text/javascript"></script>
+<script src="../../js/PopWindow.js" type="text/javascript"></script>
+<script src="../../Validation/Validform_v5.3.2_min.js" type="text/javascript"></script>
+<script src="../../Validation/Validform.js" type="text/javascript"></script>
+<script src="../../js/swfupload/swfuploadv2.2-min.js" type="text/javascript"></script>
+<script src="../../js/swfupload/Validform.swfupload.handler-min.js" type="text/javascript"></script>
+<script src="../../js/swfupload/swfupload.queue.js" type="text/javascript"></script>
+<script src="../../js/swfupload/fileprogress.js" type="text/javascript"></script>
+<script src="../../js/Merchandise/AddGoods.js" type="text/javascript"></script>
+<style type="text/css">
+    .gray-theme.froala-editor
+    {
+        border: solid 1px #ccc;
+    }
+    .gray-theme.froala-box .froala-element.f-basic
+    {
+        border: solid 1px #ccc;
+    }
+</style>
+<div class="btn_wrap">
+    @using (Html.BeginForm("AddItems", "Merchandise", FormMethod.Post, new { id = "SubmitFrom" }))
+    {
+        <input type="hidden"name="Cid" value=" @ViewData["Cid"]" />
+        <input type="hidden" name="Type" value="fixed" />
+        <div class="btn_wrap_hd">
+            <span class="title"><i></i>商品添加</span>
+        </div>
+        <div class="btn_wrap_bd" style="width: 150px;">
+            <br />
+            选择的类目：
+        </div>
+        <div class="btn_wrap_bd" style="width: 845px;">
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span><i style="color: Red;">* </i>商品类型：</span>
+                <div class="table_bd">
+                    <label>
+                        <input type="radio" name="StuffStatus" checked="checked" value="new" /><em>全新</em>
+                    </label>
+                    <label>
+                        <input type="radio" name="StuffStatus" value="second" /><em>二手</em>
+                    </label>
+                    <span class="table_msg"><i></i><span></span></span>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>商品模板：</span>
+                <div class="table_bd">
+                    <select>
+                        <option>默认商品详情页</option>
+                    </select>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span><i style="color: Red;">* </i>商品属性：</span>
+                <div class="table_bd" style="background-color: #f2f2f2;">
+                    <div class="ListGoodsCats">
+                        <input type="hidden" name="InputStr" value="" />
+                        <input type="hidden" name="SkuProperties" value="" />
+                        <ol>
+                            @{
+        if (ViewData["ListItemProp"] == null) { return; } foreach (MYDZ.Entity.ItemCats.ItemProp
+        ItemProp in (ViewData["ListItemProp"] as List<MYDZ.Entity.ItemCats.ItemProp>))
+        {
+            if (ItemProp.IsKeyProp)
+            {
+                                <li>
+                                    <div class="table_item">
+                                        <span class="table_hd"><span class="require"></span>
+                                            @if (ItemProp.Must)
+                                            {
+                                                <i style="color: Red;">*</i> }
+                                            @ItemProp.Name</span>
+                                        <div class="table_bd">
+                                            <div>
+                                                @if (ItemProp.Multi)
+                                                {
+                                                    <ol class="Goodsprops" style="width: 650px;">
+                                                        @foreach (MYDZ.Entity.ItemCats.PropValue item in ItemProp.PropValues)
+                                                        {
+                                                            if (!item.Name.Contains("属性迁移"))
+                                                            {
+                                                            <li style="margin-right: 10px;">
+                                                                <label class="checkbox">
+                                                                    <span>
+                                                                        <input type="checkbox" class="GoodsCats" hidefocus="true" data="@ItemProp.Pid : @item.Vid" style="margin-left: 8px;">
+                                                                    </span><em>@item.Name</em>
+                                                                </label>
+                                                            </li>
+                                                            }
+                                                        }
+                                                    </ol>                                                                                       
+                                                }
+                                                else
+                                                {
+                                                    if (ItemProp.PropValues == null)
+                                                    {
+                                                    <input type="text" class="GoodsCats" data="@ItemProp.Pid"  name="InputStr"  value="" />
+                                                    }
+                                                    else
+                                                    {
+                                                    <select class="GoodsCats">
+                                                        <option value=""></option>
+                                                        @foreach (MYDZ.Entity.ItemCats.PropValue item in ItemProp.PropValues)
+                                                        {
+                                                            //if (!item.Status.Equals("deleted"))
+                                                            if (!item.Name.Contains("属性迁移"))
+                                                            {
+                                                            <option value="@ItemProp.Pid : @item.Vid"><a href="javascript:void(0);">@item.Name</a>
+                                                            </option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+            }
+            else if (ItemProp.IsEnumProp)
+            {
+                if (ItemProp.IsInputProp)
+                {
+                                <li>
+                                    <div class="table_item">
+                                        <span class="table_hd"><span class="require"></span>
+                                            @if (ItemProp.Must)
+                                            {
+                                                <i style="color: Red;">*</i> }
+                                            @ItemProp.Name</span>
+                                        <div class="table_bd">
+                                            <div>
+                                                @if (ItemProp.Multi)
+                                                {
+                                                    <ol class="Goodsprops" style="width: 650px;">
+                                                        @foreach (MYDZ.Entity.ItemCats.PropValue item in ItemProp.PropValues)
+                                                        {
+                                                            if (!item.Name.Contains("属性迁移"))
+                                                            {
+                                                            <li style="margin-right: 10px;">
+                                                                <label class="checkbox">
+                                                                    <span>
+                                                                        <input type="checkbox" class="GoodsCats" hidefocus="true" data="@ItemProp.Pid : @item.Vid" style="margin-left: 8px;">
+                                                                    </span><em>@item.Name</em>
+                                                                </label>
+                                                            </li>
+                                                            }
+                                                        }
+                                                    </ol>                                                                                       
+                                                }
+                                                else
+                                                {
+                                                    if (ItemProp.PropValues == null)
+                                                    {
+                                                    <input type="text" class="GoodsCats"   data="@ItemProp.Pid"  name="InputStr"  value="" />
+                                                    }
+                                                    else
+                                                    {
+                                                    <select class="GoodsCats">
+                                                        <option value=""></option>
+                                                        @foreach (MYDZ.Entity.ItemCats.PropValue item in ItemProp.PropValues)
+                                                        {
+                                                            // if (!item.Status.Equals("deleted"))
+                                                            {
+                                                            <option value="@ItemProp.Pid : @item.Vid"><a href="javascript:void(0);">@item.Name</a>
+                                                            </option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                }
+                if (ItemProp.IsSaleProp)
+                {
+                }
+                else
+                {
+                                <li>
+                                    <div class="table_item">
+                                        <span class="table_hd"><span class="require"></span>
+                                            @if (ItemProp.Must)
+                                            {
+                                                <i style="color: Red;">*</i> }
+                                            @ItemProp.Name</span>
+                                        <div class="table_bd">
+                                            <div>
+                                                @if (ItemProp.Multi)
+                                                {
+                                                    <ol class="Goodsprops" style="width: 650px;">
+                                                        @foreach (MYDZ.Entity.ItemCats.PropValue item in ItemProp.PropValues)
+                                                        {
+                                                            if (!item.Name.Contains("属性迁移"))
+                                                            {
+                                                            <li style="margin-right: 10px;">
+                                                                <label class="checkbox">
+                                                                    <span>
+                                                                        <input type="checkbox" class="GoodsCats" hidefocus="true" data="@ItemProp.Pid : @item.Vid" style="margin-left: 8px;">
+                                                                    </span><em>@item.Name</em>
+                                                                </label>
+                                                            </li>
+                                                            }
+                                                        }
+                                                    </ol>                                                                                       
+                                                }
+                                                else
+                                                {
+                                                    if (ItemProp.PropValues == null)
+                                                    {
+                                                    <input type="text" class="GoodsCats"  data="@ItemProp.Pid"  name="InputStr"  value="" />
+                                                    }
+                                                    else
+                                                    {
+                                                    <select class="GoodsCats">
+                                                        <option value=""></option>
+                                                        @foreach (MYDZ.Entity.ItemCats.PropValue item in ItemProp.PropValues)
+                                                        {
+                                                            // if (!item.Status.Equals("deleted"))
+                                                            {
+                                                            <option value="@ItemProp.Pid : @item.Vid"><a href="javascript:void(0);">@item.Name</a>
+                                                            </option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                }
+
+            }
+            else if (ItemProp.IsItemProp)
+            {
+                                <li>
+                                    <div class="table_item">
+                                        <span class="table_hd"><span class="require"></span>
+                                            @if (ItemProp.Must)
+                                            {
+                                                <i style="color: Red;">*</i> }
+                                            @ItemProp.Name</span>
+                                        <div class="table_bd">
+                                            <div>
+                                                @if (ItemProp.Multi)
+                                                {
+                                                    <ol class="Goodsprops" style="width: 650px;">
+                                                        @foreach (MYDZ.Entity.ItemCats.PropValue item in ItemProp.PropValues)
+                                                        {
+                                                            if (!item.Name.Contains("属性迁移"))
+                                                            {
+                                                            <li style="margin-right: 10px;">
+                                                                <label class="checkbox">
+                                                                    <span>
+                                                                        <input type="checkbox" class="GoodsCats" hidefocus="true" data="@ItemProp.Pid : @item.Vid" style="margin-left: 8px;">
+                                                                    </span><em>@item.Name</em>
+                                                                </label>
+                                                            </li>
+                                                            }
+                                                        }
+                                                    </ol>                                                                                       
+                                                }
+                                                else
+                                                {
+                                                    if (ItemProp.PropValues == null)
+                                                    {
+                                                    <input type="text" class="GoodsCats"  data="@ItemProp.Pid"  name="InputStr"  value="" />
+                                                    }
+                                                    else
+                                                    {
+                                                    <select class="GoodsCats">
+                                                        <option value=""></option>
+                                                        @foreach (MYDZ.Entity.ItemCats.PropValue item in ItemProp.PropValues)
+                                                        {
+                                                            // if (!item.Status.Equals("deleted"))
+                                                            {
+                                                            <option value="@ItemProp.Pid : @item.Vid"><a href="javascript:void(0);">@item.Name</a>
+                                                            </option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+            }
+            else
+            { 
+                                <li>
+                                    <div class="table_item">
+                                        <span class="table_hd"><span class="require"></span>
+                                            @if (ItemProp.Must)
+                                            {
+                                                <i style="color: Red;">*</i> }
+                                            @ItemProp.Name</span>
+                                        <div class="table_bd">
+                                            <div>
+                                                @if (ItemProp.Multi)
+                                                {
+                                                    <ol class="Goodsprops" style="width: 650px;">
+                                                        @foreach (MYDZ.Entity.ItemCats.PropValue item in ItemProp.PropValues)
+                                                        {
+                                                            if (!item.Name.Contains("属性迁移"))
+                                                            {
+                                                            <li style="margin-right: 10px;">
+                                                                <label class="checkbox">
+                                                                    <span>
+                                                                        <input type="checkbox" class="GoodsCats" hidefocus="true" data="@ItemProp.Pid : @item.Vid" style="margin-left: 8px;">
+                                                                    </span><em>@item.Name</em>
+                                                                </label>
+                                                            </li>
+                                                            }
+                                                        }
+                                                    </ol>                                                                                       
+                                                }
+                                                else
+                                                {
+                                                    if (ItemProp.PropValues == null)
+                                                    {
+                                                    <input type="text" class="GoodsCats"  data="@ItemProp.Pid"  name="InputStr"  value="" />
+                                                    }
+                                                    else
+                                                    {
+                                                    <select class="GoodsCats">
+                                                        <option value=""></option>
+                                                        @foreach (MYDZ.Entity.ItemCats.PropValue item in ItemProp.PropValues)
+                                                        {
+                                                            //if (!item.Status.Equals("deleted"))
+
+                                                            {
+                                                            <option value="@ItemProp.Pid : @item.Vid"><a href="javascript:void(0);">@item.Name</a>
+                                                            </option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+            }
+        }
+                            }
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span><i style="color: Red;">* </i>商品标题：</span>
+                <div class="table_bd">
+                    <div>
+                        <input type="text" name="Title" value="" style="width: 500px;" datatype="*1-30" nullmsg="请键入商品标题"
+                            errormsg="商品标题最多允许输入30个字符（包括空格）" />
+                        <div class="msg_info">
+                            <span class="Validform_checktip"></span><i></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>宝贝卖点：</span>
+                <div class="table_bd">
+                    <div>
+                        <textarea name="sell_point" style="width: 500px; height: 40px;" datatype="*0-150"
+                            errormsg="商品标题最多允许输入150个字符（包括空格）"></textarea>
+                        <div class="msg_info">
+                            <span class="Validform_checktip"></span><i></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span><i style="color: Red;">* </i>一口价：</span>
+                <div class="table_bd">
+                    <input type="text" name="Price" value="" style="width: 40%;" datatype="n1-8" nullmsg="请键入商品金额"
+                        errormsg="金额应大于零且精确到分位" />
+                    <div class="msg_info">
+                        <span class="Validform_checktip"></span><i></i>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>
+                    <label style="color: Red;">
+                        *
+                    </label>
+                    商品数量：</span>
+                <div class="table_bd">
+                    <input type="text" name="num" value="" datatype="n1-8" nullmsg="请输入商品数量" errormsg="请输入整数"
+                        style="width: 40%;" />
+                    <div class="msg_info">
+                        <span class="Validform_checktip"></span><i></i>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>商家编码</span>
+                <div class="table_bd">
+                    <input type="text" name="" value="" style="width: 40%;" />
+                    <span class="table_msg"><i></i><span></span></span>
+                </div>
+            </div>
+            @{
+        bool status = false; if (ViewData["ListItemProp"] == null) { return; } int i = 0;
+        foreach (MYDZ.Entity.ItemCats.ItemProp ItemProp in (ViewData["ListItemProp"] as
+        List<MYDZ.Entity.ItemCats.ItemProp>))
+        {
+            if (ItemProp.IsSaleProp && i == 0)
+            {
+                status = true;
+                i++;
+            }
+        }
+        if (status)
+        {
+                <div class="table_item">
+                    <span class="table_hd"><span class="require"></span><i style="color: Red;">* </i>商品规格</span>
+                    <div class="table_bd salebd" style="background-color: #f2f2f2;">
+                        @foreach (MYDZ.Entity.ItemCats.ItemProp ItemProp in (ViewData["ListItemProp"] as List<MYDZ.Entity.ItemCats.ItemProp>))
+                        {
+                            if (ItemProp.IsSaleProp)
+                            {
+                                if (ItemProp.IsColorProp)
+                                {
+                            <li>
+                                <div class="table_item">
+                                    <span class="table_hd"><span class="require"></span>
+                                        @if (ItemProp.Must)
+                                        {
+                                            <i style="color: Red;">*</i> }
+                                        @ItemProp.Name</span>
+                                    <div class="table_bd">
+                                        <div>
+                                            @if (ItemProp.Multi)
+                                            {
+                                                <ol class="Goodsprops" style="width: 650px;">
+                                                    @foreach (MYDZ.Entity.ItemCats.PropValue item in ItemProp.PropValues)
+                                                    {
+                                                        if (!item.Name.Contains("属性迁移"))
+                                                        {
+                                                        <li style="margin-right: 10px;">
+                                                            <label class="checkbox sale-color-prop saleprop">
+                                                                <span>
+                                                                    <input type="checkbox" hidefocus="true" data="@ItemProp.Pid : @item.Vid" style="margin-left:8px;">
+                                                                </span><em>@item.Name</em>
+                                                            </label>
+                                                        </li>
+                                                        }
+                                                    }
+                                                </ol>                                                                                   
+                                            }
+                                            else
+                                            {
+                                                if (ItemProp.PropValues == null)
+                                                {
+                                                <input type="text"  data="@ItemProp.Pid"  name="InputStr"  value="" />
+                                                }
+                                                else
+                                                {
+                                                <select>
+                                                    <option value=""></option>
+                                                    @foreach (MYDZ.Entity.ItemCats.PropValue item in ItemProp.PropValues)
+                                                    {
+                                                        //  if (!item.Status.Equals("deleted"))
+                                                        {
+                                                        <option value="@ItemProp.Pid : @item.Vid"><a href="javascript:void(0);">@item.Name</a>
+                                                        </option>
+                                                        }
+                                                    }
+                                                </select>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                                }
+                                else
+                                {
+                            <li>
+                                <div class="table_item">
+                                    <span class="table_hd"><span class="require"></span>
+                                        @if (ItemProp.Must)
+                                        {
+                                            <i style="color: Red;">*</i> }
+                                        @ItemProp.Name</span>
+                                    <div class="table_bd">
+                                        <div>
+                                            @if (ItemProp.Multi)
+                                            {
+                                                <ol class="Goodsprops" style="width: 650px;">
+                                                    @foreach (MYDZ.Entity.ItemCats.PropValue item in ItemProp.PropValues)
+                                                    {
+                                                        if (!item.Name.Contains("属性迁移"))
+                                                        {
+                                                        <li style="margin-right: 10px;">
+                                                            <label class="checkbox sale-other-prop saleprop">
+                                                                <span>
+                                                                    <input type="checkbox" hidefocus="true" data="@ItemProp.Pid : @item.Vid" style="margin-left:
+                        8px;">
+                                                                </span><em>@item.Name</em>
+                                                            </label>
+                                                        </li>
+                                                        }
+                                                    }
+                                                </ol>                                                                                       
+                                            }
+                                            else
+                                            {
+                                                if (ItemProp.PropValues == null)
+                                                {
+                                                <input type="text"  data="@ItemProp.Pid"  name="InputStr"  value="" />
+                                                }
+                                                else
+                                                {
+                                                <select>
+                                                    <option value=""></option>
+                                                    @foreach (MYDZ.Entity.ItemCats.PropValue item in ItemProp.PropValues)
+                                                    {
+                                                        //  if (!item.Status.Equals("deleted"))
+                                                        {
+                                                        <option value="@ItemProp.Pid : @item.Vid"><a href="javascript:void(0);">@item.Name</a>
+                                                        </option>
+                                                        }
+                                                    }
+                                                </select>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                                }
+                            }
+                        }
+                    </div>
+                    <div class="table_bd">
+                        <div class="table_item">
+                            <span class="table_hd"><span class="require"></span><i style="color: Red;">*</i> SKU组合</span>
+                            <div class="table_bd Goods-Skus" style="background-color: #f2f2f2;">
+                            </div>
+                        </div>
+                        <input type="hidden" name="SkuQuantities" value="" />
+                        <input type="hidden" name="SkuPrices" value="" />
+                        <input type="hidden" name="SkuOuterIds" value="" />
+                    </div>
+                </div>  
+        }     
+            }
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span><i style="color: Red;">*</i> 商品图片：</span>
+                <div class="table_bd">
+                    <div style="width: 670px">
+                        <div>
+                        </div>
+                        <table border="0">
+                            <tr>
+                                <td>
+                                    <input type="file" style="display: none;" name="fileToUpload" plugin="swfupload" />
+                                    <div style="float: left;">
+                                        <span id="spanButtonPlaceholder"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="goodsimgsku">
+                                        <img src="" alt="" />
+                                    </div>
+                                    <div class="goodsimgsku">
+                                        <img src="" alt="" />
+                                    </div>
+                                    <div class="goodsimgsku">
+                                        <img src="" alt="" />
+                                    </div>
+                                    <div class="goodsimgsku">
+                                        <img src="" alt="" />
+                                    </div>
+                                    <div class="goodsimgsku">
+                                        <img src="" alt="" />
+                                    </div>
+                                    <div class="floatdiv">
+                                        <a href="javascript:void(0)">
+                                            <img title="左移图片" src="../../images/left.ico" /></a> <a href="javascript:void(0)">
+                                                <img title="右移图片" src="../../images/right.ico" /></a> <a href="javascript:void(0)">
+                                                    <img title="删除图片" src="../../images/Del.ico" /></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>
+                                        图片至少上传1张，图片类型只能为gif,png,jpg,jpeg，且大小不超过500K.<br />
+                                        请不要在商品图片上添加除商品外的其他信息, 诸如水印、商标、优惠信息等!
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" name="PicPath" value="" />
+                        <input type="hidden" name="ChildPicPath" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>
+                    <label style="color: Red;">
+                        *
+                    </label>
+                    商品描述：</span>
+                <div class="table_bd">
+                    <div style="width: 680px;">
+                        <section id="editor">
+                         <div id='edit' name="Desc">
+                       
+                        </div>
+                         </section>
+                        <div class="msg_info">
+                            <span class="Validform_checktip"></span><i></i>
+                        </div>
+                        <input type="hidden" name="Desc" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>
+                    <label style="color: Red;">
+                        *
+                    </label>
+                    所在地：</span>
+                <div class="table_bd">
+                    <span class="table_hd"><span class="require"></span>省份：</span>
+                    <div class="table_bd">
+                        <input type="text" name="LocationCity" datatype="*" nullmsg="请输入省份" />
+                        <div class="msg_info">
+                            <span class="Validform_checktip"></span><i></i>
+                        </div>
+                    </div>
+                    <div class="table_item">
+                        <span class="table_hd"><span class="require"></span>城市：</span>
+                        <div class="table_bd">
+                            <input type="text" name="LocationState" datatype="*" nullmsg="请输入城市" />
+                            <div class="msg_info">
+                                <span class="Validform_checktip"></span><i></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>物流方式：</span>
+                <div class="table_bd">
+                    <label>
+                        <input type="radio" name="FreightPayer" value="seller" class="seller" /><em>卖家承担运费</em>
+                    </label>
+                    <label>
+                        <input type="radio" checked="checked" name="FreightPayer" value="buyer" /><em>买家承担运费</em>
+                    </label>
+                    <div class="freight_payer-div">
+                        <div>
+                            <label>
+                                <input type="radio" name="playstatus" class="freight-tempter-radio" /><em>使用运费模板</em>
+                            </label>
+                            <br />
+                            <label>
+                                <input type="radio" name="playstatus" class="customer-price-radio" /><em>自定义价格</em>
+                            </label>
+                            <div>
+                            </div>
+                        </div>
+                        <div class="table_item freight-tempter">
+                            <div>
+                                <span class="table_hd"><span class="require"></span></span>
+                                <div class="table_bd">
+                                    <div class="table_item">
+                                        <span class="table_hd "><span class="require"></span>运费模板：</span>
+                                        <div class="table_bd">
+                                            <select name="PostageId">
+                                                <option>---请选择---</option>
+                                                @{foreach (MYDZ.Entity.Goods.DeliveryTemplate item in (ViewData["DeliveryTemplate"] as List<MYDZ.Entity.Goods.DeliveryTemplate>))
+                                                  {
+                                                    <option value="@item.TemplateId">@item.Name</option>
+                                                  }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table_item customer-price">
+                            <div>
+                                <span class="table_hd"><span class="require"></span></span>
+                                <div class="table_bd">
+                                    <div class="table_item">
+                                        <span class="table_hd"><span class="require"></span>平邮：</span>
+                                        <div class="table_bd">
+                                            <input type="text" name="PostFee" />
+                                            元
+                                        </div>
+                                    </div>
+                                    <div class="table_item">
+                                        <span class="table_hd"><span class="require"></span>快递：</span>
+                                        <div class="table_bd">
+                                            <input type="text" name="ExpressFee" />
+                                            元
+                                        </div>
+                                    </div>
+                                    <div class="table_item">
+                                        <span class="table_hd"><span class="require"></span>Ems：</span>
+                                        <div class="table_bd">
+                                            <input type="text" name="EmsFee" />
+                                            元
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>发票：</span>
+                <div class="table_bd">
+                    <label>
+                        <input type="radio" checked="checked" name="HasInvoice" value="true" /><em>有</em>
+                    </label>
+                    <label>
+                        <input type="radio" name="HasInvoice" value="false" /><em>无</em>
+                    </label>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>退换货承诺：</span>
+                <div class="table_bd">
+                    <label>
+                        <input type="checkbox" name="SellPromise" />
+                        凡使用支付宝服务付款购买本店商品，若存在质量问题或与描述不符，本店将主动提供退换货服务并承担来回邮费!</label>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>会员打折：</span>
+                <div class="table_bd">
+                    <label>
+                        <input type="radio" checked="checked" name="HasDiscount" value="false" /><em>不参与打折</em>
+                    </label>
+                    <label>
+                        <input type="radio" name="HasDiscount" value="true" /><em>参与会员打折</em>
+                    </label>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>库存计数：</span>
+                <div class="table_bd">
+                    <label>
+                        <input type="radio" name="SubStock" value="1" /><em>拍下减库存</em>
+                    </label>
+                    <label>
+                        <input type="radio" checked="checked" name="SubStock" value="2" /><em>付款减库存</em>
+                    </label>
+                    <label>
+                        <input type="radio" checked="checked" name="SubStock" value="0" /><em>不减少</em>
+                    </label>
+                    <span class="table_msg"><i></i><span></span></span>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>有效期：</span>
+                <div class="table_bd">
+                    <label>
+                        <input type="radio" name="ValidThru" value="7" /><em>7天</em>
+                    </label>
+                    <label>
+                        <input type="radio" checked="checked" name="ValidThru" value="14" /><em>14天</em>
+                    </label>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>返点比例：</span>
+                <div class="table_bd">
+                    <input type="text" name="AuctionPoint" value="5" /> &nbsp;<label style="color:Red;">* 返点比例最低为5</label> 
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>开始时间：</span>
+                <div class="table_bd">
+                    <label>
+                        <input type="radio" name="ApproveStatus" checked="checked" value="onsale" /><em>立刻</em>
+                    </label>
+                    <label>
+                        <input type="radio" name="ApproveStatus" /><em>设定</em>
+                        <input type="text" name="list_time" />
+                    </label>
+                    <label>
+                        <input type="radio" name="ApproveStatus" value="instock" /><em>放入仓库</em>
+                    </label>
+                    <span class="table_msg"><i></i><span></span></span>
+                    <input type="hidden" name="list_time" />
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>橱窗推荐：</span>
+                <div class="table_bd">
+                    <label>
+                        <input type="radio" name="HasShowcase" value="true" /><em>是</em>
+                    </label>
+                    <label>
+                        <input type="radio" checked="checked" name="HasShowcase" value="false" /><em>否</em>
+                    </label>
+                    <span class="table_msg"><i></i><span></span></span>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span></span>
+                <div class="table_bd">
+                    <input type="submit" name="" value="确认无误，提交" />
+                </div>
+            </div>
+        </div>
+    }
+    <input type="text" name="spanButtonPlaceholder" class="spanButtonPlaceholder" id="spanButtonPlaceholder" />
+</div>
+<script src="../../js/editable/js/froala_editor.min.js" type="text/javascript"></script>
+<!--[if lt IE 9]>
+    <script src="../../js/editable/js/froala_editor_ie8.min.js"></script>
+    <![endif]-->
+<script src="../../js/editable/js/plugins/video.min.js" type="text/javascript"></script>
+<script src="../../js/editable/js/plugins/tables.min.js" type="text/javascript"></script>
+<script src="../../js/editable/js/plugins/media_manager.min.js" type="text/javascript"></script>
+<script src="../../js/editable/js/plugins/lists.min.js" type="text/javascript"></script>
+<script src="../../js/editable/js/plugins/font_size.min.js" type="text/javascript"></script>
+<script src="../../js/editable/js/plugins/font_family.min.js" type="text/javascript"></script>
+<script src="../../js/editable/js/plugins/file_upload.min.js" type="text/javascript"></script>
+<script src="../../js/editable/js/plugins/char_counter.min.js" type="text/javascript"></script>
+<script src="../../js/editable/js/plugins/colors.min.js" type="text/javascript"></script>
+<script src="../../js/editable/js/plugins/block_styles.min.js" type="text/javascript"></script>
+<script src="../../js/editable/js/langs/zh_cn.js" type="text/javascript"></script>
+<script type="text/javascript" src="../../js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript">
+    loadupload();
+    var swfu;
+    function loadupload() {
+        var settings_object = {//定义参数配置对象
+            upload_url: "/Merchandise/UploadGoodsImg.html",
+            flash_url: "/js/swfupload/swfupload.swf",
+            file_post_name: "fileToUpload",
+            use_query_string: false,
+            requeue_on_error: false,
+            http_success: [201, 202],
+            assume_success_timeout: 0,
+            file_types: ".jpg;.gif;.png",
+            file_types_description: "图片文件",
+            file_size_limit: 3 * 1024,
+            file_upload_limit: 0,
+            debug: false,
+            button_placeholder_id: "spanButtonPlaceholder",
+            button_image_url: "/images/upload_btn.png",
+            button_width: 70,
+            button_height: 30,
+            button_action: SWFUpload.BUTTON_ACTION.SELECT_FILES,
+            button_cursor: SWFUpload.CURSOR.HAND,
+            button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+            upload_success_handler: function (file, serverData) {
+                var data = eval('(' + serverData + ')');
+                var p = $('.goodsimgsku');
+                var count = p.length;
+                if (data.ErrorMsg === "") {
+                    for (var i = 0; i < count; i++) {
+                        var target = p.eq(i).find("img").eq(0);
+                        if (target.attr("src") === "") {
+                            if (data.URL !== null) {
+                                target.attr("src", data.URL + "_90x90.jpg");
+                                break;
+                            }
+                        }
+                    }
+                }
+                else {
+                    PopWindow.Controller.Clear();
+                    alert(data.ErrorMsg);
+                }
+            },
+            file_dialog_complete_handler: function (data) {
+                if (data > 0) {
+                    PopWindow.Controller.Init({ type: "loading", opacity: 0 });
+                    //此处的imgload 填的是上传控件的ID
+                    this.startUpload();
+                }
+            },
+            upload_complete_handler: function (data) {
+                PopWindow.Controller.Clear();
+            }
+        };
+        swfu = new SWFUpload(settings_object);
+    }
+
+    $(function () {
+
+        initeditable();
+        OnloadScroll();
+        function OnloadScroll() {
+            $('body').niceScroll({
+                touchbehavior: false,
+                cursorcolor: "#4682b4",
+                cursoropacitymax: 1.6,
+                cursorwidth: 8,
+                horizrailenabled: false,
+                cursorborderradius: 0,
+                autohidemode: true
+            });
+        }
+        //初始化编辑框
+        function initeditable() {
+            $('#edit').editable({
+                inlineMode: false,
+                alwaysBlank: true,
+                minHeight: 200,
+                maxHeight: 200,
+                theme: 'gray',
+                allowedImageTypes: ["jpeg", "jpg", "png", "gif"],
+                language: "zh_cn",
+                imageUploadURL: 'Merchandise/UploadGoodsImg.html', //上传到本地服务器
+                imageUploadParams: { id: "edit" }
+            });
+            $('.SelectDesctType').select2();
+        }
+    });
+</script>

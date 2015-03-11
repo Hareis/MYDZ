@@ -1,0 +1,163 @@
+﻿$(function () {
+    var Search = {
+    };
+    var NowPageIndex = 1;
+    var GoodsTotalNum = null;
+    function initpage() {
+        var URL = "/Merchandise/SHowGoodsOnsales.html";
+        OnloadGoods(URL);
+        LoadDPLM();
+    }
+
+    //页面初始化加载信息
+    function OnloadGoods(URL) {
+        istuijian = null;
+        $(".table_wrap").empty().load(URL, Search, function () {
+            Loadpaging();
+            LoadTotalNum();
+        });
+    }
+
+    // 初始化分页控件
+    function Loadpaging() {
+        PageConfig.Page = function (index) {
+            ChangePageNo(index);
+        }
+        $(".page_box").unbind("click");
+        PageConfig.PageIndex = NowPageIndex;
+        $(".page_box").Pager(PageConfig);
+        GoodsTotalNum = PageConfig.MaxRowNumber;
+    }
+
+    //页面初始化加载店铺类目
+    function LoadDPLM() {
+        $(".DPLM").select2({ placeholder: "默认查询所有店铺分类商品，最多允许选择32个店铺分类", maximumInputLength: 10 });
+        $("#SPLMs").select2();
+    }
+
+    //加载商品总数
+    function LoadTotalNum() {
+        $(".selected").find(".TotalNumOnsales").html("(" + GoodsTotalNum + ")");
+        $(".selected").siblings().find(".TotalNumOnsales").html("");
+    }
+
+    /*------------------------------------ 页面初始化注册方法-------------------------------------------------*/
+    initpage();
+    ChangeGoodStatus();
+    GoodsSort();
+    SelectAllCheckBox();
+    batchunseller();
+    /*--------------------------------------------------------------------------------------------------------*/
+
+    //加载新的页码 （例：页码1--页码2 跳转）
+    function ChangePageNo(index) {
+        Search.PageNo = index;
+        Search.PageSize = 10;
+        var URL = "/Merchandise/SHowGoodsOnsales.html";
+        NowPageIndex = index;
+        OnloadGoods(URL);
+    }
+
+    //更换商品显示状态
+    function ChangeGoodStatus() {
+        $('.tab .GoodStatus').click(function () {
+            var type = $(this).attr("data");
+            if (!$(this).hasClass('selected')) {
+                $(this).siblings().removeClass('selected');
+                $(this).addClass('selected');
+            }
+            var targets = $('input[name=HasShowcase]').eq(0);
+            if (type == "chuchuang") {
+                targets.val(true);
+            } else if (type == "weituijian") {
+                targets.val(false);
+            } else {
+                targets.val(null)
+            }
+            $('#QueryCriteria').submit();
+            Loadpaging();
+            LoadTotalNum();
+        });
+    }
+
+    //商品排序
+    function GoodsSort() {
+        $('.tab_sort a').click(function () {
+            var targetss = $('input[name=OrderBy]').eq(0);
+            $('.tab_sort a').not(this).removeClass("sort_current");
+            var date = $(this).attr("data");
+            if ($(this).hasClass('sort_current')) {
+                var i = $(this).parent().find('i');
+                i.toggleClass("down");
+                if (i.hasClass('down')) {
+                    targetss.val(date + ":asc");
+                } else {
+                    targetss.val(date + ":desc");
+                }
+
+            } else {
+                $(this).addClass('sort_current');
+                targetss.val(date + ":desc");
+            }
+            $('#QueryCriteria').submit();
+            Loadpaging();
+            LoadTotalNum();
+        });
+    }
+
+    //全选和全不选
+    function SelectAllCheckBox() {
+        $('input[name=chk_all]').change(function () {
+            var parent = $(this).parent().parent();
+            if (parent.hasClass('checked')) {
+                ChangeGoodsId(false);
+            } else {
+                ChangeGoodsId(true);
+            }
+            RetunrGoodsId();
+        });
+    }
+
+    //更改商品选择框状态
+    function ChangeGoodsId(state) {
+        $('.data_table tbody').find('input[name=CheckboxGoods]').each(function (i, item) {
+            var parent = $(item).parent().parent();
+            if (state == false) {
+                parent.removeClass('checked');
+            } else {
+                parent.addClass('checked');
+            }
+        });
+    }
+
+    //返回选中的商品的ID（数组）
+    function RetunrGoodsId() {
+        var checkedList = [];
+        $('table input[name=CheckboxGoods]').each(function (i, item) {
+            var parent = $(item).parent().parent();
+            if (parent.hasClass('checked')) {
+                var goodsid = $(item).parent().parent().find("input[name=GoodsId]").eq(0).val();
+                checkedList.push(goodsid);
+            }
+        });
+        $('input[name=ListGoodId]').val(checkedList.toLocaleString());
+        return checkedList;
+    }
+
+    //批量下架
+    function batchunseller() {
+        $('.BatchUnShelve').click(function () {
+            RetunrGoodsId();
+            var value = $('input[name=ListGoodId]').val();
+            if ($.trim(value) != '' && $.trim(value) != null && $.trim(value).length != 0) {
+                $.post('/Merchandise/SetBatchUnShelve.html', { ListGoodId: value }, function () {
+
+                })
+            } else {
+                PopWindow.Controller.Init({ type: "prompt", opacity: 0, width: 352, height: 198, title: "请至少选中一项！" });
+                return false;
+            }
+        });
+    }
+});
+

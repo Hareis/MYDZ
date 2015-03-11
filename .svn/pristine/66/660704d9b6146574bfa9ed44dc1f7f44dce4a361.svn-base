@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SoftInfoConfig>
+  <!--测试环境 URL-->
+  <ZSHJ>https://oauth.tbsandbox.com/authorize?</ZSHJ>
+  <CSHJ>https://oauth.tbsandbox.com/authorize?</CSHJ>
+  <AppKey>1023031989</AppKey>
+  <AppSecret>sandbox611449a6f543844e2c97a7863</AppSecret>
+  <CallBackUrl>http://127.0.0.1:2014/Auth/Index.html</CallBackUrl>
+  <AccessTokenURL>https://oauth.tbsandbox.com/token</AccessTokenURL>
+  <ApiURL>http://gw.api.tbsandbox.com/router/rest</ApiURL>
+  <TQLURL>http://gw.api.tbsandbox.com/tql</TQLURL>
+  <RootFilePath>~/UploadImgs/GoodsPicture</RootFilePath>
+</SoftInfoConfig>

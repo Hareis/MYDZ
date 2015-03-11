@@ -1,0 +1,430 @@
+﻿@{
+    Layout = null;
+}
+<style type="text/css">
+    .item-title-div p a
+    {
+        color: #4682b4;
+    }
+    .editdiv a img
+    {
+        float: right;
+        position: relative;
+    }
+    .edit-item-title
+    {
+        position: relative;
+        top: -14px;
+        display: block;
+        text-indent: -9999em;
+        width: 16px;
+        height: 16px;
+        overflow: hidden;
+    }
+    .edit-item-price, .edit-item-stoke
+    {
+        position: relative;
+        width: 16px;
+        top: -14px;
+        display: block;
+        text-indent: -9999em;
+    }
+    
+    .item-title-div p
+    {
+        text-align: left;
+        margin: 0px 5px;
+        width: 160px;
+    }
+    .item-price-div p, .item-stoke-div p
+    {
+        width: 80px;
+    }
+    
+    .editdiv .item-title-div textarea
+    {
+        padding: 2px;
+        height: 28px;
+    }
+    .editdiv .item-price-div textarea, .editdiv .item-stoke-div textarea
+    {
+        padding: 2px;
+        height: 20px;
+        width: 70px;
+    }
+    .saveicon
+    {
+        top: -21px;
+    }
+    .edita
+    {
+        visibility: hidden;
+    }
+    .save, .hide-div, .show-div
+    {
+        display: none;
+    }
+    .PImg
+    {
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+    }
+    .float-div-addmarker
+    {
+        width: 320px;
+        height: 160px;
+        border: 1px solid rgb(215, 215, 212);
+        position: absolute;
+        display: none;
+        background-color: White;
+        box-shadow: 5px 5px 3px #888888;
+    }
+    .float-div-addmarker ul li
+    {
+        float: left;
+        margin-left: 12px;
+    }
+</style>
+@*  #0080FF*@
+<link href="@Url.Content("~/js/colortip/colortip-1.0-jquery.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/colortip/colortip-1.0-jquery.js")" type="text/javascript"></script>
+<div id="table_wrap_child">
+    @if (ViewData["ListTrade"] != null)
+    {
+        foreach (MYDZ.Entity.Order.Trade Trade in ViewData["ListTrade"] as List<MYDZ.Entity.Order.Trade>)
+        {
+        <table cellpadding="0" cellspacing="0" border="0" class="tool_wrap Trade-detail-table">
+            <thead class="Trade-detail-thead">
+                <tr>
+                    <th class="Trade-detail-thead-th">
+                        <div>
+                            <label class="checkbox">
+                                <span>
+                                    <input name="order_checkbox" value="@Trade.Tid" type="checkbox" hidefocus="true"/></span></label></div>
+                        <div style="">
+                            订单编号：@Trade.Tid</div>
+                        @*<div>
+                            下单时间：@Trade.Created</div>*@
+                        <div>
+                            付款时间：@Trade.PayTime</div>
+                        @*<div>
+                            结束时间：@Trade.EndTime</div>*@
+                        <div>
+                            <input type="hidden" name="SellerMemo" value="@Trade.SellerMemo" />
+                            <input type="hidden" name="SellerFlag" value="@Trade.SellerFlag" />
+                            <a href="javascript:void(0);" style="color: #0080FF;" class="AddTradeMemo">[备注]</a></div>
+                        <div style="float: right;">
+                            @{
+            string OrderStatus = null;
+            switch (Trade.Status)
+            {
+                case "TRADE_NO_CREATE_PAY":
+                    OrderStatus = "没有创建支付宝交易";
+                    break;
+                case "WAIT_BUYER_PAY":
+                    OrderStatus = "坐等买家付款";
+                    break;
+                case "WAIT_SELLER_SEND_GOODS":
+                    OrderStatus = "坐等卖家发货";
+                    break;
+                case "WAIT_BUYER_CONFIRM_GOODS":
+                    OrderStatus = "坐等买家确认收货";
+                    break;
+                case "TRADE_BUYER_SIGNED":
+                    OrderStatus = "买家已签收";
+                    break;
+                case "TRADE_FINISHED":
+                    OrderStatus = "交易成功";
+                    break;
+                case "TRADE_CLOSED":
+                    OrderStatus = "用户退款成功";
+                    break;
+                case "TRADE_CLOSED_BY_TAOBAO":
+                    OrderStatus = "主动关闭交易";
+                    break;
+                case "PAY_PENDING":
+                    OrderStatus = "国际信用卡支付付款确认中";
+                    break;
+                default:
+                    OrderStatus = "暂无数据";
+                    break;
+            }
+                            }
+                            订单状态：<label style="color: Red">@OrderStatus</label>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="Trade-detail-tbody">
+                <tr>
+                    <td>
+                        <table cellpadding="0" cellspacing="0" width="100%" border="0" class="OrderItem">
+                            <tr style="">
+                                <td style="border-top: 0px; border: 0px;">
+                                    <table cellpadding="0" cellspacing="0" width="100%" border="0">
+                                        @{
+            foreach (MYDZ.Entity.Order.Order Order in Trade.Orders)
+            {
+                                            <tr>
+                                                <td width="101" height="121">
+                                                    <a href="http://item.taobao.com/item.html?id=" + @Order.NumIid  target="_blank">
+                                                        <img src="@Order.PicPath" class="PImg" />
+                                                    </a>
+                                                </td>
+                                                <td style="text-align: left;">
+                                                    <a href="http://item.taobao.com/item.html?id=@Order.NumIid"   target="_blank">@Order.Title</a><br />
+                                                    <font color="#808080">商家编码：</font><font color="#808080">@Order.SkuId</font><br />
+                                                    <font color="#808080">销售属性：</font><font color="#808080">@Order.SkuPropertiesName</font><br />
+                                                </td>
+                                                <td width="100">
+                                                    <p>
+                                                        @{
+                string ddlystr = null;
+                switch (Order.OrderFrom)
+                {
+                    case "jhs":
+                        ddlystr = "聚划算";
+                        break;
+                    case "taobao":
+                        ddlystr = "淘宝";
+                        break;
+                    case "wap":
+                        ddlystr = "无线";
+                        break;
+                    default:
+                        ddlystr = "淘宝";
+                        break;
+                } 
+                                                        }
+                                                        来源：<label>@Order.OrderFrom</label></p>
+                                                </td>
+                                                <td width="100">
+                                                    数量：
+                                                    <label style="font-size: 13px; font-weight: bold; color: #000;">@Order.Num</label>
+                                                </td>
+                                                <td width="100">
+                                                    金额：
+                                                    <label style="font-size: 13px; font-weight: bold; color: #000;">@Order.Price</label>
+                                                </td>
+                                            </tr>
+            } 
+                                        }
+                                    </table>
+                                </td>
+                                <td width="140">
+                                    <div class="detail_wrap-Sjinfo">
+                                        <p style="overflow: hidden;">
+                                            收件：<label>@Trade.BuyerNick</label></p>
+                                        <p class="detail_wrap">
+                                            买家留言：
+                                            @if (Trade.HasBuyerMessage)
+                                            {
+                                                <a class="BuyerMessage" title="@Trade.BuyerMessage" href="javascript:void(0);">
+                                                    <img src="../../images/youxiaoxi.ico" /></a>
+                                            }
+                                            else
+                                            { 
+                                                <a class="BuyerMessage" title="买家暂无留言" href="javascript:void(0);">
+                                                    <img src="../../images/meixiaoxi.ico" /></a>   
+                                            }
+                                        </p>
+                                        <p>
+                                            <a href="javascript:void();" data-number="@Trade.SnapshotUrl" name="consignee">交易快照</a></p>
+                                        <p>
+                                            <a href="javascript:void();" data-number="item.OrdersNumber" name="dev_rang">查看能配送的物流</a></p>
+                                    </div>
+                                </td>
+                                <td width="140">
+                                    @{  string price = null;
+                                        price = string.IsNullOrEmpty(Trade.Price) ? "无数据" : Trade.Price;}
+                                    订单金额：@price
+                                    <br />
+                                    <a href="@Trade.SnapshotUrl" target="_blank">订单详情</a><br />
+                                    <p>
+                                        <a href="javascript:void();" data-number="@Trade.SnapshotUrl" name="consignee">修改收件地址</a></p>
+                                    <p>
+                                        <a href="javascript:void();" class="closetrade">关闭交易</a></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        }
+    }
+    else
+    { 
+        <div style="text-align: center; color: Red;">
+            <h2>
+                Sorry,未找到您想要的数据！</h2>
+        </div>
+    }
+    <input type="hidden" name="ErrorMsg" value="@ViewData["ErrorMsg"]" />
+    @*--------订单备注------------*@
+    <div>
+        <form action="/OrderManagement/AddTradeDesc.html" method="post" id="add-trade-desc-from">
+        <div class="float-div-addmarker">
+            <input type="hidden" name="Tid" />
+            <input type="hidden" name="Memo" />
+            <input type="hidden" name="Flag" />
+            <p>
+                备注旗帜:&nbsp; <span class="float-div-span"><a href="javascript:void();" class="float-div-a">
+                    <img src="/images/Flag/op_memo_0.png" data="0" alt="灰旗" />
+                    灰旗</a></span>
+                <ul>
+                    <li><a href="javascript:void();" class="float-div-a">
+                        <img src="/images/Flag/op_memo_0.png" data="0" alt="灰旗" />
+                        灰旗</a></li>
+                    <li><a href="javascript:void();" class="float-div-a">
+                        <img src="/images/Flag/op_memo_1.png" data="1" alt="红旗" />
+                        红旗</a></li>
+                    <li><a href="javascript:void();" class="float-div-a">
+                        <img src="/images/Flag/op_memo_2.png" data="2" alt="黄旗" />
+                        黄旗</a></li>
+                    <li><a href="javascript:void();" class="float-div-a">
+                        <img src="/images/Flag/op_memo_3.png" data="3" alt="绿旗" />
+                        绿旗</a></li>
+                    <li><a href="javascript:void();" class="float-div-a">
+                        <img src="/images/Flag/op_memo_4.png" data="4" alt="蓝旗" />
+                        蓝旗</a></li>
+                    <li><a href="javascript:void();" class="float-div-a">
+                        <img src="/images/Flag/op_memo_5.png" data="5" alt="粉红旗" />
+                        粉红</a></li>
+                </ul>
+            </p>
+            <br />
+            <span>
+                <div>
+                    <p>
+                        备注：</p>
+                    <p>
+                        <textarea class="float-div-textarea" style="width: 220px; height: 50px; margin-left: 30px;"></textarea></p>
+                    <a href="javascript:void();" style="color: #0080FF; margin: 5px 0px 0px 30px;" class="float-div-save">
+                        保存</a>
+                </div>
+            </span>
+        </div>
+        </form>
+    </div>
+    @*--------修改订单收货地址------------*@
+    <div>
+    
+    </div>
+</div>
+<script type="text/javascript">
+    Loadcolocrtip();
+    RefreshOrder();
+    Ordermark();
+
+    function Loadcolocrtip() {
+        $(".BuyerMessage").colorTip({ color: 'yellow' });
+    }
+
+    function RefreshOrder() {
+        setInterval(function () {
+            $("#table_wrap_child").empty().load("/OrderManagement/BacklogOrders.html" + " #table_wrap_child>*", "{PostType:Refresh}", function () {
+                PopWindow.Controller.Init({ type: "prompt", opacity: 0, width: 352, height: 198, title: "成功刷新一次！" });
+                Loadcolocrtip();
+                Ordermark();
+            });
+        }, 1000 * 60 * 5);
+    }
+
+    //给订单添加备注
+    function Ordermark() {
+        Skin.Controller.Init();
+        var demo = Validform.Controller.Init({
+            form: "#add-trade-desc-from",
+            beforeSubmit: function () {
+                PopWindow.Controller.Init({ type: "loading", opacity: 0 });
+                var tid = $('.AddTradeMemo').parent().parent().find("input[name=order_checkbox]").val();
+                var flag = $('.float-div-span').find('img').eq(0).attr("data");
+                var memo = $('.float-div-textarea').val();
+                var parent = $('.float-div-addmarker');
+                parent.find('input[name=Tid]').eq(0).val(tid);
+                parent.find('input[name=Memo]').eq(0).val(memo);
+                parent.find('input[name=Flag]').eq(0).val(flag);
+            }
+        }).config({
+            ajaxPost: true,
+            callback: function (data) {
+                PopWindow.Controller.Clear();
+                if (!data.Result) {
+                    PopWindow.Controller.Init({ type: "error", opacity: 0, width: 352, height: 198, title: data.ErrorMsg });
+                    demo.resetForm();
+                }
+                else {
+                    demo.resetForm();
+                }
+            }
+        });
+
+        $('.AddTradeMemo').click(function () {
+            var target = $(this).offset();
+            $(".float-div-addmarker").css("display", "block");
+            $(".float-div-addmarker").css("top", parseInt(target.top) + 15);
+            $(".float-div-addmarker").css("left", target.left);
+            var parent = $(this).parent();
+            $('.float-div-textarea').empty().val(parent.find("input[name=SellerMemo]").val());
+            var flag = parent.find("input[name=SellerFlag]").val()
+            var str;
+            switch (flag) {
+                case "0":
+                    str = "<img src='/images/Flag/op_memo_0.png' data='1' alt='灰旗' /> 灰旗";
+                    break;
+                case "1":
+                    str = "<img src='/images/Flag/op_memo_1.png' data='1' alt='红旗' /> 红旗";
+                    break;
+                case "2":
+                    str = "<img src='/images/Flag/op_memo_2.png' data='2' alt='黄旗' /> 黄旗";
+                    break;
+                case "3":
+                    str = "<img src='/images/Flag/op_memo_3.png' data='3' alt='绿旗' /> 绿旗";
+                    break;
+                case "4":
+                    str = "<img src='/images/Flag/op_memo_4.png' data='4' alt='蓝旗' /> 蓝旗";
+                    break;
+                case "5":
+                    str = "<img src='/images/Flag/op_memo_5.png' data='5' alt='粉红旗' /> 粉红";
+                    break;
+                default:
+                    str = "<img src='/images/Flag/op_memo_0.png' data='0' alt='灰旗' /> 灰旗";
+                    break;
+            }
+            $('.float-div-span').empty().html(str);
+        });
+
+        $(document).delegate($(document), "click", function (e) {
+            e = window.event || e; // 兼容IE7
+            obj = $(e.srcElement || e.target);
+            if ($(obj).is(".float-div-addmarker,.float-div-addmarker *,.AddTradeMemo")) {
+
+            } else {
+                $(".float-div-addmarker").css("display", "none");
+            }
+        });
+
+        $('.float-div-a').click(function () {
+            $('.float-div-span').empty().html($(this).html());
+        });
+
+        $('.float-div-save').click(function () {
+            demo.submitForm();
+        });
+    }
+    function closstrade() {
+        $('.closetrade').click(function () {
+            var tid = $(this).parents(".Trade-detail-table").find("input[name=order_checkbox]").val();
+            $.post("OrderManagement/CloseTrade.html", { Tid: tid }, function (data) {
+                if (!data.Result) {
+                    PopWindow.Controller.Init({ type: "error", opacity: 0, width: 352, height: 198, title: data.ErrorMsg });
+                }
+                else {
+                    PopWindow.Controller.Init({ type: "prompt", opacity: 0, width: 352, height: 198, title: "已成功关闭交易！" });
+                }
+            });
+        });
+    }
+</script>

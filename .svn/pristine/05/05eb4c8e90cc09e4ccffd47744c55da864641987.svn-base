@@ -1,0 +1,18 @@
+﻿$(function () {
+
+    InitSelect();
+    shouedittempter();
+
+
+    function InitSelect() {
+        $('#Edit_price_type').select2();
+    }
+
+    function shouedittempter() {
+        $('.editico').click(function () {
+            alert(123);
+            $('.showtemper').toggle();
+            $(this).parent().parent().find('.edittempler').toggle();
+        });
+    }
+});
