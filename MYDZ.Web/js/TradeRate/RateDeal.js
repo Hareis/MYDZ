@@ -21,14 +21,14 @@
 
         $(".table_wrap").delegate(".data_table_item", "mouseover", function () {
             $(this).find(".editdiv").each(
-                function (i, item) {
-                    var states = $(item).find(".save").is(":hidden");
-                    if (states == true || states === undefined) {
-                        $(item).find(".edita").css("visibility", "visible");
-                    } else {
+            function (i, item) {
+                var states = $(item).find(".save").is(":hidden");
+                if (states == true || states === undefined) {
+                    $(item).find(".edita").css("visibility", "visible");
+                } else {
 
-                    }
-                });
+                }
+            });
         });
         $(".table_wrap").delegate(".data_table_item", "mouseout", function () {
             $(this).find(".editdiv").each(
@@ -152,8 +152,8 @@
         });
     }
     //针对过期的评价的选择
-    function OutTimeRate() {
-        $("input[type='chexkbox']").not("input[name=chk_all]").change(function () {
+    function OutTimeRate() {//[type='chexkbox']
+        $("input[name=CheckboxGoods]").change(function () {
             checktypecheckbox(this);
         });
     }
@@ -172,7 +172,7 @@
     }
 
     //更改商品选择框状态
-    function ChangeGoodsId(state) {
+    function ChangeGoodsId() {
         $('.data_table tbody').find('input[name=CheckboxGoods]').each(function (i, item) {
             checktypecheckbox(item);
         });
@@ -196,13 +196,13 @@
     //改变checkbox的选中状态（有效的状态下）
     function checktypecheckbox(obj) {
         if ($(obj).attr("type") === "checkbox") {
-            var parent = $(this).parent().parent();
+            var parent = $(obj).parent().parent();
             var result = parent.find("input[name=Ratestate]").val();
-            if (result !== "false") {
+            if (result === true || result === "true") {
                 if (parent.hasClass('checked')) {
-                    ChangeGoodsId(false);
+                    parent.removeClass("checked");
                 } else {
-                    ChangeGoodsId(true);
+                    parent.addClass("checked");
                 }
             }
         }

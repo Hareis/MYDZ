@@ -18,7 +18,7 @@ namespace MYDZ.WebUI.Member
             // 仅做测试之用
             tbClientUser User = new tbClientUser();
             tbClientUserShop sh = new tbClientUserShop();
-            sh.SessionKey = "620001169da60c30dfceg92f13d95428a968afb832bb975264760512";
+            sh.SessionKey = "6202806dffd772ZZ1811ad6edf713d1e726246b5da82da9264760512";
             sh.UserId =15;
             sh.Shop = new Entity.Shop.tbShopInfo();
             sh.Shop.ShopId = 20;
