@@ -1,0 +1,203 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/css/Control.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/js/OrderManagement/Expressions.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/jquery-1.11.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/jquery.nicescroll.min.js")" type="text/javascript"></script>
+    <style>
+        body {
+	        margin:0px;
+	        padding:0px;
+	        text-align:left;
+	        background-color: transparent;
+	        font:12px Arial, Helvetica, sans-serif;
+        }
+        *{
+	        margin:0px;
+	        padding:0px;
+        }
+        div,ul,li{
+	        margin:0px;
+	        padding:0px;
+        }
+        ul,li{
+	        list-style:none;
+        }
+        td {
+           text-align:left; 
+           height:40px;
+        }
+        td.l {
+           width:25px;
+           padding-left:10px;
+        }
+        td.c {
+           width:200px;
+        }
+        a {
+            text-decoration:none;  
+        }
+        a:hover {
+            text-decoration:underline;
+        }
+        .sdiv {
+            padding:10px;
+            display:none;
+        }
+        .sdiv li{float:left;text-align:center;line-height:38px;}
+        .sdiv ul{clear:both;height:38px;}
+        .sdiv ul.bd li{font-weight:700;}
+        .sdiv li.col1{width:120px;}
+        .sdiv li.col2{width:260px;}
+        .sdiv li.col3{width:120px;}
+        .sdiv li.col4{width:180px;}
+        .sdiv ul.bottom li{float:right;margin:10px 4px 0px 6px;dispaly:inline;}
+        .ndiv {
+            height:190px;
+            overflow:hidden;
+        }
+    </style>
+</head>
+<body>
+@if (ViewBag.IsJump) {
+    Response.Write("<script>window.parent.layer.alert({ title: '温馨提示', width: 280, msg: '" + ViewBag.Msg + "&nbsp;<a href=\"/OrderManagement/Sender.html\" style=\"color:#006DC1;\">立即设置</a>', icon: 3 });window.parent.$('.frame_wrap').remove();</script>");
+}
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td class="l"><img src="/Images/Load.gif" style="height:18px;width:18px;" /></td>
+        <td class="c">正在准备发货数据，请稍后...</td>
+        <td class="r">&nbsp;</td>
+    </tr>
+</table>
+<input type="hidden" name="LId" value="@ViewBag.LId" />
+<input type="hidden" name="Number" value="@ViewBag.Number" />
+<input type="hidden" name="NumberList" value="@ViewBag.NumberList" />
+</body>
+</html>
+<script>
+    var Sender = function () {
+        var LId = $("input[name=LId]").val().Trim();
+        var Number = $("input[name=Number]").val().Trim();
+        var NumberList = $("input[name=NumberList]").val().Trim();
+
+        var wrap = window.parent.$(".frame_wrap");
+        var size = { width: wrap.width(), height: wrap.height() };
+        var loc = wrap.offset();
+
+        var dList = null;
+        var reg = "";
+
+        this.Page = {
+            Init: function () {
+                var base = this;
+                $.post("/OrderManagement/BatchDeliver.html", { LId: LId, Number: Number, NumberList: NumberList },
+                    function (data) {
+                        if (data.Status) {
+                            reg = data.reg;
+                            dList = data.List;
+                            base.CreateDiv();
+                        }
+                    }
+                );
+
+                $(document).delegate("button[name=Sender]", "click",
+                    function () {
+                        var Data = base.Verification();
+
+                        if (!Data.Status) { return; }
+
+                        $("div.sdiv").fadeOut(function () { $(this).remove(); });
+
+                        $("tr").html("<td class='l'><img src='/Images/Load.gif' style='height:18px;width:18px;' /></td><td class='c'>正在进行发货处理，请稍后...</td><td class='r'>&nbsp;</td>");
+
+                        wrap.animate({ width: size.width, height: size.height, top: loc.top, left: loc.left },
+                            function () {
+                                $("table").fadeIn();
+                            }
+                        );
+
+                            $.post("/OrderManagement/OrderSend.html", Data,
+                            function (data) {
+                                base.CloseWindow();
+                            }
+                        );
+                    }
+                );
+            },
+            Verification: function () {
+                var Data = { Status: false };
+                var ul = $("div.sdiv ul").not("ul.bd,ul.bottom");
+                var Json = [];
+
+                for (var i = 0; i < ul.length; i++) {
+                    var obj = $(ul[i]);
+                    var id = obj.attr("data-id");
+
+                    var ipt = obj.find("input[type=text]");
+                    if (ipt.val().IsEmpty()) {
+                        ipt.focus();
+                        return Data;
+                    } else {
+                        if (!reg.IsEmpty()) {
+                            if (!new RegExp("(" + reg + ")").test(ipt.val().Trim())) {
+                                ipt.val("").focus();
+                                return Data;
+                            }
+                        }
+                    }
+
+                    Json.push("" + id + "," + ipt.val() + "");
+                }
+                if (Json.length > 0) {
+                    Data.ParamList = Json.join('/');
+                    Data.Status = true;
+                }
+                return Data;
+            },
+            CreateDiv: function () {
+                $("table").fadeOut();
+                var height = 295;
+                var width = 580;
+                wrap.find("iframe").css({ "height": height, "width": width });
+
+                var div = $("<div></div>").addClass("sdiv");
+                div.append('<ul class="bd"><li class="col1">用户昵称</li><li class="col2">订单编号</li><li class="col4">物流单号</li></ul>');
+                var subdiv = $("<div></div>").addClass("ndiv");
+                for (var i = 0; i < dList.length; i++) {
+                    subdiv.append('<ul data-id="' + dList[i].order + '"><li class="col1">' + dList[i].nick + '</li><li class="col2">' + dList[i].id + '</li><li class="col4"><input type="text" value="' + dList[i].number + '" /></li></ul>');
+                }
+                div.append(subdiv);
+
+                div.append('<ul class="bottom"><li><button hidefocus="true" name="Sender">确定发货</button></li></ul>');
+                $("body").append(div);
+                wrap.animate({ width: width, height: height, top: loc.top - (height - size.height) / 2, left: loc.left - (width - size.width) / 2 },
+                    function () {
+                        div.fadeIn(
+                            function () {
+                                var nicesx = $("div.ndiv").niceScroll({ touchbehavior: false, cursorcolor: "#424242", cursoropacitymax: 0.6, cursorwidth: 4 });
+                            }
+                        );
+                    }
+                );
+            },
+            CloseWindow: function () {
+                wrap.fadeOut(
+                    function () {
+                        window.parent.location.href = window.parent.location.href;
+                    }
+                );
+            }
+        };
+    }
+
+    $(document).ready(
+        function () {
+            new Sender().Page.Init();
+        }
+    );
+</script>

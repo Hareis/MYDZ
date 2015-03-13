@@ -1,0 +1,207 @@
+﻿@using MYDZ.Config.Font;
+@{
+    ViewBag.Title = "模板设置 - 魔云店长";
+    Layout = "~/Views/Shared/_SubMaster.cshtml";
+}
+<link href="@Url.Content("~/css/template.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
+@*<link href="@Url.Content("~/js/upload/uploadify.css")" rel="stylesheet" type="text/css" />*@
+<script src="@Url.Content("~/js/OrderManagement/jquery-migrate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/select2.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/jquery.nicescroll.min.js")" type="text/javascript"></script>
+@*<script src="@Url.Content("~/js/upload/jquery.uploadify.min.js?ver=")@DateTime.Now.Ticks" type="text/javascript"></script>*@
+<script src="@Url.Content("~/js/OrderManagement/Expressions.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/OrderManagement/MaskLayer.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/OrderManagement/template.js")" type="text/javascript"></script>
+<style type="text/css">
+    input[type=text], input[type=password], textarea
+    {
+        /* width: 100%; */
+        height: 20px;
+        padding: 5px 10px;
+        font-size: 12px;
+        color: #222;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        outline: none;
+        resize: none;
+    }
+    .btn_wrap_bd
+    {
+        padding: 5px 0px;
+        border-bottom: 0px;
+    }
+    input.min_text
+    {
+        width: 40px;
+    }
+    .btn_wrap_item .current a, .btn_wrap_item .current span
+    {
+        cursor: default;
+        background: #06a7e1;
+        color: #fff;
+    }
+</style>
+<div class="btn_wrap">
+    <div class="btn_wrap_hd">
+        <span class="title"><i></i>模板设置</span>
+    </div>
+    <div class="btn_wrap_bd">
+        <div class="btn_wrap_item">@*btn_wrap_item_moreshow*@
+            <label>
+                物流</label>
+            <ul>
+                @{
+                    System.Collections.Hashtable ht = new System.Collections.Hashtable();
+                    ht = ViewBag.HashTable_Info as System.Collections.Hashtable;
+                    IList<MYDZ.Entity.Order.StoreLogistics> list = new List<MYDZ.Entity.Order.StoreLogistics>();
+                    list = ht["List_StoreLogistics"] as IList<MYDZ.Entity.Order.StoreLogistics>;
+                    int LId = ht["LId"] == null ? 0 : Convert.ToInt32(ht["LId"].ToString());
+                    MYDZ.Entity.Print.tbPrintPlaneSingle Print = new MYDZ.Entity.Print.tbPrintPlaneSingle();
+                    MYDZ.Entity.Print.tbPrintPlaneSingle TPrint = new MYDZ.Entity.Print.tbPrintPlaneSingle();
+                    Print = ht["Print"] as MYDZ.Entity.Print.tbPrintPlaneSingle;
+                    TPrint = ht["TPrint"] as MYDZ.Entity.Print.tbPrintPlaneSingle;
+                    MYDZ.Entity.Order.StoreLogistics slt = new MYDZ.Entity.Order.StoreLogistics();
+                    slt = ht["slt"] as MYDZ.Entity.Order.StoreLogistics;
+                    List<FontInfo> fontConfig = new List<FontInfo>();
+                    fontConfig = ht["fontConfig"] as List<FontInfo>;
+                }
+                @{if (list != null)
+                  {
+                      foreach (MYDZ.Entity.Order.StoreLogistics item in list)
+                      {
+                          if (item.Logistics.LogisticsId == LId)
+                          { <li class="current"><span>@item.Logistics.LogisticsName</span></li>
+                          }
+                          else
+                          { <li><a href="/OrderManagement/Template.html?param=@(item.Logistics.LogisticsId)">@item.Logistics.LogisticsName</a></li> 
+                          }
+                      }
+                  }
+                }
+            </ul>
+            @*<div class="btn-handle">
+                更多<b class="caret"></b></div>*@
+        </div>
+    </div>
+    @*
+    <div class="btn_wrap_open">
+        <a href="javascript:void();" hidefocus="true">收起<i></i></a>
+    </div>
+    *@
+</div>
+<div class="btn_wrap">
+    <div class="btn_wrap_hd">
+        <span>面单模板设置</span>
+    </div>
+    <div class="btn_wrap_bd">
+        <div class="btn_wrap_ipx">
+            <ul>
+               @* <li>快递模板图片：</li>
+                <li>
+                    <input type="file" id="uploadify" /></li>*@
+                <li>快递单宽度(毫米)：</li>
+                <li>
+                    <input type="text" name="lwidth" value="@(Print.PlaneId > 0 ? Print.Width : TPrint.PlaneId > 0 ? TPrint.Width : slt.Logistics.LogisticsWdith)" class="min_text" style=" width:62px;" /></li>
+                <li>快递单高度(毫米)：</li>
+                <li>
+                    <input type="text" name="lheight" value="@(Print.PlaneId > 0 ? Print.Height : TPrint.PlaneId > 0 ? TPrint.Height : slt.Logistics.LogisticsHeight)" class="min_text" style=" width:62px;" /></li>
+                <li>
+                    <button hidefocus="true" name="save">
+                        保存设置</button></li>
+                <li>
+                    <button hidefocus="true" name="restore">
+                        恢复默认</button></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="imgMap">
+    <img src="@(Print.PlaneId > 0 ? Print.Image : TPrint.PlaneId > 0 ? TPrint.Image : slt.Logistics.LogisticsImg)" style="width:@((Print.PlaneId > 0 ? Print.Width : TPrint.PlaneId > 0 ? TPrint.Width : slt.Logistics.LogisticsWdith) / 10)cm;height:@((Print.PlaneId > 0 ? Print.Height : TPrint.PlaneId > 0 ? TPrint.Height : slt.Logistics.LogisticsHeight) / 10)cm;" ref='imageMaps' />
+</div>
+<input type="hidden" name="PId" value="@Print.PlaneId" />
+<input type="hidden" name="TId" value="@TPrint.PlaneId" />
+<input type="hidden" name="UId" value="@ViewBag.UserId" />
+<input type="hidden" name="LImg" value="@(Print.PlaneId > 0 ? Print.Image : TPrint.PlaneId > 0 ? TPrint.Image : slt.Logistics.LogisticsImg)" />
+<input type="hidden" name="LId" value="@LId" />
+<div class="dialogContainer">
+    <div class="dialogContainer-bg">
+        <hd class="dialogContainer-hd">参数配置信息</hd>
+        <bd class="dialogContainer-bd">
+            <table cellpadding="0" cellspacing="0" width="100%" border="0">
+                <tr>
+                    <td class="left">字体：</td>
+                    <td>
+                    @{}
+                        <select name="font" style="width:180px;">
+                           @foreach (var item in fontConfig)
+                           { 
+                            <option value="@item.FontId">@item.FontName</option>
+                           }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left">字体大小：</td>
+                    <td><input name="fontSize" type="text" class="mini" value="" /> px</td>
+                </tr>
+                <tr>
+                    <td class="left">是否加粗：</td>
+                    <td>
+                        <label class="checkbox"><span><input name="bold" type="checkbox" hidefocus="true"></span></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left">对齐方式：</td>
+                    <td>
+                        <select name="align" style="width:180px;">
+                            <option value="1">左对齐</option>
+                            <option value="2">居中对齐</option>
+                            <option value="3">右对齐</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="tr_name">
+                    <td class="left">自定义内容：</td>
+                    <td><input type="text" value="" /></td>
+                </tr>
+                <tr class="tr_item">
+                    <td class="left">包含子项：</td>
+                    <td>
+                        <label class="checkbox"><span><input name="allitem" type="checkbox" hidefocus="true"></span><em>商品名称</em></label>
+                        <label class="checkbox"><span><input name="allitem" type="checkbox" hidefocus="true"></span><em>商品名称</em></label>
+                        <label class="checkbox"><span><input name="allitem" type="checkbox" hidefocus="true"></span><em>商品名称</em></label>
+                    </td>
+                </tr>
+                <tr class="tr_param">
+                    <td class="left">显示条数：</td>
+                    <td><input type="text" class="mini" value="" /> 条</td>
+                </tr>
+                <tr class="tr_width">
+                    <td class="left">图片宽度：</td>
+                    <td><input type="text" name="img_w" class="mini" value="" /> px</td>
+                </tr>
+                <tr class="tr_height">
+                    <td class="left">图片高度：</td>
+                    <td><input type="text" name="img_h" class="mini" value="" /> px</td>
+                </tr>
+                <tr class="tr_url">
+                    <td class="left">图片地址：</td>
+                    <td><input type="text" name="img_url" style="width:240px;" value="" /> </td>
+                </tr>
+            </table>
+            <div class="dialogContainer-tool">
+                <a href="javascript:void();" class="cancel">关闭</a>
+                <a href="javascript:void();" class="save">确定</a>
+            </div>
+        </bd>
+        <ft class="dialogContainer-ft">
+            <a href="javascript:void();" class="dialogContainer-close" title="关闭">关闭</a>
+        </ft>
+    </div>
+</div>

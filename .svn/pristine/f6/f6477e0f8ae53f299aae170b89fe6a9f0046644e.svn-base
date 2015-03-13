@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Xml.Serialization;
+
+namespace MYDZ.Business.TB_Logic.TQL
+{
+    public class TQLResponse : Top.Api.TopResponse
+    {
+        /// <summary>
+        /// 拼接后的SQL语句
+        /// </summary>
+        [XmlElement("TQLStr")]
+        public TQLStr TQLStr { get; set; }
+    }
+}

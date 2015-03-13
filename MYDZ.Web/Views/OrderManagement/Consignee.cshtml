@@ -1,0 +1,25 @@
+﻿@model MYDZ.Entity.Order.tbConsigneeInfo
+<tr>
+    <td class="left">收货人姓名：</td>
+    <td><input type="text" name="c_name" value="@Model.Name" /></td>
+</tr>
+<tr>
+    <td class="left">收货人电话：</td>
+    <td><input type="text" name="c_phone" value="@Model.Phone" /></td>
+</tr>
+<tr>
+    <td class="left">收货人手机：</td>
+    <td><input type="text" name="c_mobile" value="@Model.Mobile" /></td>
+</tr>
+<tr>
+    <td class="left">收货人邮编：</td>
+    <td><input type="text" name="c_code" value="@Model.PostCode" /></td>
+</tr>
+<tr>
+    <td class="left">收货人区域：</td>
+    <td><input type="text" style="width:70px;" name="c_pro" value="@Model.Provice" /> -- <input type="text" name="c_city" style="width:70px;" value="@Model.City" /> -- <input type="text"  style="width:70px;" name="c_dis" value="@Model.District" /></td>
+</tr>
+<tr>
+    <td class="left">收货人地址：</td>
+    <td><input type="text" style="width:280px;" name="c_addr" value="@Model.ConsigneeAddress" /></td>
+</tr>

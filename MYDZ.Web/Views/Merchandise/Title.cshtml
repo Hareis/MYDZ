@@ -1,0 +1,132 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>标题</title>
+    <link href="@Url.Content("~/css/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/control.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/js/jquery-1.11.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/jquery-ui.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/PopWindow.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/Skin.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/master.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/js/select2.min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Validation/style.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Validation/Validform_v5.3.2_min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Validation/Validform.js")" type="text/javascript"></script>
+    <style type="text/css">
+        tr td
+        {
+            height: 40px;
+        }
+        .repalcewordtr
+        {
+            display:none;
+            }
+    </style>
+</head>
+<body>
+    <div>
+        <form action="/Merchandise/updateGoodsTitle.html" method="post" id="test">
+        <div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>
+                    <label style="color: Red;">
+                        *</label>修改选项</span>
+                <div class="table_bd">
+                    <select name="Updatedtype" class="SelecttitleType" style="width: 150px;" datatype="*"
+                        nullmsg="还是写点东西吧">
+                        <option value="0">请选择</option>                        
+                        <option value="1">头部添加</option>
+                        <option value="2">关键字替换</option>
+                        <option value="3">尾部添加</option>
+                    </select>
+                    <div class="msg_info">
+                        <span class="Validform_checktip"></span><i></i>
+                    </div>
+                    <input type="hidden" name="ListGoodsId" />
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>
+                    <label style="color: Red;">
+                        *</label>关键字</span>
+                <div class="table_bd">
+                    <input type="text" name="repalcword" value="" style="width: 130px;" datatype="*"
+                        nullmsg="还是写点东西吧" />
+                    <div class="msg_info">
+                        <span class="Validform_checktip"></span><i></i>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item  repalcewordtr">
+                <span class="table_hd"><span class="require"></span>
+                    <label style="color: Red;">
+                        *</label>替换为 </span>
+                <div class="table_bd">
+                    <input type="text" name="repalcedword" value="" style="width: 130px;" />
+                </div>
+            </div>
+            <div class="table_action">
+                <button type="submit">
+                    提交</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</body>
+<script type="text/javascript">
+    Validform.Controller.Init({
+        form: "#test",
+        beforeSubmit: function () {
+            PopWindow.Controller.Init({ type: "loading", opacity: 0 });
+            if ($('.input[name=ListGoodsId]').val() === null) { return false; }
+        }
+    }).config({
+        ajaxPost: true,
+        callback: function (data) {
+            PopWindow.Controller.Clear();
+            if (!data.ErrorMsg.join(",") != null && data.ErrorMsg.join(",") != "") {
+                PopWindow.Controller.Init({ type: "error", opacity: 0, width: 352, height: 198, title: data.ErrorMsg.join(",") });
+            }
+        }
+    });
+    $(function () {
+        $('.SelecttitleType').select2();
+        Sendedinfo();
+        selectchange();
+        //获取从别的页面发送过来的信息
+        function Sendedinfo() {
+            var productlist = null;
+            var Msg = window.location.search.substr(1);
+            Msg = decodeURI(Msg);
+            var aryVars = Msg.split('&');
+            var obj = new Object();
+            for (var i = 0; i < aryVars.length; i++) {
+                var aryPair = aryVars[i].split('=');
+                obj[aryPair[0]] = aryPair[1];
+            }
+            for (var key in obj) {
+                productlist = obj[key];
+            }
+            var GoodsId = productlist.split(',');
+            $('input[name=ListGoodsId]').val(GoodsId.toString());
+            alert(GoodsId.toString());
+        }
+
+        function selectchange() {
+            $('.SelecttitleType').change(function () {
+                if ($(this).val() === "2") {
+                    $('.repalcewordtr').show();
+                } else {
+                    $('.repalcewordtr').hide();
+                }
+            });
+        }
+    });
+</script>
+</html>

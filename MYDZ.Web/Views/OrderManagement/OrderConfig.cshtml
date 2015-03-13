@@ -1,0 +1,566 @@
+﻿@{
+    Layout = "~/Views/Shared/_SubMaster.cshtml";
+    ViewBag.Title = "订单导入设置";
+}
+<link href="@Url.Content("~/css/OrderConfig.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/OrderManagement/Expressions.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/select2.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/OrderManagement/OrderConfig.js")" type="text/javascript"></script>
+@{
+    MYDZ.Entity.Order.tbOrdersConfig Config = new MYDZ.Entity.Order.tbOrdersConfig();
+    IList<MYDZ.Entity.Order.StoreLogistics> ShopLogisticsList = new List<MYDZ.Entity.Order.StoreLogistics>();
+    IList<MYDZ.Entity.Order.tbOrdersStatus> OrdersStatusList = new List<MYDZ.Entity.Order.tbOrdersStatus>();
+    IList<MYDZ.Entity.Order.tbConfigDetail> DetailList = new List<MYDZ.Entity.Order.tbConfigDetail>();
+
+    Config = ViewData["Config"] == null ? new MYDZ.Entity.Order.tbOrdersConfig() : ViewData["Config"] as MYDZ.Entity.Order.tbOrdersConfig;
+    ShopLogisticsList = ViewData["ShopLogisticsList"] == null ? new List<MYDZ.Entity.Order.StoreLogistics>() : ViewData["ShopLogisticsList"] as IList<MYDZ.Entity.Order.StoreLogistics>;
+    OrdersStatusList = ViewData["OrdersStatusList"] == null ? new List<MYDZ.Entity.Order.tbOrdersStatus>() : ViewData["OrdersStatusList"] as IList<MYDZ.Entity.Order.tbOrdersStatus>;
+    DetailList = ViewData["OrdersStatusList"] == null ? new List<MYDZ.Entity.Order.tbConfigDetail>() : ViewData["DetailList"] as IList<MYDZ.Entity.Order.tbConfigDetail>;
+
+    Dictionary<int, string> FlagList = new Dictionary<int, string>() { { 1, "灰色" }, { 2, "红色" }, { 3, "黄色" }, { 4, "绿色" }, { 5, "蓝色" }, { 6, "紫色" } };
+    Dictionary<int, string> dic = new Dictionary<int, string>() { { 0, "不修改" }, { 1, "<img src='/Images/Flag/op_memo_1.png' />" }, { 2, "<img src='/Images/Flag/op_memo_2.png' />" }, { 3, "<img src='/Images/Flag/op_memo_3.png' />" }, { 4, "<img src='/Images/Flag/op_memo_4.png' />" }, { 5, "<img src='/Images/Flag/op_memo_5.png' />" } };
+    Dictionary<string, string> AreaList = new Dictionary<string, string>() { { "上海", "上海" }, { "江苏省", "江苏省" }, { "浙江省", "浙江省" }, { "安徽省", "安徽省" }, { "江西省", "江西省" }, { "北京", "北京" }, { "天津", "天津" }, { "山西省", "山西省" }, { "山东省", "山东省" }, { "河北省", "河北省" }, { "内蒙古自治区", "内蒙古自治区" }, { "湖南省", "湖南省" }, { "湖北省", "湖北省" }, { "河南省", "河南省" }, { "广东省", "广东省" }, { "广西壮族自治区", "广西壮族自治区" }, { "福建省", "福建省" }, { "海南省", "海南省" }, { "辽宁省", "辽宁省" }, { "吉林省", "吉林省" }, { "黑龙江省", "黑龙江省" }, { "陕西省", "陕西省" }, { "新疆维吾尔自治区", "新疆维吾尔自治区" }, { "甘肃省", "甘肃省" }, { "宁夏回族自治区", "宁夏回族自治区" }, { "青海省", "青海省" }, { "重庆", "重庆" }, { "云南省", "云南省" }, { "贵州省", "贵州省" }, { "西藏自治区", "西藏自治区" }, { "四川省", "四川省" }, { "香港特别行政区", "香港特别行政区" }, { "澳门特别行政区", "澳门特别行政区" }, { "台湾省", "台湾省" }, { "海外", "海外" } };
+    int Status = ViewBag.Status;
+}
+<div class="tab">
+    <ul>
+        <li class="selected">@*@Shop.ShopName*@ 订单导入设置</li>
+    </ul>
+</div>
+<div class="table_form">
+    @using (Html.BeginForm())
+    { 
+        <div class="MsgWrap @(Status == 1 ? "SuccessWrap" : "")" @(Status > -1 ? Html.Raw("style='display:block;'") : Html.Raw(""))>
+            <i></i><span>@(Status > -1 ? Status == 1 ? "保存数据成功" : "保存数据失败" : "")</span></div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>判断未付款订单： </span>
+            <div class="table_bd">
+                <label class="checkbox @((Config.ConfigId > 0 && Config.JudgePay) ? "checked" : "")">
+                    <span>
+                        <input name="JudgePay" type="checkbox" @((Config.ConfigId > 0 && Config.JudgePay) ? "checked" : "") hidefocus="true"></span><em>是否开启</em></label>
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>是否判断同一用户名中是否有未付款的订单，如果有，则该用户的所有订单不导入系统。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>是否合并订单： </span>
+            <div class="table_bd">
+                <label class="checkbox @((Config.ConfigId > 0 && Config.MergerOrder) ? "checked" : "")">
+                    <span>
+                        <input name="MergerOrder" @((Config.ConfigId > 0 && Config.MergerOrder) ? "checked" : "") type="checkbox" hidefocus="true"></span><em>是否合并</em></label>
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>同一用户名、相同地址的订单是否自动合并为一个订单打印发货。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>退款订单是否打印： </span>
+            <div class="table_bd">
+                <label class="checkbox @((Config.ConfigId > 0 && Config.RefundPrint) ? "checked" : "")">
+                    <span>
+                        <input name="RefundPrint" @((Config.ConfigId > 0 && Config.RefundPrint) ? "checked" : "") type="checkbox" hidefocus="true"></span><em>是否打印</em></label>
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>退款中的子订单信息是否允许打印。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>智能匹配物流： </span>
+            <div class="table_bd">
+                <label class="checkbox @((Config.ConfigId > 0 && Config.LogisticsDis) ? "checked" : "")">
+                    <span>
+                        <input name="LogisticsDis" @((Config.ConfigId > 0 && Config.LogisticsDis) ? "checked" : "") type="checkbox" hidefocus="true"></span><em>是否开启</em></label>
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>根据收件地址智能判断能够派送的物流，并按照“物流设置”中的优先级别，从高到低匹配。如果都不派送，则选择优先级别最低的物流。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require">*</span>付款时间设置： </span>
+            <div class="table_bd">
+                订单付款时间截止到订单导入时间满
+                <input name="PayTime" value="@(Config.ConfigId <= 0 ? "0" : Config.PayTime.ToString())" type="text" class="mini" />
+                分钟方可导入
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>付款时间截止到导入时间大于或等于设置的时间，才能导入订单，为0则不判断。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>修改备注旗帜： </span>
+            <div class="table_bd">
+                @{int chkval = Config.ConfigId <= 0 ? 0 : Config.RemarkFlag;}
+                @foreach (var item in dic)
+                { 
+                    <label class="radio @(chkval == item.Key ? "checked" : "")">
+                        <span>
+                            <input name="RemarkFlag" type="radio" @(chkval == item.Key ? "checked" : "") value="@item.Key" hidefocus="true"></span><em>@Html.Raw(item.Value)</em></label>	
+                }
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>订单导入后，是否修改订单备注旗帜为设置值（此处只作为一个标识）。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>修改备注内容： </span>
+            <div class="table_bd">
+                <input type="text" name="Remark" value="@(Config.ConfigId <= 0 ? "" : Config.Remark)" class="mini" />
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>订单导入后，是否修改订单备注为设置值（不修改订单原有备注，在备注内容后面追加）。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>货到付款订单： </span>
+            <div class="table_bd">
+                使用
+                <select style="width: 180px;" name="CashDelivery">
+                    <option value="">请选择物流</option>
+                    @foreach (var item in ShopLogisticsList)
+                    { 
+                        <option value="@item.Logistics.LogisticsId" @((Config.ConfigId > 0 && !String.IsNullOrEmpty(Config.CashDelivery)) ? (item.Logistics.LogisticsId == int.Parse(Config.CashDelivery)) ? "selected" : "" : "")>@item.Logistics.LogisticsName</option>
+                    }
+                </select>
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>如果订单类型为货到付款订单，则使用指定的物流。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>快递分区： </span>
+            <div class="table_bd">
+                指定
+                <select style="width: 140px;">
+                    <option value="0">请选择地区</option>
+                    @foreach (var item in AreaList)
+                    { 
+                        <option value="@item.Key">@item.Value</option>
+                    }
+                </select>
+                ，使用
+                <select style="width: 180px;">
+                    <option value="0">请选择物流</option>
+                    @foreach (var item in ShopLogisticsList)
+                    { 
+                        <option value="@item.Logistics.LogisticsId">@item.Logistics.LogisticsName</option>
+                    }
+                </select>&nbsp;&nbsp;
+                <button type="button" name="add">
+                    添加</button>
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>根据指定的区域，分配固定的物流。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>&nbsp; </span>
+            <div class="table_bd">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                        <tr>
+                            <th width="260">
+                                地区
+                            </th>
+                            <th>
+                                物流信息
+                            </th>
+                            <th width="80">
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody data-id="8">
+                        @foreach (var item in (from p in DetailList where p.EnumId == 8 select p))
+                        {
+                            var strs = @item.Key.Split(',');
+                            <tr data-key="@item.Key" data-value="@item.Value">
+                                <td>@(strs.Length > 1 ? strs[1] : strs[0])
+                                </td>
+                                <td>@item.Value.Split(',')[1]
+                                </td>
+                                <td>
+                                    <a hidefocus="true" href="javascript:void();" class="del">删除</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>客服备注物流规则： </span>
+            <div class="table_bd">
+                当客服备注中包含
+                <input type="text" class="mini" />
+                时，使用
+                <select style="width: 120px;">
+                    <option value="0">请选择物流</option>
+                    @foreach (var item in ShopLogisticsList)
+                    { 
+                        <option value="@item.Logistics.LogisticsId">@item.Logistics.LogisticsName</option>
+                    }
+                </select>&nbsp;&nbsp;
+                <button type="button" name="add">
+                    添加</button>
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>客服备注中包含指定的词组时，改变该订单的配送方式为指定物流。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>&nbsp; </span>
+            <div class="table_bd">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                        <tr>
+                            <th width="260">
+                                客服备注
+                            </th>
+                            <th>
+                                物流信息
+                            </th>
+                            <th width="80">
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody data-id="1">
+                        @foreach (var item in (from p in DetailList where p.EnumId == 1 select p))
+                        {
+                            var strs = @item.Key.Split(',');
+                            <tr data-key="@item.Key" data-value="@item.Value">
+                                <td>@(strs.Length > 1 ? strs[1] : strs[0])
+                                </td>
+                                <td>@item.Value.Split(',')[1]
+                                </td>
+                                <td>
+                                    <a hidefocus="true" href="javascript:void();" class="del">删除</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>买家留言物流规则： </span>
+            <div class="table_bd">
+                当买家留言中包含
+                <input type="text" class="mini" />
+                时，使用
+                <select style="width: 120px;">
+                    <option value="0">请选择物流</option>
+                    @foreach (var item in ShopLogisticsList)
+                    { 
+                        <option value="@item.Logistics.LogisticsId">@item.Logistics.LogisticsName</option>
+                    }
+                </select>&nbsp;&nbsp;
+                <button type="button" name="add">
+                    添加</button>
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>买家留言中包含指定的词组时，改变该订单的配送方式为指定物流。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>&nbsp; </span>
+            <div class="table_bd">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                        <tr>
+                            <th width="260">
+                                买家留言
+                            </th>
+                            <th>
+                                物流信息
+                            </th>
+                            <th width="80">
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody data-id="2">
+                        @foreach (var item in (from p in DetailList where p.EnumId == 2 select p))
+                        {
+                            var strs = @item.Key.Split(',');
+                            <tr data-key="@item.Key" data-value="@item.Value">
+                                <td>@(strs.Length > 1 ? strs[1] : strs[0])
+                                </td>
+                                <td>@item.Value.Split(',')[1]
+                                </td>
+                                <td>
+                                    <a hidefocus="true" href="javascript:void();" class="del">删除</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>备注旗帜订单状态： </span>
+            <div class="table_bd">
+                当订单旗帜为
+                <select style="width: 96px;">
+                    <option value="0">请选择旗帜</option>
+                    @foreach (var item in FlagList)
+                    { 
+                        <option value="@item.Key">@item.Value</option>
+                    }
+                </select>
+                时，使用
+                <select style="width: 180px;">
+                    <option value="0">请选择订单状态</option>
+                    @foreach (var item in OrdersStatusList)
+                    { 
+                        <option value="@item.OrdersStatusId">@item.OrdersStatusName</option>
+                    }
+                </select>&nbsp;&nbsp;
+                <button type="button" name="add">
+                    添加</button>
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>备注旗帜为指定旗帜时，改变订单的状态为指定状态。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>&nbsp; </span>
+            <div class="table_bd">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                        <tr>
+                            <th width="260">
+                                订单旗帜
+                            </th>
+                            <th>
+                                订单状态
+                            </th>
+                            <th width="80">
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody data-id="3">
+                        @foreach (var item in (from p in DetailList where p.EnumId == 3 select p))
+                        {
+                            var strs = @item.Key.Split(',');
+                            <tr data-key="@item.Key" data-value="@item.Value">
+                                <td>@(strs.Length > 1 ? strs[1] : strs[0])
+                                </td>
+                                <td>@item.Value.Split(',')[1]
+                                </td>
+                                <td>
+                                    <a hidefocus="true" href="javascript:void();" class="del">删除</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>客服备注订单状态： </span>
+            <div class="table_bd">
+                当客服备注中包含
+                <input type="text" class="mini" />
+                时，使用
+                <select style="width: 180px;">
+                    <option value="0">请选择订单状态</option>
+                    @foreach (var item in OrdersStatusList)
+                    { 
+                        <option value="@item.OrdersStatusId">@item.OrdersStatusName</option>
+                    }
+                </select>&nbsp;&nbsp;
+                <button type="button" name="add">
+                    添加</button>
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>客服备注中包含指定的词组时，改变订单状态为指定状态。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>&nbsp; </span>
+            <div class="table_bd">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                        <tr>
+                            <th width="260">
+                                客服备注
+                            </th>
+                            <th>
+                                订单状态
+                            </th>
+                            <th width="80">
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody data-id="4">
+                        @foreach (var item in (from p in DetailList where p.EnumId == 4 select p))
+                        {
+                            var strs = @item.Key.Split(',');
+                            <tr data-key="@item.Key" data-value="@item.Value">
+                                <td>@(strs.Length > 1 ? strs[1] : strs[0])
+                                </td>
+                                <td>@item.Value.Split(',')[1]
+                                </td>
+                                <td>
+                                    <a hidefocus="true" href="javascript:void();" class="del">删除</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>商品名称订单状态： </span>
+            <div class="table_bd">
+                当商品名称中包含
+                <input type="text" class="mini" />
+                时，使用
+                <select style="width: 180px;">
+                    <option value="0">请选择订单状态</option>
+                    @foreach (var item in OrdersStatusList)
+                    { 
+                        <option value="@item.OrdersStatusId">@item.OrdersStatusName</option>
+                    }
+                </select>&nbsp;&nbsp;
+                <button type="button" name="add">
+                    添加</button>
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>商品名称中包含指定的词组时，改变订单状态为指定状态。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>&nbsp; </span>
+            <div class="table_bd">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                        <tr>
+                            <th width="260">
+                                商品名称
+                            </th>
+                            <th>
+                                订单状态
+                            </th>
+                            <th width="80">
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody data-id="6">
+                        @foreach (var item in (from p in DetailList where p.EnumId == 6 select p))
+                        {
+                            var strs = @item.Key.Split(',');
+                            <tr data-key="@item.Key" data-value="@item.Value">
+                                <td>@(strs.Length > 1 ? strs[1] : strs[0])
+                                </td>
+                                <td>@item.Value.Split(',')[1]
+                                </td>
+                                <td>
+                                    <a hidefocus="true" href="javascript:void();" class="del">删除</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>商家编码订单状态： </span>
+            <div class="table_bd">
+                当商家编码中包含
+                <input type="text" class="mini" />
+                时，使用
+                <select style="width: 180px;">
+                    <option value="0">请选择订单状态</option>
+                    @foreach (var item in OrdersStatusList)
+                    { 
+                        <option value="@item.OrdersStatusId">@item.OrdersStatusName</option>
+                    }
+                </select>&nbsp;&nbsp;
+                <button type="button" name="add">
+                    添加</button>
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>商家编码中包含指定的词组时，改变订单状态为指定状态。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>&nbsp; </span>
+            <div class="table_bd">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                        <tr>
+                            <th width="260">
+                                商家编码
+                            </th>
+                            <th>
+                                订单状态
+                            </th>
+                            <th width="80">
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody data-id="7">
+                        @foreach (var item in (from p in DetailList where p.EnumId == 7 select p))
+                        {
+                            var strs = @item.Key.Split(',');
+                            <tr data-key="@item.Key" data-value="@item.Value">
+                                <td>@(strs.Length > 1 ? strs[1] : strs[0])
+                                </td>
+                                <td>@item.Value.Split(',')[1]
+                                </td>
+                                <td>
+                                    <a hidefocus="true" href="javascript:void();" class="del">删除</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>买家留言订单状态： </span>
+            <div class="table_bd">
+                当买家留言中包含
+                <input type="text" class="mini" />
+                时，使用
+                <select style="width: 180px;">
+                    <option value="0">请选择订单状态</option>
+                    @foreach (var item in OrdersStatusList)
+                    { 
+                        <option value="@item.OrdersStatusId">@item.OrdersStatusName</option>
+                    }
+                </select>&nbsp;&nbsp;
+                <button type="button" name="add">
+                    添加</button>
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>买家留言中包含指定的词组时，改变订单状态为指定状态。</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>&nbsp; </span>
+            <div class="table_bd">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                        <tr>
+                            <th width="260">
+                                买家留言
+                            </th>
+                            <th>
+                                订单状态
+                            </th>
+                            <th width="80">
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody data-id="5">
+                        @foreach (var item in (from p in DetailList where p.EnumId == 5 select p))
+                        {
+                            var strs = @item.Key.Split(',');
+                            <tr data-key="@item.Key" data-value="@item.Value">
+                                <td>@(strs.Length > 1 ? strs[1] : strs[0])
+                                </td>
+                                <td>@item.Value.Split(',')[1]
+                                </td>
+                                <td>
+                                    <a hidefocus="true" href="javascript:void();" class="del">删除</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_action">
+            <button type="submit" hidefocus="true">
+                保存</button>
+        </div>
+        <input type="hidden" name="ShopId" value="@ViewBag.ShopId" />
+        <input type="hidden" name="ConfigId" value="@Config.ConfigId" />
+    }
+</div>

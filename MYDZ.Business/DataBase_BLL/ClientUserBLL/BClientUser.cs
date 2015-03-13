@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Interface;
+using MYDZ.Interface.ClientUser;
+using MYDZ.Entity.ClientUser;
+
+namespace MYDZ.Business.ClientUserBLL
+{
+    public class BClientUser
+    {
+        public static IClientUser SetUserInfo = (IClientUser)DALFactory.DataAccess.Create("ClientUser.ClientUser");
+
+        /// <summary>
+        /// 添加用户信息
+        /// </summary>
+        /// <param name="ClientUser"></param>
+        /// <returns></returns>
+        public static int InsertUser(tbClientUser ClientUser)
+        {
+            return SetUserInfo.InsertUser(ClientUser);
+        }
+        /// <summary>
+        /// 修改个人信息
+        /// </summary>
+        /// <param name="ClientUser"></param>
+        /// <returns></returns>
+        public static bool UpdateUser(tbClientUser ClientUser)
+        {
+            return SetUserInfo.UpdateUser(ClientUser);
+        }
+        /// <summary>
+        /// 查询数据库中是否存在该用户
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
+        public static tbClientUser ExitisUser(string UserId, string UserNick)
+        {
+            return SetUserInfo.ExitisUser(UserId, UserNick);
+        }
+
+        /// <summary>
+        /// 查询数据库中该用户
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
+        public static tbClientUser SelectUser(string UserId, string UserNick)
+        {
+            return SetUserInfo.SelectUser(UserId, UserNick);
+        }
+
+    }
+}

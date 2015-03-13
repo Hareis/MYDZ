@@ -1,0 +1,275 @@
+﻿
+.fix_body_wrap
+{
+    width: 1000px;
+    margin: 0px auto;
+    position: relative;
+    z-index: 0;
+}
+.selecttimetip
+{
+    color: #0080FF;
+    margin-top: 5px;
+}
+.Trade-detail-thead th div
+{
+    float: left;
+    max-width: 222px;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 8px;
+}
+.Trade-detail-table
+{
+    border-color: #4682b4 #bbbbbb #bbbbbb #bbbbbb;
+    border-width: 2px 0px 1px 1px;
+    border-style: solid;
+    width: 1000px;
+    margin-top: 10px;
+}
+.Trade-detail-tbody .OrderItem td
+{
+    border-width: 1px 1px 0px 0px;
+    border-style: solid;
+    border-color: #bbbbbb;
+}
+.Trade-detail-thead-th
+{
+    background-color: #f2f2f2;
+    border-right: 1px solid #bbbbbb;
+    height: 35px; /* border-bottom-width:1px;     border-bottom-color: gray;     border-bottom-style: solid;*/
+}
+.Trade-detail-tbody tr
+{
+    height: 104px;
+    max-height: 104px;
+}
+.OrderItem tbody
+{
+    min-height: 121px;
+}
+.detail_wrap-Sjinfo p
+{
+    margin-top: 5px;
+}
+.systemtip
+{
+    background-color: yellow;
+    border: 1px solid rgb(215, 215, 212);
+    padding: 3px;
+    margin-top: 15px;
+    width: 400px;
+    float: right;
+}
+
+.detail_wrap
+{
+    position: relative;
+}
+.detail_div
+{
+    display: none;
+    position: absolute;
+    z-index: 10;
+    width: 250px;
+    right: 70px;
+    top: -20px;
+}
+.detail_wrap:hover .detail_div
+{
+    display: block;
+}
+.detail_div ul.top
+{
+    height: 31px;
+    width: 250px;
+    background: url('/Images/ToolTip/top.gif') no-repeat;
+    text-align: left;
+}
+.detail_div ul.top li
+{
+    height: 29px;
+    margin: 0px 0px 0px 10px;
+    padding: 0px 0px 0px 20px;
+    text-align: left;
+    background: url('/Images/ToolTip/title.gif') no-repeat left center;
+    color: #c33700;
+    font-weight: bold;
+    line-height: 29px;
+    float: left;
+}
+.detail_div ul.top li.img
+{
+    height: 29px;
+    margin: 0px;
+    padding: 0px;
+    width: 100px;
+    text-align: left;
+    background: none;
+}
+.detail_div ul.top li.img img
+{
+    width: 12px;
+    height: 12px;
+    border: 0px;
+}
+.detail_div ul.bottom
+{
+    height: 9px;
+    width: 250px;
+    background: url('/Images/ToolTip/bottom.gif') no-repeat;
+}
+.detail_div ul.middle
+{
+    width: 250px;
+    background: url('/Images/ToolTip/middle.gif');
+}
+.detail_div ul.middle li
+{
+    margin: 0px;
+    padding: 0px 0px 0px 10px;
+    width: 200px;
+    text-align: left;
+    color: #666666;
+    line-height: 29px;
+    white-space: normal;
+    word-break: break-all;
+    overflow: auto;
+}
+table.ot th div
+{
+    float: left;
+    margin-left: 10px;
+}
+.detail_wrap
+{
+    position: relative;
+}
+
+.detail_wrap
+{
+    position: relative;
+}
+.detail_div, .DataTable table.ot th div.detail_div
+{
+    display: none;
+    position: absolute;
+    z-index: 10;
+    width: 250px;
+    right: 30px;
+    top: -20px;
+}
+.DataTable table.ot th div.detail_div
+{
+    right: 15px;
+}
+
+.detail_div ul.top
+{
+    height: 31px;
+    width: 250px;
+    background: url('../../Images/ToolTip/top.gif') no-repeat;
+    text-align: left;
+}
+.detail_div ul.top li
+{
+    height: 29px;
+    margin: 0px 0px 0px 10px;
+    padding: 0px 0px 0px 20px;
+    text-align: left;
+    background: url('../../Images/ToolTip/title.gif') no-repeat left center;
+    color: #c33700;
+    font-weight: bold;
+    line-height: 29px;
+    float: left;
+}
+.detail_div ul.top li.img
+{
+    height: 29px;
+    margin: 0px;
+    padding: 0px;
+    width: 100px;
+    text-align: left;
+    background: none;
+}
+.detail_div ul.top li.img img
+{
+    width: 12px;
+    height: 12px;
+    border: 0px;
+}
+.detail_div ul.bottom
+{
+    height: 9px;
+    width: 250px;
+    background: url('../../Images/ToolTip/bottom.gif') no-repeat;
+}
+.detail_div ul.middle
+{
+    width: 250px;
+    background: url('../../Images/ToolTip/middle.gif');
+}
+.detail_div ul.middle li
+{
+    margin: 0px;
+    padding: 0px 0px 0px 10px;
+    width: 200px;
+    text-align: left;
+    color: #666666;
+    line-height: 29px;
+    white-space: normal;
+    word-break: break-all;
+    overflow: auto;
+}
+.page_box
+{
+    margin-top: 10px;
+    width: 1000px;
+    float: right;
+}
+.middle
+{
+    height: 29px;
+}
+.tab a.sync:hover, .tab a.userdown:hover
+{
+    border: #3984D0 1px solid;
+    color: #3984D0;
+}
+.tab a.userdown
+{
+    right: 80px;
+}
+.tab a.sync, .tab a.userdown
+{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 12px;
+    moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px solid #B3B3B3;
+    background: #FEFEFE;
+    color: #656565;
+    height: 20px;
+    line-height: 20px;
+    padding: 0px 10px;
+    text-decoration: none;
+}
+.sortbar .preview_des {
+left: 3px;
+top: 3px;
+margin: 0px;
+width: 300px;
+overflow: hidden;
+}
+.preview_des {
+border: #F1E38B 1px solid;
+background: #FFFAE3;
+text-align: left;
+margin: 10px;
+padding-left: 10px;
+position: relative;
+}

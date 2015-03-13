@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Top.Api;
+using Top.Api.Request;
+using Top.Api.Response;
+
+namespace MYDZ.Business.TB_Logic.Order
+{
+   internal class GetTradeInfo
+    {
+       public void GetTradesSold(string sessionKey)
+       {
+           ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret, "json");
+           TradesSoldGetRequest req = new TradesSoldGetRequest();
+           req.Fields = "total_fee";
+           DateTime dateTime = DateTime.Parse("2000-01-01 00:00:00");
+           req.StartCreated = dateTime;
+           DateTime dateTime1 = DateTime.Parse("2000-01-01 23:59:59");
+           req.EndCreated = dateTime1;
+           req.Status = "ALL_WAIT_PAY";
+           req.BuyerNick = "zhangsan";
+           req.Type = "game_equipment";
+           req.ExtType = "service";
+           req.RateStatus = "RATE_UNBUYER";
+           req.Tag = "time_card";
+           req.PageNo = 1L;
+           req.PageSize = 40L;
+           req.UseHasNext = true;
+           TradesSoldGetResponse response = client.Execute(req, sessionKey);
+       }
+    }
+}

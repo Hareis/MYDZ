@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "订单处理 - 魔云店长";
+    Layout = "~/Views/Shared/_SubMaster.cshtml";
+}
+<link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/select2.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/Page.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Validation/Validform_v5.3.2_min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Validation/Validform.js")" type="text/javascript"></script>
+<link href="../../js/datepicker/datePicker.css" rel="stylesheet" type="text/css" />
+<script src="../../js/datepicker/jquery.datePicker-min.js" type="text/javascript"></script>
+@using (Html.BeginForm("SHowGoodsOnsales", "Merchandise", FormMethod.Post, new { id = "QueryCriteria" }))
+{ 
+    <div class="btn_wrap">
+        <div class="btn_wrap_hd">
+            <span class="title"><i></i>订单处理-首页</span>
+        </div>
+        <div class="btn_wrap_bd">
+            <ul>
+                <li>
+                    <label>
+                        订单编号：</label></li>
+                <li>
+                    <input type="text" name="Q" value="" /></li>
+                
+            </ul>
+        </div>
+        <div class="btn_wrap_bd">
+            <ul>
+            <li>
+                    <label>
+                        订单时间：</label></li>
+                <li>
+                     <input type="text" name="" value=""  plugin="datepicker"/> &nbsp;--
+                </li>
+                <li>
+                    <input type="text" name="" value=""  plugin="datepicker"/>                    
+                    </li>
+            </ul>
+        </div>
+        <div class="btn_wrap_bd clear_border">
+            <ul>
+                <li>
+                    <label style="padding-left: 66px;">
+                        &nbsp;</label></li>
+                <li>
+                    <button type="submit" hidefocus="true" name="Search">
+                        搜索订单</button></li>
+                <li><a href="/Merchandise/OnSale.html" hidefocus="hidefocus" class="reset">重置</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="fix_body_wrap">
+        <div class="body_wrap">
+            <div class="tab">
+                <ul>
+                    <li><a href="javascript:void();" data="chushouzhong" class="selected GoodStatus">出售中商品<label
+                        class="TotalNumOnsales" style=""></label></a> <a href="javascript:void();" data="chuchuang"
+                            class="GoodStatus">橱窗推荐商品
+                            <label class="TotalNumOnsales">
+                            </label>
+                        </a><a href="javascript:void();" data="weituijian" class="GoodStatus">未推荐商品
+                            <label class="TotalNumOnsales">
+                            </label>
+                        </a></li>
+                </ul>
+                <input type="hidden" name="HasShowcase" value="null" />
+            </div>
+            <div class="tab_tool">
+                <ul>
+                    <li>
+                        <label class="checkbox">
+                            <span>
+                                <input name="chk_all" type="checkbox" hidefocus="true" style="margin-left: 8px;">
+                            </span><em>全选</em>
+                        </label>
+                        <input type="hidden" name="ListGoodId" value="" />
+                    </li>
+                    <li><a href="javascript:void();" class="BatchUnShelve">批量下架</a></li>
+                    <li ><a href="javascript:void();" class="BatchEdit">批量修改 &nbsp;<i></i></a>
+                        <ul class="Nomargin">
+                            <li><a href="javascript:void(0);" data="Freight">运费</a></li>
+                            <li><a href="javascript:void(0);" data="Stock">库存</a></li>
+                            <li><a href="javascript:void(0);" data="Title">标题</a></li>
+                            <li><a href="javascript:void(0);" data="Describe">描述</a></li>
+                            <li><a href="javascript:void(0);" data="Category">类目</a></li>
+                            <li><a href="javascript:void(0);" data="Coding">编码</a></li>
+                            <li><a href="javascript:void(0);" data="HotDot">卖点</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab_sort">
+                <ul>
+                    <li><a href="javascript:void();" data="list_time" title="">上架时间<i></i></a> </li>
+                    <li><a href="javascript:void();" data="delist_time" title="">下架时间<i></i></a> </li>
+                    <li><a href="javascript:void();" data="modified" title="">修改时间<i></i></a> </li>
+                    <li><a href="javascript:void();" data="num" title="">商品数量<i></i></a> </li>
+                    <li><a href="javascript:void();" data="sold_quantity" title="">商品销量<i></i></a> </li>
+                </ul>
+                <input type="hidden" name="OrderBy" value="null" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    <div class="table_wrap">
+    </div>
+    <div class="page_box" name="paging">
+    </div>
+</div>
+<script type="text/javascript">
+    $(function() {
+
+        $.fn.datePicker.defaults = {
+            month: undefined,
+            year: undefined,
+            showHeader: $.dpConst.SHOW_HEADER_SHORT,
+            startDate: undefined,
+            endDate: undefined,
+            inline: false,
+            renderCallback: null,
+            createButton: true,
+            showYearNavigation: true,
+            closeOnSelect: true,
+            displayClose: false,
+            selectMultiple: false,
+            numSelectable: Number.MAX_VALUE,
+            clickInput: false,
+            rememberViewedMonth: true,
+            selectWeek: false,
+            verticalPosition: $.dpConst.POS_TOP,
+            horizontalPosition: $.dpConst.POS_LEFT,
+            verticalOffset: 0,
+            horizontalOffset: 0,
+            hoverClass: 'dp-hover'
+        };
+    });
+</script>

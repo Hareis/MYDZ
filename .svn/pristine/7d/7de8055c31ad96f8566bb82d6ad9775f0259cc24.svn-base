@@ -1,0 +1,125 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Interface.Order;
+using MYDZ.DALFactory;
+using MYDZ.Entity.Order;
+using MYDZ.Entity.ClientUser;
+using System.Collections;
+using System.Threading;
+
+namespace MYDZ.Business.Order
+{
+    public class OrdersDetail
+    {
+        private static readonly IOrdersDetail OrdersDetailDal = DataAccess.Create("Order.OrdersDetail") as IOrdersDetail;
+
+        /// <summary>
+        /// 根据订单编号查询订单详情信息列表
+        /// </summary>
+        /// <param name="OrdersNumber">订单编号</param>
+        /// <returns></returns>
+        public static IList<tbOrdersDetail> Select(string OrdersNumber)
+        {
+            return OrdersDetailDal.Select(OrdersNumber);
+        }
+
+        /// <summary>
+        /// 添加订单详情信息
+        /// </summary>
+        /// <param name="OrdersDetail">订单详情表</param>
+        /// <returns></returns>
+        public static bool Insert(tbOrdersDetail OrdersDetail)
+        {
+            return OrdersDetailDal.Insert(OrdersDetail);
+        }
+
+        /// <summary>
+        /// 获取淘宝未完成订单
+        /// </summary>
+        private void GetResquestBacklogOrder(TradesSoldGet TradesSold, tbClientUser clientuser, IList<StoreLogistics> LogisticsList)
+        {
+            Hashtable ht = new Hashtable();
+
+            ht.Add("clientuser", clientuser);
+            ht.Add("TradesSoldGet", TradesSold);
+            ht.Add("LogisticsList", LogisticsList);
+
+            //设置最大线程数量为一万
+            ThreadPool.SetMaxThreads(10000, 10000);
+            ThreadPool.QueueUserWorkItem(new WaitCallback(StartRun), ht);
+        }
+        //线程开始执行操作
+        private void StartRun(object obj)
+        {
+            MYDZ.Business.Business_Logic.Order.InitTradeInfo iti = new Business_Logic.Order.InitTradeInfo();
+            string ErrorMsg = null;
+            bool HasNext = false;
+            long TotalResults = 0;
+            Hashtable ht = null;
+            TradesSoldGet TradesSold = null;
+            tbClientUser clientuser = null;
+            List<Trade> listtrade = null;
+            IList<StoreLogistics> LogisticsList = null;
+            tbOrdersInfo OrdersInfo = null;
+            if (obj != null)
+            {
+                ht = new Hashtable();
+                TradesSold = new TradesSoldGet();
+                clientuser = new tbClientUser();
+
+                ht = obj as Hashtable;
+                clientuser = ht["clientuser"] as tbClientUser;
+                TradesSold = ht["TradesSoldGet"] as TradesSoldGet;
+                LogisticsList = ht["LogisticsList"] as List<StoreLogistics>;
+
+                if (TradesSold.StartCreated == null)
+                {
+                    TradesSold.StartCreated = Convert.ToDateTime(DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd HH:mm:ss"));
+                }
+                if (TradesSold.EndCreated == null)
+                {
+                    TradesSold.EndCreated = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                }
+                while (true)
+                {
+                    string Errormsg = null;
+                    List<tbOrdersInfo> listOrdersInfo = null;
+                    listtrade = new List<Trade>();
+                    listtrade = iti.GetTradesSold(clientuser.UserShops[0].SessionKey, TradesSold, out ErrorMsg, out HasNext, out TotalResults);
+                    //
+                    //这里写插入数据库数据
+                    foreach (Trade trade in listtrade)
+                    {
+                        OrdersInfo = new tbOrdersInfo();
+                        listOrdersInfo = new List<tbOrdersInfo>();
+                        OrdersInfo = iti.GetTradeFullinfo(clientuser.UserShops[0].SessionKey, trade.Tid.ToString(), clientuser.UserShops[0].Shop.ShopId, LogisticsList, out Errormsg);
+                        listOrdersInfo.Add(OrdersInfo);
+                    }
+                    //
+                    //这里写插入数据库临时表
+
+                    if (HasNext)
+                    {
+                        TradesSold.PageNo++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+
+        }
+        /// <summary>
+        /// 从淘宝获取订单信息
+        /// </summary>
+        /// <param name="TradesSold"></param>
+        private void GetOrderDetailFromTB(TradesSoldGet TradesSold)
+        {
+
+        }
+    }
+}

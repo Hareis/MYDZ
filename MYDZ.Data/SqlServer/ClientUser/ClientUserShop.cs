@@ -1,0 +1,153 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Interface.ClientUser;
+using System.Data.SqlClient;
+using System.Data;
+using MYDZ.Entity.ClientUser;
+using MYDZ.DBUtility;
+
+namespace MYDZ.Data.SqlServer.ClientUser
+{
+    public class ClientUserShop : IClientUserShop
+    {
+        /// <summary>
+        /// 插入一条数据
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public int InsertUserShop(tbClientUserShop model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into tbClientUserShop(");
+            strSql.Append("UserId,ShopId,SessionKey)");
+            strSql.Append(" values (");
+            strSql.Append("@UserId,@ShopId,@SessionKey)");
+            SqlParameter[] parameters = {
+					new SqlParameter("@UserId", SqlDbType.Int,4),
+					new SqlParameter("@ShopId", SqlDbType.Int,4),
+					new SqlParameter("@SessionKey", SqlDbType.VarChar,50)};
+            parameters[0].Value = model.UserId;
+            parameters[1].Value = model.Shop.ShopId;
+            parameters[2].Value = model.SessionKey;
+
+            return DBHelper.ExecuteNonQuery(CommandType.Text, strSql.ToString(), parameters);
+        }
+        /// <summary>
+        /// 更新一条数据
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool UpdateUserShop(tbClientUserShop model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update tbClientUserShop set ");
+            strSql.Append("ShopId=@ShopId,");
+            strSql.Append("SessionKey=@SessionKey ");
+            strSql.Append("where UserId=@UserId");
+            SqlParameter[] parameters = {
+					new SqlParameter("@UserId", SqlDbType.Int,4),
+					new SqlParameter("@ShopId", SqlDbType.Int,4),
+					new SqlParameter("@SessionKey", SqlDbType.VarChar,50)};
+            parameters[0].Value = model.UserId;
+            parameters[1].Value = model.Shop.ShopId;
+            parameters[2].Value = model.SessionKey;
+
+            int rows = DBHelper.ExecuteNonQuery(CommandType.Text, strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 查询数据 （ by UserId）
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
+        public tbClientUserShop SelectUserShopByUserId(string UserId)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select  top 1 UserId,ShopId,SessionKey from tbClientUserShop ");
+            strSql.Append(" where ");
+            if (UserId == null) { return null; }
+            strSql.Append("UserId=@UserId");
+            SqlParameter[] parameters = {
+					new SqlParameter("@UserId", SqlDbType.Int,4)};
+            parameters[0].Value = UserId;
+            tbClientUserShop model = new tbClientUserShop();
+            DataSet ds = DBHelper.ExecuteDataSet(CommandType.Text, strSql.ToString(), parameters);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                if (ds.Tables[0].Rows[0]["UserId"].ToString() != "")
+                {
+                    model.UserId = int.Parse(ds.Tables[0].Rows[0]["UserId"].ToString());
+                }
+                if (ds.Tables[0].Rows[0]["ShopId"].ToString() != "")
+                {
+                    model.Shop = new Entity.Shop.tbShopInfo();
+                    model.Shop.ShopId = int.Parse(ds.Tables[0].Rows[0]["ShopId"].ToString());
+                }
+                if (ds.Tables[0].Rows[0]["SessionKey"] != null)
+                {
+                    model.SessionKey = ds.Tables[0].Rows[0]["SessionKey"].ToString();
+                }
+                return model;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// 查询数据 （ by ShopId）
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
+        public IList<tbClientUserShop> SelectUserShopByShopId(string ShopId)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select UserId,ShopId,SessionKey from tbClientUserShop ");
+            strSql.Append(" where ");
+            if (ShopId == null) { return null; }
+            strSql.Append("ShopId=@ShopId");
+            SqlParameter[] parameters = {
+					new SqlParameter("@ShopId", SqlDbType.Int,4)};
+            parameters[0].Value = ShopId;
+            tbClientUserShop model = null;
+            DataSet ds = DBHelper.ExecuteDataSet(CommandType.Text, strSql.ToString(), parameters);
+            IList<tbClientUserShop> list = new List<tbClientUserShop>();
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow item in ds.Tables[0].Rows)
+                {
+                    model = new tbClientUserShop();
+                    if (item["UserId"].ToString() != "")
+                    {
+                        model.UserId = int.Parse(item["UserId"].ToString());
+                    }
+                    if (item["ShopId"].ToString() != "")
+                    {
+                        model.Shop = new Entity.Shop.tbShopInfo();
+                        model.Shop.ShopId = int.Parse(item["ShopId"].ToString());
+                    }
+                    if (item["SessionKey"] != null)
+                    {
+                        model.SessionKey = item["SessionKey"].ToString();
+                    }
+                    list.Add(model);
+                }
+                return list;
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+}

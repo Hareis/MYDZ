@@ -1,0 +1,70 @@
+﻿.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br
+{
+    border-bottom-right-radius: 0px;
+}
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl
+{
+    border-bottom-left-radius: 0px;
+}
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr
+{
+    border-top-right-radius: 0px;
+}
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl
+{
+    border-top-left-radius: 0px;
+}
+
+.fix_body_wrap
+{
+    width: 1000px;
+    margin: 0px auto;
+    position: relative;
+    z-index: 0;
+}
+.selecttimetip
+{
+    color: #0080FF;
+    margin-top: 5px;
+}
+.Trade-detail-thead th div
+{
+    float: left;
+    max-width: 222px;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 8px;
+}
+.Trade-detail-table
+{
+    border-color: #4682b4 #bbbbbb #bbbbbb #bbbbbb;
+    border-width:2px 0px 1px 1px;
+    border-style:solid;
+    width: 1000px;
+    margin-top: 10px;
+}
+.Trade-detail-tbody .OrderItem td
+{
+    border-width: 1px 1px 0px 0px;
+    border-style: solid;
+    border-color: #bbbbbb;
+}
+.Trade-detail-thead-th
+{
+    background-color:#f2f2f2;
+    border-right:1px solid #bbbbbb;
+    height: 35px; /* border-bottom-width:1px;     border-bottom-color: gray;     border-bottom-style: solid;*/
+}
+.Trade-detail-tbody tr
+{
+    height: 104px;
+    max-height: 104px;
+}
+.OrderItem tbody
+{
+    min-height:121px;
+}
+.detail_wrap-Sjinfo p
+{
+   margin-top:5px;  
+    }

@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "评价设置";
+    Layout = "~/Views/Shared/_SubMaster.cshtml";
+}
+<div class="btn_wrap">
+    <div class="btn_wrap_hd">
+        <span class="title"><i></i>评价设置</span>
+    </div>
+    <div class="btn_wrap_bd" style="width: 150px;">
+        <br />
+        选择的类目：
+    </div>
+    <div class="btn_wrap_bd" style="width: 845px;">
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span><i style="color: Red;">* </i>商品类型：</span>
+            <div class="table_bd">
+                <label>
+                    <input type="radio" name="StuffStatus" checked="checked" value="new" /><em>全新</em>
+                </label>
+                <label>
+                    <input type="radio" name="StuffStatus" value="second" /><em>二手</em>
+                </label>
+                <span class="table_msg"><i></i><span></span></span>
+            </div>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>商品模板：</span>
+            <div class="table_bd">
+                <select>
+                    <option>默认商品详情页</option>
+                </select>
+            </div>
+        </div>
+        <div class="table_wrap goodsattributte">
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span><i style="color: Red;">* </i>商品标题：</span>
+            <div class="table_bd">
+                <div>
+                    <input type="text" name="Title" value="" style="width: 500px;" datatype="*1-30" nullmsg="请键入商品标题"
+                        errormsg="商品标题最多允许输入30个字符（包括空格）" />
+                    <div class="msg_info">
+                        <span class="Validform_checktip"></span><i></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>宝贝卖点：</span>
+            <div class="table_bd">
+                <div>
+                    <textarea name="sell_point" style="width: 500px; height: 40px;" datatype="*0-150"
+                        errormsg="商品标题最多允许输入150个字符（包括空格）"></textarea>
+                    <div class="msg_info">
+                        <span class="Validform_checktip"></span><i></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div></div>
+<script type="text/javascript">
+
+</script>

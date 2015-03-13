@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Common;
+using System.Web.Mvc;
+
+namespace MYDZ.WebUI.Merchandise
+{
+    public class MerchandiseController : BaseController
+    {
+        /// <summary>
+        /// 出售中的商品
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult OnSale() {
+            return View();
+        }
+
+        /// <summary>
+        /// 仓库中的商品
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult InStock() {
+            return View();
+        }
+    }
+}

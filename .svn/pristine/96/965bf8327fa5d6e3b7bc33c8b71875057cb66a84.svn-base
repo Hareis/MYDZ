@@ -1,0 +1,9 @@
+﻿$(function () {
+    $("select").select2({ placeholder: "默认查询所有店铺分类商品，最多允许选择32个店铺分类" });
+
+    $(".page_box").Pager({ PageIndex: 1, MaxPageNumber: 20, MaxRowNumber: 390,
+        Page: function (index) {
+            alert(index);
+        }
+    });
+});

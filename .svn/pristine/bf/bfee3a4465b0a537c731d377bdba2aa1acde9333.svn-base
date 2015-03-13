@@ -1,0 +1,134 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Top.Api;
+using Top.Api.Request;
+using Top.Api.Response;
+using MYDZ.Entity.Goods;
+
+namespace MYDZ.Business.TB_Logic.Goods
+{
+    public class GetGoods
+    {
+        /// <summary>
+        /// 获取商家在售商品信息
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <returns></returns>
+        public IList<Item> GetgoodOnsale(string sessionKey, ref int TotalNum)
+        {
+            ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret);
+            ItemsOnsaleGetRequest req = new ItemsOnsaleGetRequest();
+            req.Fields = "approve_status,num_iid,title,nick,type,cid,pic_url,num,props,valid_thru,list_time,price,has_discount,has_invoice,has_warranty,has_showcase,modified,delist_time,postage_id,seller_cids,outer_id";
+            ItemsOnsaleGetResponse response = client.Execute(req, sessionKey);
+            IList<Top.Api.Domain.Item> Ilist = response.Items;
+            return ChangeTypeForItem(Ilist);            
+        }
+        /// <summary>
+        /// 获取商家仓库中的商品
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <returns></returns>
+        public IList<Item> GetgoodInventory(string sessionKey, ref int TotalNum)
+        {
+            ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret);
+            ItemsInventoryGetRequest req = new ItemsInventoryGetRequest();
+            req.Fields = "approve_status,num_iid,title,nick,type,cid,pic_url,num,props,valid_thru, list_time,price,has_discount,has_invoice,has_warranty,has_showcase, modified,delist_time,postage_id,seller_cids,outer_id";
+            ItemsInventoryGetResponse response = client.Execute(req, sessionKey);
+            IList<Top.Api.Domain.Item> Ilist = response.Items;
+            return ChangeTypeForItem(Ilist);
+        }
+        /// <summary>
+        /// 查询在售商品
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <param name="Query"></param>
+        public IList<Item> SearchOnsalesByCriteria(string sessionKey, ref int TotalNum, QueryCriteriaForOnSales Query)
+        {
+            ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret);
+            ItemsOnsaleGetRequest req = new ItemsOnsaleGetRequest();
+            req.Fields = "approve_status,num_iid,title,nick,type,cid,pic_url,num,props,valid_thru,list_time,price,has_discount,has_invoice,has_warranty,has_showcase,modified,delist_time,postage_id,seller_cids,outer_id";
+            req.Q = Query.Q;
+            req.Cid = Query.Cid;
+            req.SellerCids = Query.SellerCids;
+            req.PageNo = Query.PageNo;
+            req.HasDiscount = Query.HasDiscount;
+            req.HasShowcase = Query.HasShowcase;
+            req.OrderBy = Query.OrderBy;
+            req.IsTaobao = Query.IsTaobao;
+            req.IsEx = Query.IsEx;
+            req.PageSize = Query.PageSize;
+            req.StartModified = Query.StartModified;
+            req.EndModified = Query.EndModified;
+            req.IsCspu = Query.IsCspu;
+            ItemsOnsaleGetResponse response = client.Execute(req, sessionKey);
+            IList<Top.Api.Domain.Item> Ilist = response.Items;
+            return ChangeTypeForItem(Ilist);
+        }
+        /// <summary>
+        /// 查询仓库中的商品
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <returns></returns>
+        public IList<Item> SearchInventoryByCriteria(string sessionKey, ref int TotalNum, QueryCriteriaForInventory Query)
+        {
+            ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret);
+            ItemsInventoryGetRequest req = new ItemsInventoryGetRequest();
+            req.Fields = "approve_status,num_iid,title,nick,type,cid,pic_url,num,props,valid_thru, list_time,price,has_discount,has_invoice,has_warranty,has_showcase, modified,delist_time,postage_id,seller_cids,outer_id";
+            req.Q = Query.Q;
+            req.Banner = Query.Banner;
+            req.Cid = Query.Cid;
+            req.SellerCids = Query.SellerCids;
+            req.PageNo = Query.PageNo;
+            req.PageSize = Query.PageSize;
+            req.HasDiscount = Query.HasDiscount;
+            req.OrderBy = Query.OrderBy;
+            req.IsTaobao = Query.IsTaobao;
+            req.IsEx = Query.IsEx;
+            req.StartModified = Query.StartModified;
+            req.EndModified = Query.EndModified;
+            req.IsCspu = Query.IsCspu;
+            ItemsInventoryGetResponse response = client.Execute(req, sessionKey);
+            IList<Top.Api.Domain.Item> Ilist = response.Items;
+            return ChangeTypeForItem(Ilist);
+        }
+        /// <summary>
+        /// 根据外部ID获取商品
+        /// </summary>
+        /// <param name="OuterId"></param>
+        /// <param name="sessionKey"></param>
+        /// <returns></returns>
+        public IList<Item> GetGoodsByOuterId(string OuterId, string sessionKey, ref int TotalNum)
+        {
+            ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret);
+
+            ItemsCustomGetRequest req = new ItemsCustomGetRequest();
+            req.OuterId = OuterId;
+            req.Fields = "approve_status,num_iid,title,nick,type,cid,pic_url,num,props,valid_thru,list_time,price,has_discount,has_invoice,has_warranty,has_showcase,modified,delist_time,postage_id,seller_cids,outer_id";
+            ItemsCustomGetResponse response = client.Execute(req, sessionKey);
+            IList<Top.Api.Domain.Item> Ilist = response.Items;
+            return ChangeTypeForItem(Ilist);
+        }
+
+
+
+        /// <summary>
+        /// 将淘宝类型转化为本地类型
+        /// </summary>
+        /// <param name="Ilist"></param>
+        /// <returns></returns>
+        public IList<Item> ChangeTypeForItem(IList<Top.Api.Domain.Item> Ilist)
+        {
+            IList<Item> result = null;
+            foreach (Top.Api.Domain.Item item in Ilist)
+            {
+                Item proc = new Item();
+                proc = item as Item;
+                result.Add(proc);
+            }
+            return result; 
+        }
+
+    }
+}

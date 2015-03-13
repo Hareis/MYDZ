@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SoftInfoConfig>
+  <!--正式环境 URL-->
+  <ZSHJ>https://oauth.taobao.com/authorize?</ZSHJ>
+  <AppKey>23031989</AppKey>
+  <AppSecret>6841b12611449a6f543844e2c97a7863</AppSecret>
+  <ApiURL>http://gw.api.taobao.com/router/rest</ApiURL>
+  <CallBackUrl>http://127.0.0.1:2014/Auth/Index.html</CallBackUrl>
+  <AccessTokenURL>https://oauth.taobao.com/token</AccessTokenURL>
+  <!--测试环境 URL-->
+  <CSHJ>https://oauth.tbsandbox.com/authorize?</CSHJ>
+  
+</SoftInfoConfig>

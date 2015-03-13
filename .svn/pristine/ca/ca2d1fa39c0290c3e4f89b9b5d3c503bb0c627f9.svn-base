@@ -1,0 +1,382 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Interface.Order;
+using MYDZ.Entity.Order;
+using MYDZ.DALFactory;
+using System.Collections;
+using System.Threading;
+using MYDZ.Entity.ClientUser;
+using System.Text.RegularExpressions;
+
+namespace MYDZ.Business.Order
+{
+    public class OrdersInfo
+    {
+        private static readonly IOrdersInfo OrdersInfoDal = DataAccess.Create("Order.OrdersInfo") as IOrdersInfo;
+
+        /// <summary>
+        /// 查询订单信息列表（分页）
+        /// </summary>
+        /// <param name="MaxRow">总行数</param>
+        /// <param name="MaxPage">总页数</param>
+        /// <param name="PageCount">当前页码</param>
+        /// <param name="pageSize">每页显示的条数</param>
+        /// <param name="Where">查询条件</param>
+        /// <param name="Order">排序字段</param>
+        /// <returns></returns>
+        public static IList<tbOrdersInfo> Select(out int MaxRow, out int MaxPage, int PageCount = 1, int pageSize = 0, string Where = "", string Order = "")
+        {
+            return OrdersInfoDal.Select(PageCount, pageSize, Where, Order, out MaxRow, out MaxPage);
+        }
+
+        /// <summary>
+        /// 根据订单编号列表查询订单信息列表
+        /// </summary>
+        /// <param name="OrdersNumberList">订单编号列表</param>
+        /// <returns></returns>
+        public static IList<tbOrdersInfo> Select(string OrdersNumberList)
+        {
+            return OrdersInfoDal.Select(OrdersNumberList);
+        }
+
+        /// <summary>
+        /// 根据物流单号查询订单信息列表
+        /// </summary>
+        /// <param name="DeliverNumber">物流单号</param>
+        /// <param name="ShopId">店铺编号</param>
+        /// <returns></returns>
+        public static IList<tbOrdersInfo> SelectByDeliver(string DeliverNumber, int ShopId)
+        {
+            return OrdersInfoDal.SelectByDeliver(DeliverNumber, ShopId);
+        }
+
+        /// <summary>
+        /// 查询已付款未发货的订单编号列表
+        /// </summary>
+        /// <param name="ShopId">店铺编号</param>
+        /// <returns></returns>
+        public static IDictionary<string, string> SelectOrdersNumber(int ShopId)
+        {
+            return OrdersInfoDal.SelectOrdersNumber(ShopId);
+        }
+
+        /// <summary>
+        /// 根据用户编号查询汇总信息
+        /// </summary>
+        /// <param name="UserId">用户编号</param>
+        /// <returns></returns>
+        public static OrderCollect Select(int UserId)
+        {
+            return OrdersInfoDal.Select(UserId);
+        }
+
+        /// <summary>
+        /// 根据查询条件查询订单打印汇总信息
+        /// </summary>
+        /// <param name="Where">查询条件</param>
+        /// <returns></returns>
+        public static int[] SelectPrint(string Where)
+        {
+            return OrdersInfoDal.SelectPrint(Where);
+        }
+
+        /// <summary>
+        /// 根据订单外部编号查询订单是否存在
+        /// </summary>
+        /// <param name="OrderOutNumber">订单外部编号</param>
+        /// <param name="ShopId">店铺编号</param>
+        /// <returns></returns>
+        public static bool CheckOrder(string OrderOutNumber, int ShopId)
+        {
+            return OrdersInfoDal.CheckOrder(OrderOutNumber, ShopId);
+        }
+
+        /// <summary>
+        /// 修改订单备注信息
+        /// </summary>
+        /// <param name="OrdersNumber">订单编号</param>
+        /// <param name="Flag">备注旗帜</param>
+        /// <param name="Detail">备注内容</param>
+        /// <returns></returns>
+        public static bool UpdateDetail(string OrdersNumber, string Flag, string Detail)
+        {
+            return OrdersInfoDal.UpdateDetail(OrdersNumber, Flag, Detail);
+        }
+
+        /// <summary>
+        /// 添加订单信息
+        /// </summary>
+        /// <param name="OrdersInfo">订单表</param>
+        /// <returns></returns>
+        public static bool Insert(tbOrdersInfo OrdersInfo)
+        {
+            return OrdersInfoDal.Insert(OrdersInfo);
+        }
+
+        /// <summary>
+        /// 修改订单状态
+        /// </summary>
+        /// <param name="OrdersNumber">订单编号</param>
+        /// <param name="OrderStatus">订单状态</param>
+        /// <returns></returns>
+        public static bool UpdateStatus(string OrdersNumber, int OrderStatus)
+        {
+            return OrdersInfoDal.UpdateStatus(OrdersNumber, OrderStatus);
+        }
+
+        /// <summary>
+        /// 批量修改订单状态
+        /// </summary>
+        /// <param name="OrdersNumber">订单编号列表</param>
+        /// <param name="OrderStatus">订单状态</param>
+        /// <returns></returns>
+        public static bool BatchUpdateStatus(string IdList, int OrderStatus)
+        {
+            return OrdersInfoDal.BatchUpdateStatus(IdList, OrderStatus);
+        }
+
+        /// <summary>
+        /// 修改订单物流
+        /// </summary>
+        /// <param name="OrdersNumber">订单编号</param>
+        /// <param name="LogisticsId">物流编号</param>
+        /// <returns></returns>
+        public static bool UpdateLogistics(string OrdersNumber, int LogisticsId)
+        {
+            return OrdersInfoDal.UpdateLogistics(OrdersNumber, LogisticsId);
+        }
+
+        /// <summary>
+        /// 根据订单编号列表修改订单物流
+        /// </summary>
+        /// <param name="IdList">订单编号列表</param>
+        /// <param name="LogisticsId">物流编号</param>
+        /// <returns></returns>
+        public static bool UpdateLogisticsByIdList(string IdList, int LogisticsId)
+        {
+            return OrdersInfoDal.UpdateLogisticsByIdList(IdList, LogisticsId);
+        }
+
+        /// <summary>
+        /// 修改订单是否打印发货单
+        /// </summary>
+        /// <param name="OrdersNumber">订单编号</param>
+        /// <param name="Invoice">是否打印发货单</param>
+        /// <returns></returns>
+        public static bool UpdateInvoice(string OrdersNumber, bool Invoice)
+        {
+            return OrdersInfoDal.UpdateInvoice(OrdersNumber, Invoice);
+        }
+
+        /// <summary>
+        /// 合并订单
+        /// </summary>
+        /// <param name="OrdersNumber">指定合并基准订单编号，以该订单编号为准，其他订单合并到该订单中</param>
+        /// <param name="OrderNumberList">需要合并的订单编号列表</param>
+        /// <param name="count">需要合并的总订单数</param>
+        /// <returns>Json格式Status:状态,Msg描述</returns>
+        public static string Update(string OrdersNumber, string OrderNumberList, int count)
+        {
+            return OrdersInfoDal.Update(OrdersNumber, OrderNumberList, count);
+        }
+
+        #region 获取商家订单并插入数据库
+        /// <summary>
+        /// 获取淘宝未完成订单并插入数据库
+        /// </summary>
+        public static void GetResquestBacklogOrder(TradesSoldGet TradesSold, tbClientUser clientuser, IList<StoreLogistics> StoreLogisticsList, tbOrdersConfig Config)
+        {
+            Hashtable ht = new Hashtable();
+
+            ht.Add("clientuser", clientuser);
+            ht.Add("TradesSoldGet", TradesSold);
+            ht.Add("LogisticsList", StoreLogisticsList);
+            ht.Add("Config", Config);
+
+            //设置最大线程数量为一万
+            ThreadPool.SetMaxThreads(10000, 10000);
+            ThreadPool.QueueUserWorkItem(new WaitCallback(StartRun), ht);
+        }
+
+        //线程开始执行操作
+        private static void StartRun(object obj)
+        {
+            MYDZ.Business.Business_Logic.Order.InitTradeInfo iti = new Business_Logic.Order.InitTradeInfo();
+            string ErrorMsg = null;
+            bool HasNext = false;
+            long TotalResults = 0;
+            Hashtable ht = null;
+            TradesSoldGet TradesSold = null;
+            tbClientUser clientuser = null;
+            tbOrdersConfig Config = null;
+            List<Trade> listtrade = null;
+            IList<StoreLogistics> StoreLogisticsList = null;
+            tbOrdersInfo OrdersInfo = null;
+            if (obj != null)
+            {
+                ht = new Hashtable();
+                TradesSold = new TradesSoldGet();
+                clientuser = new tbClientUser();
+                Config = new tbOrdersConfig();
+
+                ht = obj as Hashtable;
+                clientuser = ht["clientuser"] as tbClientUser;
+                TradesSold = ht["TradesSoldGet"] as TradesSoldGet;
+                StoreLogisticsList = ht["LogisticsList"] as List<StoreLogistics>;
+
+                if (TradesSold.StartCreated == null)
+                {
+                    TradesSold.StartCreated = Convert.ToDateTime(DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd HH:mm:ss"));
+                }
+                if (TradesSold.EndCreated == null)
+                {
+                    TradesSold.EndCreated = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                }
+                while (true)
+                {
+                    string Errormsg = null;
+                    List<tbOrdersInfo> listOrdersInfo = null;
+                    listtrade = new List<Trade>();
+                    listtrade = iti.GetTradesSold(clientuser.UserShops[0].SessionKey, TradesSold, out ErrorMsg, out HasNext, out TotalResults);
+                    if (listtrade == null || TotalResults == 0) { continue; }
+                    //
+                    //这里写得到临时数据
+                    foreach (Trade trade in listtrade)
+                    {
+                        OrdersInfo = new tbOrdersInfo();
+                        listOrdersInfo = new List<tbOrdersInfo>();
+                        OrdersInfo = iti.GetTradeFullinfo(clientuser.UserShops[0].SessionKey, trade.Tid.ToString(), clientuser.UserShops[0].Shop.ShopId, StoreLogisticsList, out Errormsg);
+                        listOrdersInfo.Add(OrdersInfo);
+                    }
+                    try
+                    {
+                        //这里写插入数据库临时表
+                        CheckAndInsertOrders(listOrdersInfo, Config, StoreLogisticsList, clientuser.UserShops[0].SessionKey);
+                    }
+                    catch (Exception ex)
+                    {
+                        continue;
+                    }
+                    if (HasNext)
+                    {
+                        TradesSold.PageNo++;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+
+
+        }
+
+        /// <summary>
+        /// 检查订单配置关系并插入（订单配置中）
+        /// </summary>
+        /// <param name="OrdersList">订单数据列表</param>
+        /// <param name="SessionKey">用户授权</param>
+        private static void CheckAndInsertOrders(List<tbOrdersInfo> OrdersList, tbOrdersConfig Config, IList<StoreLogistics> StoreLogisticsList, string SessionKey)
+        {
+            try
+            {
+                foreach (tbOrdersInfo Order in OrdersList)
+                {
+                    Comm.StatusAssign(Config, Order);
+                    bool IsOk = Comm.DeliveryAssign(Config, StoreLogisticsList, Order);
+                    if (!IsOk && Config.LogisticsDis && StoreLogisticsList != null && StoreLogisticsList.Count > 0)
+                    {
+                        string target = String.IsNullOrEmpty(Order.Consignee.District) ? Order.Consignee.City : Order.Consignee.District;
+                        if (!String.IsNullOrEmpty(target))
+                        {
+                            List<string> CompayList = GetLogisticsIdList((Order.CashOndelivery ? "cod" : "online"), "", target.Trim());
+                            Comm.RangeDelivery(StoreLogisticsList, Order, CompayList);
+                        }
+                    }
+                    Comm.AnalyticalInvoice(Config, StoreLogisticsList, Order);
+                    UpdateDeital(Order, Config, SessionKey);
+                    Comm.Insert(Order);
+                }
+            }
+            catch { }
+        }
+
+        /// <summary>
+        /// 查询支持起始地到目的地范围的物流公司编码列表
+        /// </summary>
+        /// <param name="service_type">服务类型 可选值：cod(货到付款)、online(在线下单)、 offline(自己联系)、limit(限时物流)</param>
+        /// <param name="source_id">物流公司揽货地地区码（必须是区、县一级的）可为空</param>
+        /// <param name="target_id">物流公司派送地地区码（必须是区、县一级的）可为空</param>
+        /// <returns></returns>
+        private static List<string> GetLogisticsIdList(string service_type, string source_id, string target_id)
+        {
+            MYDZ.Business.TB_Logic.Order.GetTradeInfo gti = new MYDZ.Business.TB_Logic.Order.GetTradeInfo();
+            List<string> List = new List<string>();
+            try
+            {
+                if (Comm.AreaList == null)
+                {
+                    Comm.AreaList = gti.GetAreas();
+                }
+
+                string SourceId = "";
+                string TargetId = "";
+                if (Comm.AreaList != null && Comm.AreaList.Count > 0)
+                {
+                    if (!String.IsNullOrEmpty(source_id))
+                    {
+                        Area area = Comm.AreaList.FirstOrDefault((e) => { return e.Name.Trim().Equals(source_id.Trim()); });
+                        if (area != null) { SourceId = area.Id.ToString(); } else { return List; }
+                    }
+
+                    if (!String.IsNullOrEmpty(target_id))
+                    {
+                        Area area = Comm.AreaList.FirstOrDefault((e) => { return e.Name.Trim().Equals(target_id.Trim()); });
+                        if (area != null) { TargetId = area.Id.ToString(); } else { return List; }
+                    }
+                }
+                else
+                {
+                    return List;
+                }
+                foreach (LogisticsPartner item in gti.GetLogisticsPartners(service_type, false, source_id, target_id, null))
+                {
+                    List.Add(item.Partner.CompanyCode.Trim());
+                }
+            }
+            catch { }
+
+            return List;
+        }
+
+        /// <summary>
+        /// 修改订单备注的旗帜
+        /// </summary>
+        /// <param name="Order">订单信息</param>
+        /// <param name="SessionKey">用户授权</param>
+        /// <returns></returns>
+        private static void UpdateDeital(tbOrdersInfo Order, tbOrdersConfig Config, string SessionKey)
+        {
+            string[] OutNumber = Order.OrdersOutNumber.Split(',');
+            string[] Detail = Regex.Split(Order.ServiceNotes, "%Separation%");
+            Order.ServiceNotes = Order.ServiceNotes.Replace("%Separation%", " ");
+
+            if (Config.ConfigId <= 0) { return; }
+            if (String.IsNullOrEmpty(Config.Remark) && Config.RemarkFlag == 0) { return; }
+
+            try
+            {
+                MYDZ.Business.TB_Logic.Order.GetTradeInfo gti = new MYDZ.Business.TB_Logic.Order.GetTradeInfo();
+                for (int i = 0; i < OutNumber.Length; i++)
+                {
+                    gti.UpdateTradeMemo(SessionKey, OutNumber[i].ToString(), Config.Remark, Config.RemarkFlag, false);
+                }
+            }
+            catch { }
+        }
+
+        #endregion
+    }
+}

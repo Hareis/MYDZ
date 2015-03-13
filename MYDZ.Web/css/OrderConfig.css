@@ -1,0 +1,23 @@
+﻿.table_bd label.checkbox,.table_bd label.radio {
+    margin-top:6px;
+}
+.table_bd table {
+    border-width: 2px 1px 0px 0px;
+    border-color: #3984D0 #DBDBDB #DBDBDB #DBDBDB;
+    border-style: solid;
+    width: 600px;
+}
+.table_bd table tr th {
+    padding: 0px;
+    background: #F7F7F7;
+    text-shadow: white 1px 1px 1px;
+    font-weight:normal;
+}
+.table_bd table tr th,.table_bd table tr td {
+    border-bottom: #DBDBDB 1px solid;
+    border-left: #DBDBDB 1px solid;
+    text-align: center;
+    color:#333;
+    height: 24px;
+    line-height: 24px;
+}

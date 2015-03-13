@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Delivery";
+    Layout = "~/Views/Shared/_SubMaster.cshtml";
+}
+<link href="@Url.Content("~/css/Delivery.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/OrderManagement/Expressions.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/OrderManagement/jquery.colorAnimations.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/select2.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/OrderManagement/Delivery.js")" type="text/javascript"></script>
+<style type="text/css">
+    
+</style>
+@{
+    IList<MYDZ.Entity.Order.Logistic> list = new List<MYDZ.Entity.Order.Logistic>();
+    IList<MYDZ.Entity.Order.StoreLogistics> LogisticsList = new List<MYDZ.Entity.Order.StoreLogistics>();
+    MYDZ.Entity.Shop.tbShopInfo Shop = new MYDZ.Entity.Shop.tbShopInfo();
+
+
+    System.Collections.Hashtable ht = new System.Collections.Hashtable();
+
+    ht = ViewData["DeliveryInfo"] as System.Collections.Hashtable;
+    if (ht != null)
+    {
+        Shop = ht["Shop"] as MYDZ.Entity.Shop.tbShopInfo;
+        LogisticsList = ht["LogisticsList"] as IList<MYDZ.Entity.Order.StoreLogistics>;
+        list = ht["List"] as IList<MYDZ.Entity.Order.Logistic>;
+    }  
+}
+<div class="tab">
+    <div class="btn_wrap_hd">
+        <span class="title"><i></i>物流设置</span>
+    </div>
+</div>
+<div class="preview_des">
+    <p class="ico">
+        <i></i>请选择您需要用到的物流。</p>
+    <p>
+        获取订单时，系统会按照您设置物流的先后顺序和配送范围智能判断使用何种物流。</p>
+    <p>
+        打印数量是指物流面单最多允许打印多少个商品，如果打印商品多于您设置的打印数量，系统会自动打印清单。</p>
+    <p style="color: red;">
+        如果您需要全部打印清单，请将打印数量设置为0。</p>
+</div>
+<div class="table_form">
+    @using (Html.BeginForm())
+    {
+        <div class="MsgWrap @(ViewBag.Status == 1 ? "SuccessWrap" : "")" @(ViewBag.Status > -1 ? Html.Raw("style='display:block;'") : Html.Raw(""))>
+            <i></i><span>@(ViewBag.Status > -1 ? ViewBag.Status == 1 ? "保存数据成功" : "保存数据失败" : "")</span></div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require">*</span>物流设置： </span>
+            <div class="table_bd">
+                <table class="tool_wrap" cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                        <tr>
+                            <th width="280">
+                                物流信息
+                            </th>
+                            <th>
+                                打印数量
+                            </th>
+                            <th width="80">
+                                排序
+                            </th>
+                            <th width="80">
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (LogisticsList.Count > 0)
+                        {
+                            foreach (var item in LogisticsList)
+                            { 
+                            <tr>
+                                <td>
+                                    <select style="width: 200px;">
+                                        <option value="0">请选择</option>
+                                        @foreach (var subitem in list)
+                                        {
+                                            <option value="@subitem.LogisticsId" @(item.LogisticsId == subitem.LogisticsId ? "selected" : "")>@subitem.LogisticsName</option>
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" class="mini" value="@item.Number" />
+                                </td>
+                                <td>
+                                    <a hidefocus="true" href="javascript:void();" class="up up_disabled"></a><a hidefocus="true"
+                                        href="javascript:void();" class="down down_disabled"></a>
+                                </td>
+                                <td>
+                                    <a hidefocus="true" href="javascript:void();" class="del">删除</a>
+                                </td>
+                            </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <span class="table_float">
+            <a hidefocus="true" href="javascript:void()" class="add">添加物流</a>
+            @*<a hidefocus="true" href="javascript:void()" class="add"></a>*@
+            </span>
+        </div>
+        <div class="table_action">
+            <button type="submit" hidefocus="true">
+                保存</button>
+        </div>
+        <input type="hidden" name="ShopId" value="@Shop.ShopId" />
+    }
+</div>
+<script type="text/javascript">
+</script>

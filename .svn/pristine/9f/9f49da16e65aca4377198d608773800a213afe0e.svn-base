@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{117577E2-7FE0-426C-9533-B2B4BFBF3257}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MYDZ.Web</RootNamespace>
+    <AssemblyName>MYDZ.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\DataBase\Config.xml" />
+    <Content Include="App_Data\Encrypt\Config.xml" />
+    <Content Include="App_Data\SoftInfo\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Data\Theme\Config.xml" />
+    <Content Include="css\control.css" />
+    <Content Include="css\main.css" />
+    <Content Include="css\select2.css" />
+    <Content Include="css\theme\beige\style.css" />
+    <Content Include="css\theme\default\style.css" />
+    <Content Include="css\theme\gold\style.css" />
+    <Content Include="css\theme\grass green\style.css" />
+    <Content Include="css\theme\green\style.css" />
+    <Content Include="css\theme\khaki\style.css" />
+    <Content Include="css\theme\light blue\style.css" />
+    <Content Include="css\theme\orange\style.css" />
+    <Content Include="css\theme\rose\style.css" />
+    <Content Include="css\theme\sky blue\style.css" />
+    <Content Include="css\theme\violet\style.css" />
+    <Content Include="css\theme\wine red\style.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Highcharts\exporting.js" />
+    <Content Include="Highcharts\highcharts.js" />
+    <Content Include="images\exit.ico" />
+    <Content Include="images\Modify.ico" />
+    <Content Include="images\NoImage.ico" />
+    <Content Include="images\dropdown-bg.png" />
+    <Content Include="images\gou.png" />
+    <Content Include="images\icon_arrow_9_5.png" />
+    <Content Include="images\icon_loader.gif" />
+    <Content Include="images\logo-small.png" />
+    <Content Include="images\pop_close.png" />
+    <Content Include="images\pop_ico.png" />
+    <Content Include="images\reigth.ico" />
+    <Content Include="images\Save.ico" />
+    <Content Include="images\sel.png" />
+    <Content Include="images\select_close.png" />
+    <Content Include="images\sort.png" />
+    <Content Include="images\test.png" />
+    <Content Include="images\tool.jpg" />
+    <Content Include="images\ui.feedback.png" />
+    <Content Include="images\ui.totop.png" />
+    <Content Include="images\write.ico" />
+    <Content Include="js\editable\css\font-awesome.css" />
+    <Content Include="js\editable\css\font-awesome.min.css" />
+    <Content Include="js\editable\css\froala_editor.css" />
+    <Content Include="js\editable\css\froala_editor.min.css" />
+    <Content Include="js\editable\css\froala_page.css" />
+    <Content Include="js\editable\css\froala_page.min.css" />
+    <Content Include="js\editable\css\themes\dark.css" />
+    <Content Include="js\editable\css\themes\dark.min.css" />
+    <Content Include="js\editable\css\themes\gray.css" />
+    <Content Include="js\editable\css\themes\gray.min.css" />
+    <Content Include="js\editable\css\themes\red.css" />
+    <Content Include="js\editable\css\themes\red.min.css" />
+    <Content Include="js\editable\css\themes\royal.css" />
+    <Content Include="js\editable\css\themes\royal.min.css" />
+    <Content Include="js\editable\examples\always_blank.html" />
+    <Content Include="js\editable\examples\always_visible.html" />
+    <Content Include="js\editable\examples\basic.html" />
+    <Content Include="js\editable\examples\characters_counter.html" />
+    <Content Include="js\editable\examples\customize_button_icons.html" />
+    <Content Include="js\editable\examples\custom_block_styles.html" />
+    <Content Include="js\editable\examples\custom_buttons.html" />
+    <Content Include="js\editable\examples\custom_dropdown.html" />
+    <Content Include="js\editable\examples\direction_basic_mode.html" />
+    <Content Include="js\editable\examples\direction_inline_mode.html" />
+    <Content Include="js\editable\examples\empty.html" />
+    <Content Include="js\editable\examples\events\blur.html" />
+    <Content Include="js\editable\examples\events\blur_and_focus.html" />
+    <Content Include="js\editable\examples\events\contentChanged.html" />
+    <Content Include="js\editable\examples\events\focus.html" />
+    <Content Include="js\editable\examples\events\onPaste.html" />
+    <Content Include="js\editable\examples\events\removeImage.html" />
+    <Content Include="js\editable\examples\file_upload.html" />
+    <Content Include="js\editable\examples\focus_on_editor.html" />
+    <Content Include="js\editable\examples\font_family.html" />
+    <Content Include="js\editable\examples\height.html" />
+    <Content Include="js\editable\examples\icons.html" />
+    <Content Include="js\editable\examples\image_buttons.html" />
+    <Content Include="js\editable\examples\image_link_disabled.html" />
+    <Content Include="js\editable\examples\image_upload_disabled.html" />
+    <Content Include="js\editable\examples\init_on_button.html" />
+    <Content Include="js\editable\examples\init_on_click.html" />
+    <Content Include="js\editable\examples\init_on_image.html" />
+    <Content Include="js\editable\examples\init_on_image_with_link.html" />
+    <Content Include="js\editable\examples\init_on_link.html" />
+    <Content Include="js\editable\examples\init_on_link_unlink_button_disabled.html" />
+    <Content Include="js\editable\examples\init_on_link_with_link_text.html" />
+    <Content Include="js\editable\examples\init_without_image_and_link.html" />
+    <Content Include="js\editable\examples\inline.html" />
+    <Content Include="js\editable\examples\inline_with_no_buttons.html" />
+    <Content Include="js\editable\examples\language.html" />
+    <Content Include="js\editable\examples\media_manager_disabled.html" />
+    <Content Include="js\editable\examples\min_height.html" />
+    <Content Include="js\editable\examples\paragraphy_disabled.html" />
+    <Content Include="js\editable\examples\plain_paste.html" />
+    <Content Include="js\editable\examples\require_js\index.html" />
+    <Content Include="js\editable\examples\require_js\js\app.js" />
+    <Content Include="js\editable\examples\require_js\js\lib\require.js" />
+    <Content Include="js\editable\examples\shortcuts_available.html" />
+    <Content Include="js\editable\examples\simple_ampersand.html" />
+    <Content Include="js\editable\examples\table.html" />
+    <Content Include="js\editable\examples\tabSpaces_disabled.html" />
+    <Content Include="js\editable\examples\textarea.html" />
+    <Content Include="js\editable\examples\text_near_image.html" />
+    <Content Include="js\editable\examples\themes\dark_theme.html" />
+    <Content Include="js\editable\examples\themes\gray_theme.html" />
+    <Content Include="js\editable\examples\themes\red_theme.html" />
+    <Content Include="js\editable\examples\themes\royal_theme.html" />
+    <Content Include="js\editable\examples\toolbar_customization.html" />
+    <Content Include="js\editable\examples\toolbar_fixed.html" />
+    <Content Include="js\editable\examples\two_editors.html" />
+    <Content Include="js\editable\examples\upload_pasted_images.html" />
+    <Content Include="js\editable\fonts\fontawesome-webfont.svg" />
+    <Content Include="js\editable\img\old_clock.jpg" />
+    <Content Include="js\editable\index.html" />
+    <Content Include="js\editable\js\froala_editor.min.js" />
+    <Content Include="js\editable\js\froala_editor_ie8.min.js" />
+    <Content Include="js\editable\js\langs\ar.js" />
+    <Content Include="js\editable\js\langs\bs.js" />
+    <Content Include="js\editable\js\langs\cs.js" />
+    <Content Include="js\editable\js\langs\da.js" />
+    <Content Include="js\editable\js\langs\de.js" />
+    <Content Include="js\editable\js\langs\en_ca.js" />
+    <Content Include="js\editable\js\langs\en_gb.js" />
+    <Content Include="js\editable\js\langs\en_us.js" />
+    <Content Include="js\editable\js\langs\es.js" />
+    <Content Include="js\editable\js\langs\fa.js" />
+    <Content Include="js\editable\js\langs\fi.js" />
+    <Content Include="js\editable\js\langs\fr.js" />
+    <Content Include="js\editable\js\langs\he.js" />
+    <Content Include="js\editable\js\langs\hr.js" />
+    <Content Include="js\editable\js\langs\hu.js" />
+    <Content Include="js\editable\js\langs\id.js" />
+    <Content Include="js\editable\js\langs\it.js" />
+    <Content Include="js\editable\js\langs\ja.js" />
+    <Content Include="js\editable\js\langs\ko.js" />
+    <Content Include="js\editable\js\langs\me.js" />
+    <Content Include="js\editable\js\langs\nb.js" />
+    <Content Include="js\editable\js\langs\nl.js" />
+    <Content Include="js\editable\js\langs\pl.js" />
+    <Content Include="js\editable\js\langs\pt_br.js" />
+    <Content Include="js\editable\js\langs\pt_pt.js" />
+    <Content Include="js\editable\js\langs\ro.js" />
+    <Content Include="js\editable\js\langs\ru.js" />
+    <Content Include="js\editable\js\langs\sr.js" />
+    <Content Include="js\editable\js\langs\sv.js" />
+    <Content Include="js\editable\js\langs\th.js" />
+    <Content Include="js\editable\js\langs\tr.js" />
+    <Content Include="js\editable\js\langs\zh_cn.js" />
+    <Content Include="js\editable\js\langs\zh_tw.js" />
+    <Content Include="js\editable\js\libs\jquery-1.11.1.min.js" />
+    <Content Include="js\editable\js\plugins\block_styles.min.js" />
+    <Content Include="js\editable\js\plugins\char_counter.min.js" />
+    <Content Include="js\editable\js\plugins\colors.min.js" />
+    <Content Include="js\editable\js\plugins\file_upload.min.js" />
+    <Content Include="js\editable\js\plugins\font_family.min.js" />
+    <Content Include="js\editable\js\plugins\font_size.min.js" />
+    <Content Include="js\editable\js\plugins\lists.min.js" />
+    <Content Include="js\editable\js\plugins\media_manager.min.js" />
+    <Content Include="js\editable\js\plugins\tables.min.js" />
+    <Content Include="js\editable\js\plugins\video.min.js" />
+    <Content Include="js\jquery-1.11.1.min.js" />
+    <Content Include="js\jquery-ui.min.js" />
+    <Content Include="js\jquery.nicescroll.min.js" />
+    <Content Include="js\master.js" />
+    <Content Include="js\Merchandise\AddGoods.js" />
+    <Content Include="js\Merchandise\OnSale.js" />
+    <Content Include="js\Merchandise\InStock.js" />
+    <Content Include="js\Page.js" />
+    <Content Include="js\PopWindow.js" />
+    <Content Include="js\select2.min.js" />
+    <Content Include="js\Skin.js" />
+    <Content Include="js\spin.min.js" />
+    <Content Include="js\zclip\jquery.zclip.js" />
+    <Content Include="js\zclip\jquery.zclip.min.js" />
+    <Content Include="js\zclip\ZeroClipboard.swf" />
+    <Content Include="Validation\Error.css" />
+    <Content Include="Validation\style.css" />
+    <Content Include="Validation\Validform.js" />
+    <Content Include="Validation\Validform_v5.3.2_min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PartView\Tools.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MYDZ.Entity\MYDZ.Entity.csproj">
+      <Project>{B86C0845-C60B-4DBA-A541-A99694B33CE0}</Project>
+      <Name>MYDZ.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MYDZ.Interface\MYDZ.Interface.csproj">
+      <Project>{4B9BEC02-A073-4A1E-9BA4-7EF935FAA391}</Project>
+      <Name>MYDZ.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MYDZ.WebUI\MYDZ.WebUI.csproj">
+      <Project>{86637248-BA80-43BC-834C-8B44CCE6E583}</Project>
+      <Name>MYDZ.WebUI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Master.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PartView\Header.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PartView\Footer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Front\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_SubMaster.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PartView\QuickMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\UserControl\Feedback.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Auth\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Member\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Merchandise\InStock.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Merchandise\OnSale.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Auth\RestLogin.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Merchandise\SHowGoodsOnsales.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Merchandise\SHowGoodsInventory.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Merchandise\SetBatchEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Merchandise\Freight.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Merchandise\Stock.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Merchandise\Title.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Merchandise\Category.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Merchandise\Describe.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Merchandise\Coding.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Merchandise\HotDot.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Merchandise\AddGoods.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="js\editable\fonts\fontawesome-webfont.eot" />
+    <None Include="js\editable\fonts\fontawesome-webfont.ttf" />
+    <None Include="js\editable\fonts\fontawesome-webfont.woff" />
+    <None Include="js\editable\fonts\FontAwesome.otf" />
+    <Content Include="Views\Merchandise\ChooseItemprop.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>64214</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://127.0.0.1:2014</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

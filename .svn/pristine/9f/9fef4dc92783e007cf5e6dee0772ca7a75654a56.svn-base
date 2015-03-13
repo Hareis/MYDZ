@@ -1,0 +1,129 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>类目</title>
+    <link href="@Url.Content("~/css/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/control.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/js/jquery-1.11.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/jquery-ui.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/PopWindow.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/Skin.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/master.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/js/select2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Validation/Validform_v5.3.2_min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Validation/Validform.js")" type="text/javascript"></script>
+    <style type="">
+        tr td
+        {
+            height: 40px;
+            line-height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("SetupdateGoods", "Merchandise", FormMethod.Post, new { id = "QueryCriteria" }))
+        { 
+            <div style="text-align: center; height: 380px;">
+                <div>
+                    <table cellpadding="0" cellspacing="0" width="50%">
+                        <tr align="center" valign="middle">
+                            <td>
+                                当前已选中:
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" class="SelectNumber"></a>项
+                                <input type="hidden" name="ListGoodsId" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                类目选择<label style="color: Red;">*</label>:
+                            </td>
+                            <td>
+                                <select class="SelectCategoryType" name="Cid" style="width: 150px;">
+                                    <option value="0">请选择</option>
+                                    @foreach (MYDZ.Entity.Shop.SellerCat itemA in ViewData["SPLM"] as List<MYDZ.Entity.Shop.SellerCat>)
+                                    {
+                                        if (itemA.ParentCid != 0)
+                                        {
+                                        <optgroup label="@itemA.Name">
+                                            @foreach (MYDZ.Entity.Shop.SellerCat itemB in ViewData["SPLM"] as List<MYDZ.Entity.Shop.SellerCat>)
+                                            {
+                                                if (itemA.ParentCid == itemB.Cid)
+                                                { 
+                                                <option value="@itemB.Cid">@itemB.Name</option>
+                                                }
+                                            }
+                                        </optgroup>
+                                        }
+                                        else
+                                        {
+                                        <option value="@itemA.Cid">@itemA.Name</option>}
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type="submit" style="margin-left: 22px;">
+                                    提交</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        $('.SelectCategoryType').select2();
+        Sendedinfo();
+        //获取从别的页面发送过来的信息
+        function Sendedinfo() {
+            var productlist = null;
+            var Msg = window.location.search.substr(1);
+            Msg = decodeURI(Msg);
+            var aryVars = Msg.split('&');
+            var obj = new Object();
+            for (var i = 0; i < aryVars.length; i++) {
+                var aryPair = aryVars[i].split('=');
+                obj[aryPair[0]] = aryPair[1];
+            }
+            for (var key in obj) {
+                productlist = obj[key];
+            }
+            var GoodsId = productlist.split(',');
+            $(".SelectNumber").text(GoodsId.length);
+            $('input[name=ListGoodsId]').val(GoodsId);
+        }
+
+
+    });
+    (function (window, $) {
+        Skin.Controller.Init();
+        Validform.Controller.Init({
+            form: "#QueryCriteria",
+            beforeSubmit: function () {
+                PopWindow.Controller.Init({ type: "loading", opacity: 0 });
+                if ($('.input[name=ListGoodsId]').val() === null) { return false; }
+            }
+        }).config({
+            ajaxPost: true,
+            callback: function (data) {
+                PopWindow.Controller.Clear();
+                if (!data.result) {
+                    PopWindow.Controller.Init({ type: "prompt", opacity: 0, width: 352, height: 198, title: "失败！原因：" + data.ErrorMsg });
+                }
+            }
+        });
+
+    })(window, jQuery);
+</script>
+</html>

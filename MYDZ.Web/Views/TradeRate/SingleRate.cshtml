@@ -1,0 +1,42 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SingleRate</title>
+    <link href="@Url.Content("~/css/control.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/main.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div>
+        <div class="btn_wrap_bd">
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span><i style="color: Red;">* </i>评分：</span>
+                <div class="table_bd">
+                    <label>
+                        <input type="radio" name="StuffStatus" checked="checked" value="new" /><em>好评</em>
+                    </label>
+                    <label>
+                        <input type="radio" name="StuffStatus" value="second" /><em>中评</em>
+                    </label>
+                    <label>
+                        <input type="radio" name="StuffStatus" value="second" /><em>差评</em>
+                    </label>
+                    <span class="table_msg"><i></i><span></span></span>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>评论内容：</span>
+                <div class="table_bd">
+                    <textarea rows="3" cols="5"></textarea>
+                </div>
+            </div>
+            <div>
+            <input type="button" name="" value="提交" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>

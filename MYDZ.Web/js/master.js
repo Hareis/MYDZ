@@ -1,0 +1,115 @@
+﻿var Master = Master || {};
+
+Master.Controller = (function () {
+
+    function Init() {
+        Skin.Controller.Init();
+        InitEvent();
+    }
+
+    function InitEvent() {
+        //改变皮肤
+        $("ul.header_theme li").click(
+            function () {
+                if (!$(this).hasClass("active")) {
+                    Skin.Controller.Change($(this).find("a").attr("data-value"));
+                }
+            }
+        );
+
+        $("body").delegate("input[type=checkbox]", "change",
+            function () {
+                $(this).parents("label.checkbox").toggleClass("checked");
+            }
+        );
+
+        $("a.tool_ico_stretch").click(
+            function () {
+                $(this).toggleClass("tool_ico_stretch_selected").parents("ul:eq(0)").next().slideToggle();
+            }
+        );
+
+        $(".sidebar_wrap a span").hover(
+            function () { $(this).stop(true, true).animate({ "opacity": 1 }); }, function () { $(this).stop(true, true).animate({ "opacity": 0 }); }
+        );
+
+        //返回顶部
+        $("#ToTop").click(
+            function () {
+                $('body,html').animate({ scrollTop: 0 }, 500);
+            }
+        );
+
+        //意见反馈
+        $("#Feedback").click(
+            function () {
+                PopWindow.Controller.Init({
+                    type: "window",
+                    title: "意见反馈",
+                    width: 520,
+                    height: 332,
+                    url: "/UserControl/Feedback.html"
+                });
+            }
+        );
+
+        $('ul li.dropdown').hover(function () {
+            $(this).find('.nav_dropdown').stop(true, true).delay(100).fadeIn();
+        }, function () {
+            $(this).find('.nav_dropdown').stop(true, true).delay(100).fadeOut();
+        });
+
+        $("a.header_user").click(
+            function (event) {
+                $(this).toggleClass("selected");
+                $(this).next().slideToggle();
+                event.stopPropagation();
+            }
+        );
+
+        $("a.header_parent").hover(
+            function () {
+                $(this).next().css({ "left": ($(this).position().left + $(this).outerWidth()), "top": $(this).position().top, "display": "block" });
+            },
+            function () {
+                $(this).next().hide();
+            }
+        ).next().hover(
+            function () { $(this).show(); }, function () { $(this).hide(); }
+        );
+
+        $(".quick_menu_nav").hover(
+		    function () {
+		        $(this).find(".quick_menu_frame").stop().fadeTo(900, 0.2);
+		    },
+		    function () {
+		        $(this).find(".quick_menu_frame").stop().fadeTo(900, 0);
+		    }
+	    );
+
+        $(document).click(
+            function () {
+                var obj = $("a.header_user");
+                if (!obj.next().is(":hidden")) {
+                    obj.removeClass("selected").next().slideUp();
+                }
+            }
+        );
+
+        $(window).scroll(function () {
+            if ($(document).scrollTop() > 0) {
+                $("#ToTop").stop(true, true).fadeIn();
+            } else {
+                $("#ToTop").stop(true, true).fadeOut();
+            }
+        });
+    }
+
+    return {
+        Init: Init
+    };
+})();
+
+$(document).ready(function () {
+    Master.Controller.Init();
+});

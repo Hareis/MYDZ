@@ -1,0 +1,12 @@
+﻿@model IList<MYDZ.Entity.Order.StoreLogistics>
+<tr>
+    <td class="left">物流：</td>
+    <td>
+        <select style="width:220px;">
+            <option value="0">请选择</option>
+        @foreach (var item in Model) {
+            <option value="@item.Logistics.LogisticsId">@item.Logistics.LogisticsName</option>
+        }
+        </select>
+    </td>
+</tr>

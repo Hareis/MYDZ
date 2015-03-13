@@ -1,0 +1,266 @@
+﻿@{
+    Layout = "~/Views/Shared/_Master.cshtml";
+    ViewBag.Title = "订单详情";
+    MYDZ.Entity.Order.tbConsigneeInfo Consignee = new MYDZ.Entity.Order.tbConsigneeInfo();
+    MYDZ.Entity.Order.tbOrdersInfo ordersInfo = new MYDZ.Entity.Order.tbOrdersInfo();
+    IList<MYDZ.Entity.Order.tbOrderShipping> ShipList = new List<MYDZ.Entity.Order.tbOrderShipping>();
+    IList<MYDZ.Entity.Order.tbOrderPrint> PrintList = new List<MYDZ.Entity.Order.tbOrderPrint>();
+    IList<MYDZ.Entity.Order.tbOrdersDetail> DetailList = new List<MYDZ.Entity.Order.tbOrdersDetail>();
+    Consignee = ViewData["ConsigneeInfo"] as MYDZ.Entity.Order.tbConsigneeInfo;
+    ordersInfo = ViewData["orderinfo"] as MYDZ.Entity.Order.tbOrdersInfo;
+    ShipList = ViewData["listordership"] as IList<MYDZ.Entity.Order.tbOrderShipping>;
+    PrintList = ViewData["listorderprint"] as IList<MYDZ.Entity.Order.tbOrderPrint>;
+    DetailList = ViewData["listorderderail"] as IList<MYDZ.Entity.Order.tbOrdersDetail>;
+}
+<link href="@Url.Content("~/css/OrderDetail.css")" rel="stylesheet" type="text/css" />
+<div class="btn_wrap">
+    <div class="btn_wrap_hd">
+        <span>订单信息</span>
+    </div>
+    <table cellpadding="0" cellspacing="0" border="0" class="itemTable">
+        <tbody>
+            <tr>
+                <td>
+                    会员昵称：
+                </td>
+                <td class="r">@ordersInfo.NickName
+                </td>
+                <td>
+                    订单编号：
+                </td>
+                <td class="r">@ordersInfo.OrdersOutNumber
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    订单状态：
+                </td>
+                <td class="r">@ordersInfo.Status.OrdersStatusName
+                </td>
+                <td>
+                    配送方式：
+                </td>
+                <td class="r">@ordersInfo.Logistics.LogisticsName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    是否打印：
+                </td>
+                <td class="r">@(ordersInfo.IsOrdersPrint ? "已打印" : "未打印")
+                </td>
+                <td>
+                    下单时间：
+                </td>
+                <td class="r">@ordersInfo.OrdersDate.ToString("yyyy年MM月dd日 HH:mm:ss")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    付款时间：
+                </td>
+                <td class="r">@ordersInfo.PayDate.ToString("yyyy年MM月dd日 HH:mm:ss")
+                </td>
+                <td>
+                    录入时间：
+                </td>
+                <td class="r">@ordersInfo.OrdersInputDate.ToString("yyyy年MM月dd日 HH:mm:ss")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    所属店铺：
+                </td>
+                <td class="r">@ViewData["ShopName"].ToString()
+                </td>
+                <td>
+                    货到付款：
+                </td>
+                <td class="r">@(ordersInfo.CashOndelivery ? "是" : "否")
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="btn_wrap">
+    <div class="btn_wrap_hd">
+        <span>收货人信息</span>
+    </div>
+    <table cellpadding="0" cellspacing="0" border="0" class="itemTable">
+        <tbody>
+            <tr>
+                <td>
+                    收货人姓名：
+                </td>
+                <td class="r">@Consignee.Name
+                </td>
+                <td>
+                    收货人邮编：
+                </td>
+                <td class="r">@Consignee.PostCode
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    收货人手机：
+                </td>
+                <td class="r">@Consignee.Mobile
+                </td>
+                <td>
+                    收货人电话：
+                </td>
+                <td class="r">@Consignee.Phone
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    收货人地址：
+                </td>
+                <td colspan="3" class="r">@Consignee.Provice @Consignee.City @Consignee.District @Consignee.ConsigneeAddress
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+@if (ShipList != null && ShipList.Count > 0)
+{
+    <div class="btn_wrap">
+        <div class="btn_wrap_hd">
+            <span>发货信息</span>
+        </div>
+        <table cellpadding="0" cellspacing="0" border="0" class="listTable">
+            <thead>
+                <tr>
+                    <th>
+                        物流
+                    </th>
+                    <th>
+                        物流单号
+                    </th>
+                    <th>
+                        发货时间
+                    </th>
+                    <th>
+                        发货备注
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ShipList)
+                { 
+                    <tr>
+                        <td>@item.Logistics.LogisticsName
+                        </td>
+                        <td>@item.LogisticsNumber
+                        </td>
+                        <td>@item.ShippingDate.ToString("yyyy年MM月dd日 HH:mm:ss")
+                        </td>
+                        <td>
+                            <div class="detail_wrap">
+                                <img src="/Images/new_msg.gif" class="msg" />
+                                <div class="detail_div">
+                                    <ul class="top">
+                                        <li>发货备注</li>
+                                    </ul>
+                                    <ul class="middle">
+                                        <li>@(String.IsNullOrEmpty(item.ShippingDetail) ? Html.Raw("暂无发货备注信息") : Html.Raw(item.ShippingDetail))</li>
+                                    </ul>
+                                    <ul class="bottom">
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+@if (PrintList != null && PrintList.Count > 0)
+{
+    <div class="btn_wrap">
+        <div class="btn_wrap_hd">
+            <span>打印信息</span>
+        </div>
+        <table cellpadding="0" cellspacing="0" border="0" class="listTable">
+            <thead>
+                <tr>
+                    <th width="180">
+                        打印时间
+                    </th>
+                    <th>
+                        备注信息
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in PrintList)
+                { 
+                    <tr>
+                        <td>@item.OrderPrintDate.ToString("yyyy年MM月dd日 HH:mm:ss")
+                        </td>
+                        <td>@item.Detail
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+<div class="btn_wrap">
+    <div class="btn_wrap_hd">
+        <span>商品信息</span>
+    </div>
+    <table cellspacing="0" cellpadding="0" border="0" class="OrderTable">
+        <tbody>
+            <tr>
+                <td>
+                    <table cellpadding="0" cellspacing="0" width="100%" border="0" class="OrderItem">
+                        <tr>
+                            <td class="r">
+                                <table cellpadding="0" cellspacing="0" width="100%" border="0">
+                                    @{int count = 0;}
+                                    @{foreach (var detail in DetailList)
+                                      {
+                                          string cls = count == DetailList.Count - 1 ? "class='clear'" : "";
+                                        <tr @Html.Raw(cls)>
+                                            <td width="120">
+                                                <img src="@detail.ProductImg" width="100" height="100"  class="PImg" />
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <font color="blue">@detail.ProductName</font><br />
+                                                <font color="#808080">商家编码：@detail.ProductEncoding</font><br />
+                                                <font color="#808080">销售属性：@detail.ProductSku</font><br />
+                                                @(String.IsNullOrEmpty(detail.PackageName) ? Html.Raw("") : Html.Raw("<br /><font color='#808080'>套餐：" + detail.PackageName + "</font>"))
+                                            </td>
+                                            <td width="20">@(detail.IsProductReFund ? Html.Raw("<img src='/Images/icon_refund.gif' title='" + detail.ReFundStatusName + "' />") : Html.Raw(""))
+                                            </td>
+                                            <td width="60">@(detail.IsCanceled ? Html.Raw("<font color='#7C7C7C'>[ 已取消 ]</font>") : Html.Raw(""))
+                                            </td>
+                                            <td width="60">
+                                                <font style="font-size: 13px; font-weight: bold; color: #000;">@detail.ProductPrice</font>
+                                            </td>
+                                            <td width="60">
+                                                <font style="font-size: 13px; font-weight: bold; color: #000;">@detail.ProductNumber</font>
+                                            </td>
+                                        </tr>
+                                          count++;
+                                      } }
+                                </table>
+                            </td>
+                            <td width="200">
+                                (应收款：<font style="font-size: 15px; font-weight: bold; color: Red;">@ordersInfo.OrdersAccounts.ToString()</font>
+                                元)<br />
+                                (折扣：<font class="discount">@ordersInfo.OrdersDiscount </font>)<br />
+                                (净重：<font class="Weight">@ordersInfo.OrdersWeight </font>g)<br />
+                                (<font class="LogisticsName">@ordersInfo.Logistics.LogisticsName </font>：<font class="Freight">@ordersInfo.OrdersFreight
+                                </font>)<br />
+                                @(ordersInfo.IsFree ? Html.Raw("<font color='#ff5500'>[ 卖家包邮 ]</font><br/>") : Html.Raw(""))
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

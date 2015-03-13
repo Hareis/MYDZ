@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ThemeConfig>
+  <ThemeList>
+    <Theme>
+      <Name>蓝色</Name>
+      <Value>default</Value>
+      <BackgroundColor>#4682B4</BackgroundColor>
+      <IsDefault>true</IsDefault>
+    </Theme>
+    <Theme>
+      <Name>浅蓝</Name>
+      <Value>light blue</Value>
+      <BackgroundColor>#66CDAA</BackgroundColor>
+      <IsDefault>false</IsDefault>
+    </Theme>
+    <Theme>
+      <Name>金色</Name>
+      <Value>gold</Value>
+      <BackgroundColor>#EDCA15</BackgroundColor>
+      <IsDefault>false</IsDefault>
+    </Theme>
+    <Theme>
+      <Name>卡其色</Name>
+      <Value>khaki</Value>
+      <BackgroundColor>#A0CE4E</BackgroundColor>
+      <IsDefault>false</IsDefault>
+    </Theme>
+    <Theme>
+      <Name>橙色</Name>
+      <Value>orange</Value>
+      <BackgroundColor>#e86e1c</BackgroundColor>
+      <IsDefault>false</IsDefault>
+    </Theme>
+    <Theme>
+      <Name>天蓝色</Name>
+      <Value>sky blue</Value>
+      <BackgroundColor>#3abfc2</BackgroundColor>
+      <IsDefault>false</IsDefault>
+    </Theme>
+    <Theme>
+      <Name>酒红</Name>
+      <Value>wine red</Value>
+      <BackgroundColor>#e55237</BackgroundColor>
+      <IsDefault>false</IsDefault>
+    </Theme>
+    <Theme>
+      <Name>绿色</Name>
+      <Value>green</Value>
+      <BackgroundColor>#3ac24d</BackgroundColor>
+      <IsDefault>false</IsDefault>
+    </Theme>
+    <Theme>
+      <Name>米色</Name>
+      <Value>beige</Value>
+      <BackgroundColor>#ffcc66</BackgroundColor>
+      <IsDefault>false</IsDefault>
+    </Theme>
+    <Theme>
+      <Name>草绿</Name>
+      <Value>grass green</Value>
+      <BackgroundColor>#106820</BackgroundColor>
+      <IsDefault>false</IsDefault>
+    </Theme>
+    <Theme>
+      <Name>紫罗兰</Name>
+      <Value>violet</Value>
+      <BackgroundColor>#682848</BackgroundColor>
+      <IsDefault>false</IsDefault>
+    </Theme>
+    <Theme>
+      <Name>玫瑰色</Name>
+      <Value>rose</Value>
+      <BackgroundColor>#D03030</BackgroundColor>
+      <IsDefault>false</IsDefault>
+    </Theme>
+  </ThemeList>
+</ThemeConfig>

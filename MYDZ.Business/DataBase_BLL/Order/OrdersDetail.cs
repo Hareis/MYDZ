@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Interface.Order;
+using MYDZ.DALFactory;
+using MYDZ.Entity.Order;
+using MYDZ.Entity.ClientUser;
+using System.Collections;
+using System.Threading;
+
+namespace MYDZ.Business.DataBase_BLL.Order
+{
+    public class OrdersDetail
+    {
+        private static readonly IOrdersDetail OrdersDetailDal = DataAccess.Create("Order.OrdersDetail") as IOrdersDetail;
+
+        /// <summary>
+        /// 根据订单编号查询订单详情信息列表
+        /// </summary>
+        /// <param name="OrdersNumber">订单编号</param>
+        /// <returns></returns>
+        public static IList<tbOrdersDetail> Select(string OrdersNumber)
+        {
+            return OrdersDetailDal.Select(OrdersNumber);
+        }
+
+        /// <summary>
+        /// 添加订单详情信息
+        /// </summary>
+        /// <param name="OrdersDetail">订单详情表</param>
+        /// <returns></returns>
+        public static bool Insert(tbOrdersDetail OrdersDetail)
+        {
+            return OrdersDetailDal.Insert(OrdersDetail);
+        }
+
+
+        /// <summary>
+        /// 批量插入
+        /// </summary>
+        /// <param name="ListOrdersDetail"></param>
+        /// <returns></returns>
+        public static bool InsertListOrdersDetail(List<tbOrdersDetail> ListOrdersDetail)
+        {
+            return OrdersDetailDal.InsertListOrdersDetail(ListOrdersDetail);
+        }
+
+    }
+}

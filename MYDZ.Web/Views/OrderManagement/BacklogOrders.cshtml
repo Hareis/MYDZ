@@ -1,0 +1,401 @@
+﻿@{
+    Layout = null;
+}
+<style type="text/css">
+    .item-title-div p a
+    {
+        color: #4682b4;
+    }
+    .editdiv a img
+    {
+        float: right;
+        position: relative;
+    }
+    .edit-item-title
+    {
+        position: relative;
+        top: -14px;
+        display: block;
+        text-indent: -9999em;
+        width: 16px;
+        height: 16px;
+        overflow: hidden;
+    }
+    .edit-item-price, .edit-item-stoke
+    {
+        position: relative;
+        width: 16px;
+        top: -14px;
+        display: block;
+        text-indent: -9999em;
+    }
+    
+    .item-title-div p
+    {
+        text-align: left;
+        margin: 0px 5px;
+        width: 160px;
+    }
+    .item-price-div p, .item-stoke-div p
+    {
+        width: 80px;
+    }
+    
+    .editdiv .item-title-div textarea
+    {
+        padding: 2px;
+        height: 28px;
+    }
+    .editdiv .item-price-div textarea, .editdiv .item-stoke-div textarea
+    {
+        padding: 2px;
+        height: 20px;
+        width: 70px;
+    }
+    .saveicon
+    {
+        top: -21px;
+    }
+    .edita
+    {
+        visibility: hidden;
+    }
+    .save, .hide-div, .show-div
+    {
+        display: none;
+    }
+    .PImg
+    {
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+    }
+    .float-div-addmarker
+    {
+        width: 320px;
+        height: 160px;
+        border: 1px solid rgb(215, 215, 212);
+        position: absolute;
+        display: none;
+        background-color: White;
+        box-shadow: 5px 5px 3px #888888;
+    }
+    .float-div-addmarker ul li
+    {
+        float: left;
+        margin-left: 12px;
+    }
+</style>
+@*  #0080FF*@
+<div id="table_wrap_child">
+    @if (ViewData["ListOrdersInfo"] != null)
+    {
+        foreach (MYDZ.Entity.Order.tbOrdersInfo item in ViewData["ListOrdersInfo"] as IList<MYDZ.Entity.Order.tbOrdersInfo>)
+        {
+        <table class="ot @(item.CashOndelivery ? "ct" : "") tool_wrap" cellpadding="0" cellspacing="0" border="0" style="width: 1000px;margin-top: 10px;">
+            <thead>
+                <tr>
+                    <th class="tool_wrap_hd" style="line-height: 30px; height: 30px;">
+                        <div style="margin-top: 8px;">
+                            <label class="checkbox">
+                                <span>
+                                    <input name="order_chs" value="@item.OrdersNumber" type="checkbox" hidefocus="true"></span></label></div>
+                        <div style="max-width: 222px; white-space: nowrap; overflow: hidden;">
+                            订单编号：@item.OrdersOutNumber</div>
+                        <div>
+                            下单时间：@item.OrdersDate.ToString("yyyy-MM-dd HH:mm")</div>
+                        <div>
+                            录入时间：@item.OrdersInputDate.ToString("yyyy-MM-dd HH:mm")</div>
+                        <div>
+                            付款时间：@item.PayDate.ToString("yyyy-MM-dd HH:mm")</div>
+                        <div>
+                            打印状态：@(item.IsOrdersPrint ? Html.Raw("<font style=\"color:red;\">已打印</font>") : Html.Raw("未打印"))
+                            [<a href="javascript:void();" name="ChangeInvoice" data-click="@(item.IsInventory ? 1 : 0)" data-number="@item.OrdersNumber">@(item.IsInventory ? "有发货单" : "无发货单")</a>]</div>
+                        <div class="flag" data-number="@item.OrdersNumber" data-text="@item.OrdersNotes" data-flag="@item.OrdersFlag">
+                            <div class="detail_wrap">
+                                <img src='../../Images/Flag/op_memo_@(item.OrdersFlag).png' style="margin-top: 10px;" />
+                                <div class="detail_div">
+                                    <ul class="top">
+                                        <li>订单备注</li>
+                                    </ul>
+                                    <ul class="middle">
+                                        <li>@(String.IsNullOrEmpty(item.OrdersNotes) ? "暂无订单备注信息" : item.OrdersNotes)</li>
+                                    </ul>
+                                    <ul class="bottom">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <table cellpadding="0" cellspacing="0" width="100%" border="0" class="OrderItem">
+                            <tr>
+                                <td style="border-top: 0px;">
+                                    <table cellpadding="0" cellspacing="0" width="100%" border="0">
+                                        @{var DetailList = item.Details;
+                                          if (DetailList != null)
+                                          {
+                                              foreach (var detail in DetailList)
+                                              {
+                                            <tr>
+                                                <td width="120" height="120">
+                                                    <a href="@(ViewBag.PFID == 1 ? "http://item.taobao.com/item.html?id=" + detail.OutNumberIId + "" : ViewBag.PFID == 3 ? detail.Details : "http://item.jd.com/" + detail.OutNumberIId + ".html")" target="_blank">
+                                                        <img src="@detail.ProductImg" class="PImg" />
+                                                    </a>
+                                                </td>
+                                                <td style="text-align: left;">
+                                                    <a href="@("http://item.taobao.com/item.html?id="+ detail.OutNumberIId + ".html")" target="_blank">@detail.ProductName</a><br />
+                                                    <font color="#808080">商家编码：</font><font color="#808080">@detail.ProductEncoding</font><br />
+                                                    <font color="#808080">销售属性：</font><font color="#808080">@detail.ProductSku</font><br />
+                                                    <font color="#ff5500">所属店铺：[ @item.Shop.Title ]</font>
+                                                    @(detail.IsCanceled ? Html.Raw("<font color='#7C7C7C'>[ 已取消 ]</font>") : Html.Raw(""))
+                                                    @(String.IsNullOrEmpty(detail.PackageName) ? Html.Raw("") : Html.Raw("<br /><font color='#808080'>套餐：" + detail.PackageName + "</font>"))
+                                                </td>
+                                                <td width="20">@(detail.IsProductReFund ? Html.Raw("<img src='/Images/icon_refund.gif' title='" + detail.ReFundStatusName + "' />") : Html.Raw("&nbsp;"))
+                                                </td>
+                                                <td width="40">
+                                                    <font style="font-size: 13px; font-weight: bold; color: #000;">@detail.ProductNumber</font>
+                                                </td>
+                                                <td width="60">
+                                                    <font style="font-size: 13px; font-weight: bold; color: #000;">@detail.ProductPrice</font>
+                                                </td>
+                                            </tr>
+                                              }
+                                          }
+                                        }
+                                    </table>
+                                </td>
+                                <td width="110">
+                                    @Html.Raw(item.NickName)<br />
+                                    <a href="javascript:void();" data-number="@item.OrdersOutNumber" name="consignee">收件人信息</a>
+                                    @if (!String.IsNullOrEmpty(item.BuyerMsg))
+                                    {
+                                        <br />
+                                        <div class="detail_wrap">
+                                            <img src="/Images/new_msg.gif" class="msg" />
+                                            <div class="detail_div" style="right: 65px;">
+                                                <ul class="top">
+                                                    <li>买家留言</li>
+                                                </ul>
+                                                <ul class="middle">
+                                                    <li>@(String.IsNullOrEmpty(item.BuyerMsg) ? "暂无买家留言信息" : item.BuyerMsg)</li>
+                                                </ul>
+                                                <ul class="bottom">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (ViewBag.PFID == 1)
+                                    {
+                                        <br />
+                                        <a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid=@(System.Web.HttpContext.Current.Server.UrlEncode(item.NickName))&siteid=cntaobao&status=1&charset=utf-8" >
+                                            <img border="0" src="http://amos.alicdn.com/online.aw?v=2&uid=@(System.Web.HttpContext.Current.Server.UrlEncode(item.NickName))&site=cntaobao&s=1&charset=utf-8" alt="点击这里给我发消息" /></a>
+                                    }
+                                    <br />
+                                    <a href="javascript:vod();" data-number="@item.OrdersOutNumber" data-cash="@(item.CashOndelivery ? 1 : 0)" name="dev_rang">
+                                        查看能配送的物流</a>
+                                </td>
+                                <td width="150">
+                                    @item.Status.OrdersStatusName<br />
+                                    <a href="/OrderManagement/OrderDetail.html?param=@item.OrdersNumber" target="_blank">订单详情</a><br />
+                                    @{
+                                    switch (item.Status.OrdersStatusId)
+                                    {
+                                        case 1:
+                                        <a href="javascript:void();" data-number="@item.OrdersOutNumber" name="close">关闭交易</a>
+                                                                             break;
+                                        case 2:
+                                        <a href="javascript:void();" data-number="@item.OrdersOutNumber" name="audit">审核付款</a><br />
+                                        <a href="javascript:void();" data-id="@item.Logistics.LogisticsId" data-number="@item.OrdersOutNumber" name="Delivery">
+                                            发货</a>
+                                                                                                                   break;
+                                        case 3:
+                                        <a href="javascript:void();" data-id="@item.Logistics.LogisticsId" data-number="@item.OrdersOutNumber" name="Delivery">
+                                            发货</a><br />
+                                        <a href="javascript:void();" data-number="@item.OrdersOutNumber" name="close">关闭交易</a>
+                                                                             break;
+                                        default: break;
+                                    }
+                                    }
+                                </td>
+                                <td width="120">
+                                    <font style="color: #000; font-size: 14px; font-weight: bold;">@item.OrdersAccounts</font><br />
+                                    (折扣：<font class="discount">@item.OrdersDiscount </font>)<br />
+                                    (净重：<font class="Weight">@item.OrdersWeight </font>g)<br />
+                                    (<font class="LogisticsName">@item.Logistics.LogisticsName </font>：<font class="Freight">@item.OrdersFreight
+                                    </font>)<br />
+                                    @(item.IsFree ? Html.Raw("<font color='#ff5500'>[ 卖家包邮 ]</font><br/>") : Html.Raw(""))
+                                    <a href="javascript:void();" data-number="@item.OrdersNumber" data-id="@item.Logistics.LogisticsId,@item.Shop.ShopId" name="logistics">
+                                        修改物流</a>
+                                </td>
+                                <td width="40" style="border-right: 0px;">
+                                    <div class="detail_wrap">
+                                        <img src='../../Images/Flag/op_memo_@(item.ServiceFlag).png' />
+                                        <div class="detail_div">
+                                            <ul class="top">
+                                                <li>客服备注</li>
+                                            </ul>
+                                            <ul class="middle">
+                                                <li>@(String.IsNullOrEmpty(item.ServiceNotes) ? "暂无客服备注信息" : item.ServiceNotes)</li>
+                                            </ul>
+                                            <ul class="bottom">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        }
+    }
+    else
+    { 
+        <div style="text-align: center; color: Red;">
+            <h2>
+                Sorry,暂时未发现可处理的订单！</h2>
+        </div>
+    }
+    <input type="hidden" name="ErrorMsg" value="@ViewData["ErrorMsg"]" />
+</div>
+<script type="text/javascript">
+    RefreshOrder();
+   // Ordermark();
+   // Deliver();
+
+    function Deliver() {
+        this.Page = {
+            Init: function () {
+                $("div.DataTable").delegate(".detail_wrap", "mouseover",
+                function () {
+                    $(this).find("div.detail_div").show();
+                }
+            ).delegate(".detail_wrap", "mouseout",
+                function () {
+                    $(this).find("div.detail_div").hide();
+                }
+            );
+            }
+        };
+    }
+
+
+    function RefreshOrder() {
+        setInterval(function () {
+            // $.get("/OrderManagement/BacklogOrders.html" + " #table_wrap_child>*", {}, function (data) {
+            $.get("/OrderManagement/BacklogOrders.html", {}, function (data) {
+                //$("#table_wrap_child").empty().append(data.responseText);
+                PopWindow.Controller.Init({ type: "prompt", opacity: 0, width: 352, height: 198, title: "成功刷新一次！" });
+               // Ordermark();
+            },"html");
+        }, 1000 * 60 * 5);
+    }
+
+    //给订单添加备注
+    function Ordermark() {
+        Skin.Controller.Init();
+        var demo = Validform.Controller.Init({
+            form: "#add-trade-desc-from",
+            beforeSubmit: function () {
+                PopWindow.Controller.Init({ type: "loading", opacity: 0 });
+                var tid = $('.AddTradeMemo').parent().parent().find("input[name=order_checkbox]").val();
+                var flag = $('.float-div-span').find('img').eq(0).attr("data");
+                var memo = $('.float-div-textarea').val();
+                var parent = $('.float-div-addmarker');
+                parent.find('input[name=Tid]').eq(0).val(tid);
+                parent.find('input[name=Memo]').eq(0).val(memo);
+                parent.find('input[name=Flag]').eq(0).val(flag);
+            }
+        }).config({
+            ajaxPost: true,
+            callback: function (data) {
+                PopWindow.Controller.Clear();
+                if (!data.Result) {
+                    PopWindow.Controller.Init({ type: "error", opacity: 0, width: 352, height: 198, title: data.ErrorMsg });
+                    demo.resetForm();
+                }
+                else {
+                    demo.resetForm();
+                }
+            }
+        });
+
+        $('.AddTradeMemo').click(function () {
+            var target = $(this).offset();
+            $(".float-div-addmarker").css("display", "block");
+            $(".float-div-addmarker").css("top", parseInt(target.top) + 15);
+            $(".float-div-addmarker").css("left", target.left);
+            var parent = $(this).parent();
+            $('.float-div-textarea').empty().val(parent.find("input[name=SellerMemo]").val());
+            var flag = parent.find("input[name=SellerFlag]").val()
+            var str;
+            switch (flag) {
+                case "0":
+                    str = "<img src='/images/Flag/op_memo_0.png' data='1' alt='灰旗' /> 灰旗";
+                    break;
+                case "1":
+                    str = "<img src='/images/Flag/op_memo_1.png' data='1' alt='红旗' /> 红旗";
+                    break;
+                case "2":
+                    str = "<img src='/images/Flag/op_memo_2.png' data='2' alt='黄旗' /> 黄旗";
+                    break;
+                case "3":
+                    str = "<img src='/images/Flag/op_memo_3.png' data='3' alt='绿旗' /> 绿旗";
+                    break;
+                case "4":
+                    str = "<img src='/images/Flag/op_memo_4.png' data='4' alt='蓝旗' /> 蓝旗";
+                    break;
+                case "5":
+                    str = "<img src='/images/Flag/op_memo_5.png' data='5' alt='粉红旗' /> 粉红";
+                    break;
+                default:
+                    str = "<img src='/images/Flag/op_memo_0.png' data='0' alt='灰旗' /> 灰旗";
+                    break;
+            }
+            $('.float-div-span').empty().html(str);
+        });
+
+        $(document).delegate($(document), "click", function (e) {
+            e = window.event || e; // 兼容IE7
+            obj = $(e.srcElement || e.target);
+            if ($(obj).is(".float-div-addmarker,.float-div-addmarker *,.AddTradeMemo")) {
+
+            } else {
+                $(".float-div-addmarker").css("display", "none");
+            }
+        });
+
+        $('.float-div-a').click(function () {
+            $('.float-div-span').empty().html($(this).html());
+        });
+
+        $('.float-div-save').click(function () {
+            demo.submitForm();
+        });
+    }
+    function closstrade() {
+        $('.closetrade').click(function () {
+            var tid = $(this).parents(".Trade-detail-table").find("input[name=order_checkbox]").val();
+            $.post("OrderManagement/CloseTrade.html", { Tid: tid }, function (data) {
+                if (!data.Result) {
+                    PopWindow.Controller.Init({ type: "error", opacity: 0, width: 352, height: 198, title: data.ErrorMsg });
+                }
+                else {
+                    PopWindow.Controller.Init({ type: "prompt", opacity: 0, width: 352, height: 198, title: "已成功关闭交易！" });
+                }
+            });
+        });
+    }
+</script>
+<input type="hidden" name="PageIndex" value="@ViewBag.PageIndex" />
+<input type="hidden" name="MaxRow" value="@ViewBag.MaxRow" />
+<input type="hidden" name="MaxPage" value="@ViewBag.MaxPage" />
+<input type="hidden" name="MPrint" value="@ViewBag.MPrint" />
+<input type="hidden" name="NPrint" value="@ViewBag.NPrint" />
+<input type="hidden" name="YPrint" value="@ViewBag.YPrint" />

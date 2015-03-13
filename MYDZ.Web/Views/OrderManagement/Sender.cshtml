@@ -1,0 +1,188 @@
+﻿@{
+    ViewBag.Title = "发件人信息";
+    Layout = "~/Views/Shared/_SubMaster.cshtml";
+}
+<script src="@Url.Content("~/js/OrderManagement/Expressions.js")" type="text/javascript"></script>
+@{
+    string ShopId = ViewData["ShopId"] == null ? "" : ViewData["ShopId"].ToString();
+}
+<style type="text/css">
+    .require
+    {
+        color:Red;
+    }
+</style>
+<div class="tab">
+    <ul>
+        <li class="selected">@ViewData["Shop"]</li>
+    </ul>
+</div>
+@{ MYDZ.Entity.Order.tbSenderInfo Sender = new MYDZ.Entity.Order.tbSenderInfo();
+   Sender = ViewData["senderInfo"] as MYDZ.Entity.Order.tbSenderInfo;  }
+<div class="table_form">
+    @using (Html.BeginForm())
+    { 
+        <div class="MsgWrap @(ViewBag.Status == 1 ? "SuccessWrap" : "")" @(ViewBag.Status > -1 ? Html.Raw("style='display:block;'") : Html.Raw(""))>
+            <i></i><span>@(ViewBag.Status > -1 ? ViewBag.Status == 1 ? "保存数据成功" : "保存数据失败" : "")</span></div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>公司名称： </span>
+            <div class="table_bd">
+                <input name="CompanyName" type="text" value="@Sender.CompanyName" PlaceHolder="" />
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require">*</span>店铺名称： </span>
+            <div class="table_bd">
+                <input name="ShopName" type="text" value="@Sender.ShopName" PlaceHolder="" />
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require">*</span>寄件人名称： </span>
+            <div class="table_bd">
+                <input name="SenderName" type="text" value="@Sender.SenderName" PlaceHolder="" />
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>寄件人电话： </span>
+            <div class="table_bd">
+                <input name="SenderTel" type="text" value="@Sender.SenderTel" PlaceHolder="例：区号-电话号码-分机号" />
+            </div>
+            <span class="table_msg" style="display: block;"><i></i><span>寄件人电话和手机必须填写一项</span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>寄件人手机： </span>
+            <div class="table_bd">
+                <input name="SenderMobile" type="text" value="@Sender.SenderMobile" PlaceHolder="例：13535353535" />
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>寄件人邮编： </span>
+            <div class="table_bd">
+                <input name="PostCode" type="text" value="@Sender.PostCode" PlaceHolder="例：200000" />
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>寄件人省 市 区/县： </span>
+            <div class="table_bd">
+                <input name="Province" type="text" class="mini" value="@Sender.Province" PlaceHolder="省" />
+                -
+                <input name="City" type="text" class="mini" value="@Sender.City" PlaceHolder="市" />
+                -
+                <input name="District" type="text" class="mini" value="@Sender.District" PlaceHolder="区/县" />
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require">*</span>寄件人地址： </span>
+            <div class="table_bd">
+                <input name="SenderAdd" type="text" style="width:600px;" value="@Sender.SenderAdd" PlaceHolder="" />
+            </div>
+            <span class="table_msg"><i></i><span></span></span>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>商家编码： </span>
+            <div class="table_bd">
+                <input name="ShopCode" type="text" value="@Sender.ShopCode" PlaceHolder="" />
+            </div>
+        </div>
+        <div class="table_action">
+            <button type="submit" hidefocus="true">
+                保存</button>
+        </div>
+        <input type="hidden" name="ShopId" value="@ShopId" />
+        <input type="hidden" name="SenderId" value="@Sender.SenderId" />
+    }
+</div>
+<script type="text/javascript">
+    var Sender = function () {
+        this.Page = {
+            Init: function () {
+                this.InitEvnet();
+            },
+            InitEvnet: function () {
+                var base = this;
+                $("div.table_form button[type=submit]").click(function () { base.Save(); });
+                $("div.table_form input").focus(
+                function () {
+                    $(this).removeClass("erroript").parent().next().removeClass("table_error_msg");
+                }
+            );
+            },
+            Verification: function () {
+                var IsOk = true;
+                var Data = [];
+                var ShopName = $("input[name=ShopName]");
+                if (ShopName.val().IsEmpty()) {
+                    Data.push({ control: ShopName, content: "请输入店铺名称" });
+                }
+
+                var SenderName = $("input[name=SenderName]");
+                if (SenderName.val().IsEmpty()) {
+                    Data.push({ control: SenderName, content: "请输入寄件人名称" });
+                }
+
+                var SenderName = $("input[name=SenderName]");
+                if (SenderName.val().IsEmpty()) {
+                    Data.push({ control: SenderName, content: "请输入寄件人名称" });
+                }
+
+                var SenderTel = $("input[name=SenderTel]");
+                var SenderMobile = $("input[name=SenderMobile]");
+
+                if (SenderTel.val().IsEmpty() && SenderMobile.val().IsEmpty()) {
+                    Data.push({ control: SenderTel, content: "寄件人电话和手机必须填写一项" });
+                } else {
+                    if (!SenderTel.val().IsEmpty()) {
+                        if (!SenderTel.val().Trim().CheckPhone()) {
+                            Data.push({ control: SenderTel, content: "寄件人电话号码格式输入错误" });
+                        }
+                    }
+
+                    if (!SenderMobile.val().IsEmpty()) {
+                        if (!SenderMobile.val().Trim().CheckMoblieNo()) {
+                            Data.push({ control: SenderMobile, content: "寄件人手机号码格式输入错误" });
+                        }
+                    }
+                }
+
+                var SenderAdd = $("input[name=SenderAdd]");
+                if (SenderAdd.val().IsEmpty()) {
+                    Data.push({ control: SenderAdd, content: "请输入寄件人地址" });
+                }
+
+                var PostCode = $("input[name=PostCode]");
+                if (!PostCode.val().IsEmpty()) {
+                    if (!PostCode.val().Trim().CheckPostCode()) {
+                        Data.push({ control: PostCode, content: "邮政编码格式输入错误" });
+                    }
+                }
+
+                if (Data.length > 0) {
+                    IsOk = false;
+                    for (var i = 0; i < Data.length; i++) {
+                        Data[i].control.addClass("erroript").parent().next().addClass("table_error_msg").find("span").html(Data[i].content);
+                    }
+                }
+
+                return IsOk;
+            },
+            Save: function () {
+                if (!this.Verification()) {
+                    window.event.returnValue = false;
+                    return false;
+                }
+            }
+        };
+    }
+
+    $(document).ready(
+    function () {
+        new Sender().Page.Init();
+    }
+);
+</script>

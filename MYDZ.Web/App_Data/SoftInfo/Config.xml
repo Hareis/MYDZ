@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SoftInfoConfig>
+  <!--测试环境 URL-->
+  <ZSHJ>https://oauth.taobao.com/authorize?</ZSHJ>
+  <messageUrl>ws://mc.api.taobao.com/</messageUrl>
+  <CSHJ>https://oauth.taobao.com/authorize?</CSHJ>
+  <AppKey>21736670</AppKey>
+  <AppSecret>c3f96878feffb81d98cb0aa8c8936f60</AppSecret>
+  <CallBackUrl>http://192.168.0.133:2014/Auth/Index.html</CallBackUrl>
+  <AccessTokenURL>https://oauth.taobao.com/token</AccessTokenURL>
+  <ApiURL>http://gw.api.taobao.com/router/rest</ApiURL>
+  <TQLURL>http://gw.api.taobao.com/tql</TQLURL>
+  <RootFilePath>~/UploadImgs/GoodsPicture</RootFilePath>
+</SoftInfoConfig>

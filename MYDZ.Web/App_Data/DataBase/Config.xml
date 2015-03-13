@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataBaseConfig>
+	<Server>LILI\sa</Server>
+	<DBName>MHDZ_DATA</DBName>
+	<User>sa</User>
+	<PassWord>m9B2FlhZo3lbURjaMs3dXg==</PassWord>
+	<DataBaseType>SQLSERVER</DataBaseType>
+	<Character>Server={Server};database={DBName};user={User};password={PassWord}</Character>
+</DataBaseConfig>

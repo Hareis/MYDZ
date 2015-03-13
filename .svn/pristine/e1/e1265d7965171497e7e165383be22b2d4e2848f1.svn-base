@@ -1,0 +1,135 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MYDZ.Entity.ItemCats;
+using Top.Api;
+using System.Xml.Serialization;
+using Top.Api.Request;
+using Top.Api.Response;
+using Top.Api.Parser;
+using MYDZ.Entity.Goods;
+
+namespace MYDZ.Business.TB_Logic.ItemCats
+{
+    internal class GetItemCats
+    {
+        /// <summary>
+        /// 查询商家被授权品牌列表和类目列表 
+        /// </summary>
+        internal SellerAuthorize GetAuthorizeItemcats(string sessionKey)
+        {
+            ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret, "json");
+            ItemcatsAuthorizeGetRequest req = new ItemcatsAuthorizeGetRequest();
+            req.Fields = "brand.vid, brand.name";
+            ItemcatsAuthorizeGetResponse response = client.Execute(req, sessionKey);
+
+            TopJsonParser topjson = new TopJsonParser();
+            ItemcatsAuthorizeGetResponse1 resp = topjson.Parse<ItemcatsAuthorizeGetResponse1>(response.Body);
+            return resp.SellerAuthorize;
+        }
+        #region
+        internal class ItemcatsAuthorizeGetResponse1 : TopResponse
+        {
+            /// <summary>
+            /// 里面有3个数组：  Brand[]品牌列表,  ItemCat[] 类目列表  XinpinItemCat[] 针对于C卖家新品类目列表
+            /// </summary>
+            [XmlElement("seller_authorize")]
+            internal SellerAuthorize SellerAuthorize { get; set; }
+        }
+        #endregion
+
+        /// <summary>
+        /// 获取后台供卖家发布商品的标准商品类目
+        /// </summary>
+        internal List<ItemCat> GetItemcats(string Cids, string ParentCid)
+        {
+            ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret, "json");
+            ItemcatsGetRequest req = new ItemcatsGetRequest();
+            req.Fields = "cid,parent_cid,name,is_parent";
+            req.ParentCid = long.Parse(ParentCid);
+            if (Cids != null)
+                req.Cids = Cids;
+            ItemcatsGetResponse response = client.Execute(req);
+            List<ItemCat> ListItemCat = new List<ItemCat>();
+            ItemCat newitem;
+            foreach (Top.Api.Domain.ItemCat item in response.ItemCats)
+            {
+                newitem = new ItemCat();
+                newitem.Cid = item.Cid;
+                newitem.Features = new List<Feature>();
+                newitem.IsParent = item.IsParent;
+                newitem.Name = item.Name;
+                newitem.ParentCid = item.ParentCid;
+                newitem.SortOrder = item.SortOrder;
+                newitem.Status = item.Status;
+                //if (!item.IsParent)
+                //{
+                //    List<Feature> ListFeature = new List<Feature>();
+                //    Feature newfea;
+                //    foreach (Top.Api.Domain.Feature itemchid in item.Features)
+                //    {
+                //        newfea = new Feature();
+                //        newfea.AttrKey = itemchid.AttrKey;
+                //        newfea.AttrValue = itemchid.AttrValue;
+                //        ListFeature.Add(newfea);
+                //    }
+                //}
+                ListItemCat.Add(newitem);
+            }
+            return ListItemCat;
+        }
+
+
+        /// <summary>
+        /// 获取标准商品类目属性
+        /// </summary>
+        /// <param name="itemprop"></param>
+        /// <returns></returns>
+        internal List<ItemProp> GetItemprops(ItempropsGet itemprop)
+        {
+            ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret, "json");
+            ItempropsGetRequest req = new ItempropsGetRequest();
+            req.Fields = "pid,name,must,multi,prop_values";
+            req.Cid = itemprop.Cid;
+            req.Pid = itemprop.Pid;
+            req.ParentPid = itemprop.ParentPid;
+            req.IsKeyProp = itemprop.IsKeyProp;
+            req.IsSaleProp = itemprop.IsSaleProp;
+            req.IsColorProp = itemprop.IsColorProp;
+            req.IsEnumProp = itemprop.IsEnumProp;
+            req.IsInputProp = itemprop.IsInputProp;
+            req.IsItemProp = itemprop.IsItemProp;
+            req.ChildPath = itemprop.ChildPath;
+            req.Type = itemprop.Type;
+            req.AttrKeys = itemprop.AttrKeys;
+            ItempropsGetResponse response = client.Execute(req);
+
+            TopJsonParser topjson = new TopJsonParser();
+            ItempropsGetResponse1 resp = topjson.Parse<ItempropsGetResponse1>(response.Body);
+            return resp.ItemProps;
+
+        }
+        #region
+        /// <summary>
+        /// 临时转化类
+        /// </summary>
+        private class ItempropsGetResponse1 : TopResponse
+        {
+            /// <summary>
+            /// 类目属性信息(如果是取全量或者增量，不包括属性值),根据fields传入的参数返回相应的结果
+            /// </summary>
+            [XmlArray("item_props")]
+            [XmlArrayItem("item_prop")]
+            internal List<ItemProp> ItemProps { get; set; }
+
+            /// <summary>
+            /// 最近修改时间(只有取全量或增量的时候会返回该字段)。格式:yyyy-MM-dd HH:mm:ss
+            /// </summary>
+            [XmlElement("last_modified")]
+            internal string LastModified { get; set; }
+        }
+        #endregion
+
+    }
+}
