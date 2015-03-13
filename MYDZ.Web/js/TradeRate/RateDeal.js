@@ -153,8 +153,21 @@
     }
     //针对过期的评价的选择
     function OutTimeRate() {//[type='chexkbox']
-        $("input[name=CheckboxGoods]").change(function () {
-            checktypecheckbox(this);
+        $(document).delegate("input[name=CheckboxGoods]", "click", function () {
+            if ($(this).attr("type") === "checkbox") {
+                var parent = $(this).parent().parent();
+                var result = parent.find("input[name=Ratestate]").val();
+                if (result === true || result === "true") {
+                    if (parent.hasClass('checked')) {
+                        // parent.removeClass("checked");
+                    } else {
+                        //  parent.addClass("checked");
+                    }
+                }
+                else if (result === false || result === "false") {
+                    parent.removeClass("checked");
+                }
+            }
         });
     }
 
@@ -204,6 +217,9 @@
                 } else {
                     parent.addClass("checked");
                 }
+            }
+            else if (result === false || result === "false") {
+                parent.removeClass("checked");                
             }
         }
     }
