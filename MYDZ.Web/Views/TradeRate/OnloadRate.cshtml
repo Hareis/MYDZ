@@ -164,7 +164,7 @@
            foreach (MYDZ.Entity.Order.Trade item in Model)
            {
                TimeSpan dt1 = new TimeSpan();
-               if (item.Orders[0].EndTime != null)
+               if (item.EndTime != null)
                {
                    dt1 = DateTime.Parse(item.Orders[0].EndTime).AddDays(15).Subtract(DateTime.Now);
                }             

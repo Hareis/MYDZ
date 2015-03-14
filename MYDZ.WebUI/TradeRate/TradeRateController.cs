@@ -95,9 +95,9 @@ namespace MYDZ.WebUI.TradeRate
             else
             {
                 List<Trade> lisaa = new List<Trade>();
-                Trade asd = new Trade();
-                asd = iiti.GetTrade(clientuser.UserShops[0].SessionKey, tradeRatestr.Tid.ToString(), out errorMsg);
-                lisaa.Add(asd);
+                Trade trade = new Trade();
+                trade = iiti.GetTrade(clientuser.UserShops[0].SessionKey, tradeRatestr.Tid.ToString(), out errorMsg);
+                lisaa.Add(trade);
                 return lisaa;
             }
         }
@@ -105,6 +105,18 @@ namespace MYDZ.WebUI.TradeRate
         public ViewResult SaveRate()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 评价模板
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult RateTemple()
+        {
+            tbClientUser clientuser = GetUser("UserInfo");
+            //取系统默认评价模板
+            ViewData["systemtemper"] = br.GetTradeRateByShopId(-1);
+            return View(br.GetTradeRateByShopId(clientuser.UserShops[0].Shop.ShopId));
         }
 
         /// <summary>

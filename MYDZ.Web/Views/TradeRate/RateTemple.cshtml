@@ -1,65 +1,269 @@
-﻿@{
+﻿@model List<MYDZ.Entity.Traderate.Tb_TradeRate>
+@{
     ViewBag.Title = "评价设置";
-    Layout = "~/Views/Shared/_SubMaster.cshtml";
+    Layout = null;// "~/Views/Shared/_SubMaster.cshtml";
 }
-<div class="btn_wrap">
-    <div class="btn_wrap_hd">
-        <span class="title"><i></i>评价设置</span>
-    </div>
-    <div class="btn_wrap_bd" style="width: 150px;">
-        <br />
-        选择的类目：
-    </div>
-    <div class="btn_wrap_bd" style="width: 845px;">
-        <div class="table_item">
-            <span class="table_hd"><span class="require"></span><i style="color: Red;">* </i>商品类型：</span>
-            <div class="table_bd">
-                <label>
-                    <input type="radio" name="StuffStatus" checked="checked" value="new" /><em>全新</em>
-                </label>
-                <label>
-                    <input type="radio" name="StuffStatus" value="second" /><em>二手</em>
-                </label>
-                <span class="table_msg"><i></i><span></span></span>
-            </div>
-        </div>
-        <div class="table_item">
-            <span class="table_hd"><span class="require"></span>商品模板：</span>
-            <div class="table_bd">
-                <select>
-                    <option>默认商品详情页</option>
-                </select>
-            </div>
-        </div>
-        <div class="table_wrap goodsattributte">
-        </div>
-        <div class="table_item">
-            <span class="table_hd"><span class="require"></span><i style="color: Red;">* </i>商品标题：</span>
-            <div class="table_bd">
-                <div>
-                    <input type="text" name="Title" value="" style="width: 500px;" datatype="*1-30" nullmsg="请键入商品标题"
-                        errormsg="商品标题最多允许输入30个字符（包括空格）" />
-                    <div class="msg_info">
-                        <span class="Validform_checktip"></span><i></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="table_item">
-            <span class="table_hd"><span class="require"></span>宝贝卖点：</span>
-            <div class="table_bd">
-                <div>
-                    <textarea name="sell_point" style="width: 500px; height: 40px;" datatype="*0-150"
-                        errormsg="商品标题最多允许输入150个字符（包括空格）"></textarea>
-                    <div class="msg_info">
-                        <span class="Validform_checktip"></span><i></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div></div>
-<script type="text/javascript">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SaveRate</title>
+    <link href="@Url.Content("~/css/Control.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/TabCss.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/js/jquery-1.11.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/jquery.nicescroll.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Validation/Validform_v5.3.2_min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Validation/Validform.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/TradeRate/jquery.tabso_yeso.js")" type="text/javascript"></script>
+    <style type="text/css">
+        .table_item .table_hd
+        {
+            float: left;
+            width: 30px;
+            font-size: 14px;
+            padding-right: 10px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo">
+        <ul class="tabbtn" id="move-animate-top">
+            <li class="current"><a href="javascript:void(0);">自定义模板</a></li>
+            <li><a href="javascript:void(0);">系统模板</a></li>
+        </ul>
+        <div class="tabcon" id="topcon">
+            <div class="subbox">
+                <!--自定义模板-->
+                <div class="sublist">
+                    <div>
+                        @{if (Model != null)
+                          {
+                              foreach (MYDZ.Entity.Traderate.Tb_TradeRate item in Model)
+                              {
+                            <div class="btn_wrap">
+                                <div class="table_item">
+                                    <span class="table_hd">@*<span class="require"></span>*@
+                                        <input type="radio" name="rateid" style="margin-top: 35px;" />
+                                    </span>
+                                    <div class="table_bd">
+                                        <table style="width: 400px; height: 75px;">
+                                            <tr>
+                                                <td>
+                                                    编号
+                                                </td>
+                                                <td>
+                                                    等级
+                                                </td>
+                                                <td>
+                                                    内容
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>@item.SortID
+                                                </td>
+                                                <td>
+                                                    @{switch (item.Result)
+                                                      {
+                                                          case "good":
+                                                        @("好评")
+                                                    break;
+                                                          case "neutral":
+                                                        @("中评")
+                                                    break;
+                                                          case "bad":
+                                                        @("差评")
+                                                    break;
 
+                                                      }}
+                                                </td>
+                                                <td>
+                                                    <label>@item.Content</label>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                              }
+                          }
+                          else
+                          {
+                            @("还没设置评价模板，快来<a href='javascript:void()'>设置</a>")
+                          }
+                        }
+                        <div class="btn_wrap" style="display: none;">
+                            <div class="btn_wrap_hd">
+                                <span class="title"><i></i>评价设置</span>
+                            </div>
+                            <div class="btn_wrap_bd" style="width: 845px;">
+                                <div class="table_item">
+                                    <span class="table_hd"><span class="require"></span><i style="color: Red;">* </i>商品类型：</span>
+                                    <div class="table_bd">
+                                        <label>
+                                            <input type="radio" name="StuffStatus" checked="checked" value="new" />全新
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="StuffStatus" value="second" />二手
+                                        </label>
+                                        <span class="table_msg"><i></i><span></span></span>
+                                    </div>
+                                </div>
+                                <div class="table_item">
+                                    <span class="table_hd"><span class="require"></span>商品模板：</span>
+                                    <div class="table_bd">
+                                        <select>
+                                            <option>默认商品详情页</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="table_wrap goodsattributte">
+                                </div>
+                                <div class="table_item">
+                                    <span class="table_hd"><span class="require"></span><i style="color: Red;">* </i>商品标题：</span>
+                                    <div class="table_bd">
+                                        <div>
+                                            <input type="text" name="Title" value="" style="width: 300px;" datatype="*1-30" nullmsg="请键入商品标题"
+                                                errormsg="商品标题最多允许输入30个字符（包括空格）" />
+                                            <div class="msg_info">
+                                                <span class="Validform_checktip"></span><i></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table_item">
+                                    <span class="table_hd"><span class="require"></span>宝贝卖点：</span>
+                                    <div class="table_bd">
+                                        <div>
+                                            <textarea name="sell_point" style="width: 300px; height: 40px;" datatype="*0-150"
+                                                errormsg="商品标题最多允许输入150个字符（包括空格）"></textarea>
+                                            <div class="msg_info">
+                                                <span class="Validform_checktip"></span><i></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--系统模板-->
+                <div class="sublist">
+                    <div>
+                        @{
+                            if (ViewData["systemtemper"] != null)
+                            {
+                                foreach (MYDZ.Entity.Traderate.Tb_TradeRate item in ViewData["systemtemper"] as List<MYDZ.Entity.Traderate.Tb_TradeRate>)
+                                {
+                            <div class="btn_wrap">
+                                <div class="table_item">
+                                    <span class="table_hd">@*<span class="require"></span>*@
+                                        <input type="radio" name="rateid" style="margin-top: 35px;" />
+                                    </span>
+                                    <div class="table_bd">
+                                        <table style="width: 400px; height: 75px;">
+                                            <tr>
+                                                <td>
+                                                    编号
+                                                </td>
+                                                <td>
+                                                    等级
+                                                </td>
+                                                <td>
+                                                    内容
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>@item.SortID
+                                                </td>
+                                                <td>
+                                                    @{switch (item.Result)
+                                                      {
+                                                          case "good":
+                                                        @("好评")
+                                                    break;
+                                                          case "neutral":
+                                                        @("中评")
+                                                    break;
+                                                          case "bad":
+                                                        @("差评")
+                                                    break;
+
+                                                      }}
+                                                </td>
+                                                <td>
+                                                    <label>@item.Content</label>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                                }
+                            }
+                        
+                        }
+                    </div>
+                </div>
+            </div>
+            <!--tabcon end-->
+        </div>
+    </div>
+    <div>
+        <p style="float: right; margin-right: 50px;">
+            <input type="button" value="确认" name="" /></p>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    $(function () {
+        Sendedinfo();
+        tabchange();
+
+        //获取从别的页面发送过来的信息
+        function Sendedinfo() {
+            var productlist = null;
+            var Msg = window.location.search.substr(1);
+            Msg = decodeURI(Msg);
+            var aryVars = Msg.split('&');
+            var obj = new Object();
+            for (var i = 0; i < aryVars.length; i++) {
+                var aryPair = aryVars[i].split('=');
+                obj[aryPair[0]] = aryPair[1];
+            }
+            for (var key in obj) {
+                productlist = obj[key];
+            }
+            var GoodsId = productlist.split(',');
+            $('input[name=Oid]').val(GoodsId);
+        }
+
+
+        function tabchange() {
+            //上下滑动选项卡切换
+            $("#move-animate-top").tabso({
+                cntSelect: "#topcon",
+                tabEvent: "click",
+                tabStyle: "move-animate",
+                direction: "top"
+            });
+        }
+
+    });
+    (function (window, $) {
+        Validform.Controller.Init({
+            form: "#QueryCriteria",
+            beforeSubmit: function () {
+                PopWindow.Controller.Init({ type: "loading", opacity: 0 });
+            }
+        }).config({
+            ajaxPost: true,
+            callback: function (data) {
+                PopWindow.Controller.Clear();
+                if (data.ErrorMsg.join(",") != null && data.ErrorMsg.join(",") != "") {
+                    PopWindow.Controller.Init({ type: "error", opacity: 0, width: 352, height: 198, title: data.ErrorMsg.join(",") });
+                }
+            }
+        });
+    })(window, jQuery);
 </script>

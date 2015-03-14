@@ -138,6 +138,7 @@
     <Content Include="css\AddGoodsPage.css" />
     <Content Include="css\control.css" />
     <Content Include="css\Delivery.css" />
+    <Content Include="css\TabCss.css" />
     <Content Include="css\main.css" />
     <Content Include="css\Order.css" />
     <Content Include="css\OrderConfig.css" />
@@ -197,6 +198,7 @@
     <Content Include="images\Logistics\ZTO.jpg" />
     <Content Include="images\Logistics\ZTOBJ.jpg" />
     <Content Include="images\radio.png" />
+    <Content Include="images\tabbg.gif" />
     <Content Include="images\ToolTip\bottom.gif" />
     <Content Include="images\ToolTip\middle.gif" />
     <Content Include="images\ToolTip\title.gif" />
@@ -394,6 +396,7 @@
     <Content Include="js\swfupload\swfupload.swf" />
     <Content Include="js\swfupload\swfuploadv2.2-min.js" />
     <Content Include="js\swfupload\Validform.swfupload.handler-min.js" />
+    <Content Include="js\TradeRate\jquery.tabso_yeso.js" />
     <Content Include="js\TradeRate\RateDeal.js" />
     <Content Include="js\upload\jquery.uploadify.min.js" />
     <Content Include="js\img\uploadify-cancel.png" />

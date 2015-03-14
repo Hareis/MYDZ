@@ -69,6 +69,7 @@
     SelectAllCheckBox();
     OutTimeRate();
     AlertRateframework();
+    batchunseller();
     /*  initpage();
     ChangeGoodStatus();
     GoodsSort();
@@ -180,7 +181,7 @@
             } else {
                 ChangeGoodsId(true);
             }
-            RetunrGoodsId();
+           
         });
     }
 
@@ -238,15 +239,13 @@
         return checkedList;
     }
 
-    //批量下架
+    //批量评价
     function batchunseller() {
         $('.BatchUnShelve').click(function () {
             RetunrGoodsId();
             var value = $('input[name=ListGoodId]').val();
             if ($.trim(value) != '' && $.trim(value) != null && $.trim(value).length != 0) {
-                $.post('/Merchandise/SetBatchUnShelve.html', { ListGoodId: value }, function () {
-
-                })
+                PopWindow.Controller.Init({ type: "window", opacity: 0, width: 700, height: 394, url: "/TradeRate/RateTemple.html?item=" + encodeURI($(this).attr("data")), title: "模板选择" });
             } else {
                 PopWindow.Controller.Init({ type: "prompt", opacity: 0, width: 352, height: 198, title: "请至少选中一项！" });
                 return false;

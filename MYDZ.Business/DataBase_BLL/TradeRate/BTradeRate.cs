@@ -68,5 +68,6 @@ namespace MYDZ.Business.DataBase_BLL.TradeRate
         {
             return SetTradeRate.GetTradeRateByShopId(shopId);
         }
+
     }
 }
