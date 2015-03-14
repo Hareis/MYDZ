@@ -49,7 +49,7 @@ namespace MYDZ.Data.SqlServer.ClientUser
             SqlParameter[] parameters = {
 					new SqlParameter("@UserId", SqlDbType.Int,4),
 					new SqlParameter("@ShopId", SqlDbType.Int,4),
-					new SqlParameter("@SessionKey", SqlDbType.VarChar,50)};
+					new SqlParameter("@SessionKey", SqlDbType.VarChar,100)};
             parameters[0].Value = model.UserId;
             parameters[1].Value = model.Shop.ShopId;
             parameters[2].Value = model.SessionKey;

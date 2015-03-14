@@ -33,9 +33,9 @@ namespace MYDZ.Interface.TradeRate
         /// </summary>
         /// <param name="TradeRateId"></param>
         /// <returns></returns>
-        bool DeleteRate(int TradeRateId);
+        bool DeleteRate(int SortID,int shopid);
         /// <summary>
-        /// 查询评价 by sorid
+        /// 查询评价 by sortid
         /// </summary>
         /// <param name="RateId"></param>
         /// <returns></returns>

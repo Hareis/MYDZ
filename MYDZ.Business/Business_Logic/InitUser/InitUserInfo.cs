@@ -96,6 +96,7 @@ namespace MYDZ.Business.InitUser
                         usershop.SessionKey = token;
                         shopid = usershop.Shop.ShopId;
                         shopinfo = BShopInfo.SelecttbShopInfoByShopId(shopid.ToString());
+                        BClientUserShop.UpdateUserShop(usershop);
                         //从淘宝获取店铺信息
                         tbShopInfo TBShopInfo = gs.GetInfoFromTb(us.UserNick, shopinfo.Score.ScoreId);
                         TBShopInfo.ShopId = shopid;
@@ -110,7 +111,7 @@ namespace MYDZ.Business.InitUser
                         us.Credit.CreditId = ClientUser.Credit.CreditId;
                         BClientUser.UpdateUser(us);
 
-                        us.UserShops=new List<tbClientUserShop>();
+                        us.UserShops = new List<tbClientUserShop>();
                         us.UserShops.Add(usershop);
                         usershop.Shop = new tbShopInfo();
                         usershop.Shop = shopinfo;
@@ -137,8 +138,8 @@ namespace MYDZ.Business.InitUser
         /// <param name="UerId"></param>
         /// <param name="UserNickName"></param>
         public void SelectUserInfo(string UerId, string UserNickName)
-        { 
-        
+        {
+
         }
 
 
@@ -201,6 +202,6 @@ namespace MYDZ.Business.InitUser
             return us;
         }
 
-        
+
     }
 }

@@ -111,15 +111,18 @@ namespace MYDZ.Data.SqlServer.TradeRate
             }
         }
 
-        public bool DeleteRate(int TradeRateId)
+        public bool DeleteRate(int SortID, int shopid)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("delete from TradeRate ");
-            strSql.Append(" where Id=@Id");
+            strSql.Append(" where SortID=@SortID");
+            strSql.Append(" and ShopId = @ShopId  ");
             SqlParameter[] parameters = {
-					new SqlParameter("@Id", SqlDbType.Int,4)
+                    new SqlParameter("@ShopId", SqlDbType.Int,4) ,
+					new SqlParameter("@SortID", SqlDbType.Int,4)
 			};
-            parameters[0].Value = TradeRateId;
+            parameters[1].Value = SortID;
+            parameters[0].Value = shopid;
 
             int rows = DBHelper.ExecuteNonQuery(CommandType.Text, strSql.ToString(), parameters);
             if (rows > 0)
@@ -137,7 +140,7 @@ namespace MYDZ.Data.SqlServer.TradeRate
         /// </summary>
         /// <param name="RateId"></param>
         /// <returns></returns>
-        public Tb_TradeRate GetTradeRateByRateId(int sortId,int shopid)
+        public Tb_TradeRate GetTradeRateByRateId(int sortId, int shopid)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select Id, ShopId, Result, Role, Content, SortID  ");

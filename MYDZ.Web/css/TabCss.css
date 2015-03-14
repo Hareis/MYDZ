@@ -85,6 +85,8 @@ a:hover {
 .tabcon .sublist {
 	padding:5px 10px;
 	height:300px;
+	width:630px;
+	overflow:auto;
 }
 /* leftcon */
 #leftcon .subbox {

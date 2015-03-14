@@ -45,9 +45,9 @@ namespace MYDZ.Business.DataBase_BLL.TradeRate
         /// </summary>
         /// <param name="TradeRateId"></param>
         /// <returns></returns>
-        public bool DeleteRate(int TradeRateId)
+        public bool DeleteRate(int Sortid, int shopid)
         {
-            return SetTradeRate.DeleteRate(TradeRateId);
+            return SetTradeRate.DeleteRate(Sortid, shopid);
         }
         /// <summary>
         /// 查询评价 by sortid

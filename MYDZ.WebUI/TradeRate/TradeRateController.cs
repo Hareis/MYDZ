@@ -10,6 +10,7 @@ using MYDZ.Entity.ClientUser;
 using MYDZ.Business.Business_Logic.Order;
 using MYDZ.Entity.Order;
 using MYDZ.Business.DataBase_BLL.TradeRate;
+using System.Threading.Tasks;
 
 namespace MYDZ.WebUI.TradeRate
 {
@@ -120,6 +121,59 @@ namespace MYDZ.WebUI.TradeRate
         }
 
         /// <summary>
+        /// 保存评价模板
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="content"></param>
+        /// <param name="sortid"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult SaveRateTmple(string result, string content, int sortid = 0)
+        {
+            bool res = false;
+            tbClientUser clientuser = GetUser("UserInfo");
+            Tb_TradeRate ttr = new Tb_TradeRate();
+            ttr.Content = content;
+            ttr.Result = result;
+            ttr.Role = "seller";
+            ttr.ShopId = clientuser.UserShops[0].Shop.ShopId;
+            List<Tb_TradeRate> listtt = new List<Tb_TradeRate>();
+            listtt = br.GetTradeRateByShopId(clientuser.UserShops[0].Shop.ShopId);
+            if (listtt.Count > 0)
+            {
+                listtt.Sort((left, right) =>
+                {
+                    if (left.SortID > right.SortID)
+                        return -1;
+                    else if (left.SortID == right.SortID)
+                        return 0;
+                    else
+                        return 1;
+                });
+                ttr.SortID = listtt[0].SortID + 1;
+            }
+            else
+            {
+                ttr.SortID = 1;
+            }
+            if (br.AddRate(ttr))
+                res = true;
+            return Json(new { Result = res });
+        }
+
+        /// <summary>
+        /// 删除评价模板
+        /// </summary>
+        /// <param name="sortid"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult DeleteRateTemple(int sortid)
+        {
+            tbClientUser clientuser = GetUser("UserInfo");
+            return Json(new { Result = br.DeleteRate(sortid, clientuser.UserShops[0].Shop.ShopId) });
+        }
+
+        /// <summary>
         ///添加订单评价
         /// </summary>
         /// <param name="traderatestr"></param>
@@ -143,31 +197,45 @@ namespace MYDZ.WebUI.TradeRate
         /// 批量订单评价
         /// </summary>
         /// <returns></returns>
-        public JsonResult batchUpdateRate(string OidList)
+        [HttpPost]
+        public Task<JsonResult> batchUpdateRate(string OidList, int sortid, bool IsSystemDefault = false)
         {
             tbClientUser clientuser = GetUser("UserInfo");
-            if (string.IsNullOrEmpty(OidList))
+
+            return Task.Factory.StartNew(() =>
             {
-                try
+                if (string.IsNullOrEmpty(OidList))
                 {
-                    Tb_TradeRate ttr = new Tb_TradeRate();
-                    ttr = br.GetTradeRateBySortId(0, clientuser.UserShops[0].Shop.ShopId);
-                    string[] oiditems = OidList.Split(',');
-                    traderateAddQueryCls traderatestr = new traderateAddQueryCls();
-                    traderatestr.Content = ttr.Content;
-                    traderatestr.Result = ttr.Result;
-                    foreach (string item in oiditems)
+                    try
                     {
-                        traderatestr.Oid = Convert.ToInt32(item);
-                        iit.AddTradeRate(clientuser.UserShops[0].SessionKey, traderatestr);
+                        Tb_TradeRate ttr = new Tb_TradeRate();
+                        if (IsSystemDefault)
+                        {
+                            ttr = br.GetTradeRateBySortId(sortid, clientuser.UserShops[0].Shop.ShopId);
+                        }
+                        else
+                        {
+                            ttr = br.GetTradeRateBySortId(sortid, -1);
+                        }
+                        string[] oiditems = OidList.Split(',');
+                        traderateAddQueryCls traderatestr = new traderateAddQueryCls();
+                        traderatestr.Content = ttr.Content;
+                        traderatestr.Result = ttr.Result;
+                        foreach (string item in oiditems)
+                        {
+                            traderatestr.Oid = Convert.ToInt64(item);
+                            iit.AddTradeRate(clientuser.UserShops[0].SessionKey, traderatestr);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
                     }
                 }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-            return Json(new { Result = true });
+            }).ContinueWith<JsonResult>(task =>
+            {
+                return Json(new { Result = true });
+            });
         }
 
         /// <summary>
