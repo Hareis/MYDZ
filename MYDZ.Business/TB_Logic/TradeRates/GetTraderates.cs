@@ -64,8 +64,8 @@ namespace MYDZ.Business.TB_Logic.TradeRates
                     tr.Reply = item.Reply;
                     tr.Result = item.Result;
                     tr.Role = item.Role;
-                    tr.Tid = tr.Tid;
-                    tr.ValidScore = tr.ValidScore;
+                    tr.Tid = item.Tid;
+                    tr.ValidScore = item.ValidScore;
                     listrate.Add(tr);
                 }
             }

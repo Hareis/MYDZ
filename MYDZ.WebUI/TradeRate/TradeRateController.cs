@@ -60,30 +60,30 @@ namespace MYDZ.WebUI.TradeRate
                 {
                     foreach (Entity.Traderate.TradeRate item in listrate)
                     {
-                        tradeRatestr.Tid = item.Oid;
-                        listtrade.AddRange(GetListtrade(tradeRatestr));
+                        tradeRatestr.Tid = item.Tid;
+                        listtrade.AddRange(GetListtrade(tradeRatestr, out TotalResults));
                     }
                 }
             }
             else
             {
-                listtrade = GetListtrade(tradeRatestr);
+                listtrade = GetListtrade(tradeRatestr, out TotalResults);
             }
+            ViewData["totalpage"] = TotalResults % 40 == 0 ? TotalResults % 40 : Convert.ToInt32(TotalResults / 40) + 1;
             return View(listtrade);
         }
 
-        private List<Trade> GetListtrade(tradeRateQueryCls tradeRatestr)
+        private List<Trade> GetListtrade(tradeRateQueryCls tradeRatestr, out long TotalResults)
         {
             string errorMsg = string.Empty;
             bool hasnext = false;
-            long TotalResults = 0;
             tbClientUser clientuser = GetUser("UserInfo");
-
+            TotalResults = 0;
             TradesSoldGet TradesSold = new TradesSoldGet();
             TradesSold.Tid = tradeRatestr.Tid == 0 ? null : tradeRatestr.Tid.ToString();
             //获取买家已评,卖家未评价订单信息
             if (string.IsNullOrEmpty(tradeRatestr.RateStatus))
-                TradesSold.RateStatus = "RATE_UNSELLER";
+                TradesSold.RateStatus = null;
             else
                 TradesSold.RateStatus = tradeRatestr.RateStatus;
             TradesSold.BuyerNick = tradeRatestr.BuyerNick;

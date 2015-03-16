@@ -163,10 +163,11 @@
        {
            foreach (MYDZ.Entity.Order.Trade item in Model)
            {
+
                TimeSpan dt1 = new TimeSpan();
                if (item.EndTime != null)
                {
-                   dt1 = DateTime.Parse(item.Orders[0].EndTime).AddDays(15).Subtract(DateTime.Now);
+                   dt1 = DateTime.Parse(item.EndTime).AddDays(15).Subtract(DateTime.Now);
                }             
         <tr class="data_table_item">
             <td>
@@ -178,7 +179,7 @@
             </td>
             <td class="title-img item-title-div">
                 <div>
-                    <img width="90px" height="90px" src="@(item.PicPath + "_80x80.jpg")" alt="商品图片" />
+                    <img width="90px" height="90px"style=" margin-left:5px;" src="@(item.PicPath + "_80x80.jpg")" alt="商品图片" />
                 </div>
                 <div class="img_title">
                     <a href="javascript:void(0)">@item.Orders[0].Title</a></div>
@@ -196,6 +197,7 @@
                     <div class="item-price-div-edit edit">
                         <p>
                             <a href="javascript:void(0);">@item.BuyerNick</a></p>
+                            <p><a href="javascript:void(0);">联系我</a></p>
                     </div>
                 </div>
             </td>
@@ -245,3 +247,4 @@
        }
     }
 </table>
+<input type="hidden" name="TotalPage" value="@ViewData["totalpage"]"/>

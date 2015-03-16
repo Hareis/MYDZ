@@ -47,7 +47,7 @@ namespace MYDZ.Entity.Order
 
         /// <summary>
         /// 评价状态，默认查询所有评价状态的数据，除了默认值外每次只能查询一种状态。
-        /// 可选值： RATE_UNBUYER(买家未评) RATE_UNSELLER(卖家未评) RATE_BUYER_UNSELLER(买家已评，卖家未评)
+        /// 可选值： RATE_UNBUYER(买家未评) RATE_UNSELLER(卖家未评[需我评价]) RATE_BUYER_UNSELLER(买家已评，卖家未评)
         /// RATE_UNBUYER_SELLER(买家未评，卖家已评) RATE_BUYER_SELLER(买家已评,卖家已评)
         /// </summary>
         public string RateStatus { get; set; }

@@ -8,6 +8,7 @@
     function initpage() {
         var URL = "/TradeRate/OnloadRate.html";
         OnloadGoods(URL);
+        pagecurrt();
     }
 
     /*页面初始化加载信息*/
@@ -36,6 +37,30 @@
                     $(item).find(".edita").css("visibility", "hidden");
                 }
             );
+        });
+    }
+
+    //上一页、下一页
+    function pagecurrt() {
+        $(".previous").click(function () {
+            var nowindex = $("input[name=PageNo]");
+            var msxpage = $("input[name=TotalPage]").val();
+            if (parseInt(nowindex.val()) == 1) {
+                PopWindow.Controller.Init({ type: "prompt", opacity: 0, width: 352, height: 198, title: "已经是第一页！" });
+            } else if (parseInt(nowindex.val()) > 1) {
+                nowindex.val(parseInt(nowindex.val()) - 1);
+                $('#QueryCriteria').submit();
+            }
+        });
+        $(".next").click(function () {
+            var nowindex = $("input[name=PageNo]");
+            var msxpage = $("input[name=TotalPage]").val();
+            if (parseInt(nowindex.val()) == parseInt(msxpage)) {
+                PopWindow.Controller.Init({ type: "prompt", opacity: 0, width: 352, height: 198, title: "已经是末尾页！" });
+            } else if (parseInt(nowindex.val()) < parseInt(msxpage)) {
+                nowindex.val(parseInt(nowindex.val()) + 1);
+                $('#QueryCriteria').submit();
+            }
         });
     }
 
@@ -85,7 +110,9 @@
     /*弹出评价框*/
     function AlertRateframework() {
         $("body").delegate("input[name=rateeditor]", "click", function () {
-            PopWindow.Controller.Init({ type: "window", opacity: 0, width: 455, height: 230, url: "/TradeRate/SaveRate.html?item=" + encodeURI($(this).attr("data")), title: "交易评价" });
+            if ($.trim($(this).attr("data")) != '' && $.trim($(this).attr("data")) != null && $.trim($(this).attr("data")).length != 0) {
+                PopWindow.Controller.Init({ type: "window", opacity: 0, width: 700, height: 394, url: "/TradeRate/RateTemple.html?item=" + encodeURI($(this).attr("data")), title: "交易评价" });
+            }
         });
     }
 
@@ -94,7 +121,7 @@
     function ChecknowGoodsState() {
         $('.tab .GoodStatus').each(function (i, item) {
             if ($(item).hasClass('selected')) {
-                var values = $('input[name=HasShowcase]').eq(0).val();
+                var values = $('input[name=RateStatus]').eq(0).val();
                 Search.HasShowcase = values;
             }
         });
@@ -108,6 +135,7 @@
         OnloadGoods(URL);
     }
 
+
     //更换商品显示状态
     function ChangeGoodStatus() {
         $('.tab .RateStatus').click(function () {
@@ -116,14 +144,28 @@
                 $(this).siblings().removeClass('selected');
                 $(this).addClass('selected');
             }
-            var targets = $('input[name=HasShowcase]').eq(0);
-            if (0 === parseInt(type)) {
-                targets.val("RATE_BUYER_SELLER");
-            } else if (1 === parseInt(type)) {
-                targets.val("RATE_BUYER_UNSELLER");
-            } else {
-                targets.val(null)
+            var targets = $('input[name=RateStatus]').eq(0);
+            var values = null;
+            switch (parseInt(type)) {
+                case 0:
+                    values = null;
+                    break;
+                case 1:
+                    values = "RATE_UNSELLER";
+                    break;
+                case 2:
+                    values = "RATE_UNBUYER_SELLER";
+                    break;
+                case 3:
+                    values = "RATE_BUYER_SELLER";
+                    break;
+                case 4:
+                    values = "RATE_BUYER_UNSELLER";
+                default:
+                    values = null;
+                    break;
             }
+            targets.val(values)
             $('#QueryCriteria').submit();
         });
     }
@@ -181,7 +223,7 @@
             } else {
                 ChangeGoodsId(true);
             }
-           
+
         });
     }
 
@@ -202,6 +244,7 @@
                 checkedList.push(goodsid);
             }
         });
+        $('input[name=ListGoodId]').empty();
         $('input[name=ListGoodId]').val(checkedList.toLocaleString());
         return checkedList;
     }
@@ -220,7 +263,7 @@
                 }
             }
             else if (result === false || result === "false") {
-                parent.removeClass("checked");                
+                parent.removeClass("checked");
             }
         }
     }
@@ -245,7 +288,7 @@
             RetunrGoodsId();
             var value = $('input[name=ListGoodId]').val();
             if ($.trim(value) != '' && $.trim(value) != null && $.trim(value).length != 0) {
-                PopWindow.Controller.Init({ type: "window", opacity: 0, width: 700, height: 394, url: "/TradeRate/RateTemple.html?item=" + encodeURI($(this).attr("data")), title: "模板选择" });
+                PopWindow.Controller.Init({ type: "window", opacity: 0, width: 700, height: 394, url: "/TradeRate/RateTemple.html?item=" + encodeURI(value), title: "模板选择" });
             } else {
                 PopWindow.Controller.Init({ type: "prompt", opacity: 0, width: 352, height: 198, title: "请至少选中一项！" });
                 return false;

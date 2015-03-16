@@ -124,6 +124,15 @@
     {
         color: #4682b4;
     }
+    .page_box
+    {
+        float: right;
+        margin-top: 10px;
+    }
+    .page_box input
+    {
+        margin-left: 20px;
+    }
 </style>
 @using (Html.BeginForm("OnloadRate", "TradeRate", FormMethod.Post, new { id = "QueryCriteria" }))
 { 
@@ -162,8 +171,7 @@
                 <li>
                     <button type="submit" hidefocus="true" name="Search">
                         搜索商品</button></li>
-                <li><a href="/Merchandise/OnSale.html" hidefocus="hidefocus" class="reset">重置</a>
-                </li>
+                <li><a href="/TradeRate/Index.html" hidefocus="hidefocus" class="reset">重置</a> </li>
             </ul>
         </div>
     </div>
@@ -171,13 +179,19 @@
         <div class="body_wrap">
             <div class="tab">
                 <ul>
-                    <li><a href="javascript:void();" data="1" class="selected RateStatus">待评价<label class="TotalNumOnsales"
-                        style=""></label></a> <a href="javascript:void();" data="0" class="RateStatus">已评价<label
+                    <li><a href="javascript:void();" data="0" class="selected RateStatus">全部<label class="TotalNumOnsales"
+                        style=""></label></a> <a href="javascript:void();" data="1" class="RateStatus">需我评价<label
                             class="TotalNumOnsales">
+                        </label>
+                        </a><a href="javascript:void();" data="2" class="RateStatus">我已评价<label class="TotalNumOnsales">
+                        </label>
+                        </a><a href="javascript:void();" data="3" class="RateStatus">对方已评<label class="TotalNumOnsales">
+                        </label>
+                        </a><a href="javascript:void();" data="4" class="RateStatus">双方已评<label class="TotalNumOnsales">
                         </label>
                         </a></li>
                 </ul>
-                <input type="hidden" name="HasShowcase" value="null" />
+                <input type="hidden" name="RateStatus" value="null" />
             </div>
             <div class="tab_tool">
                 <ul>
@@ -215,11 +229,14 @@
             </div>*@
         </div>
     </div>
+    <input type="hidden" name="PageNo" value="1" />
 }
 <div>
     <div class="table_wrap">
     </div>
     <div class="page_box" name="paging">
+        <input type="button" class="previous" name="previous"  value="上页" />
+        <input type="button" class="next" name="next" value="下页" />
     </div>
 </div>
 <script type="text/javascript">
@@ -240,14 +257,19 @@
 
     })(window, jQuery);
 
-    datepicker_hanhua();
-    //日期选择控件汉化
-    function datepicker_hanhua() {
-        $.datepicker.regional["zh-CN"] = { closeText: "关闭", prevText: "&#x3c;上月", nextText: "下月&#x3e;", currentText: "今天", monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"], monthNamesShort: ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"], dayNames: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"], dayNamesShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"], dayNamesMin: ["日", "一", "二", "三", "四", "五", "六"], weekHeader: "周", dateFormat: "yy-mm-dd", firstDay: 1, isRTL: !1, showMonthAfterYear: !0, yearSuffix: "年" }
-        $.datepicker.setDefaults($.datepicker.regional["zh-CN"]);
-        var datePicker = $(".datepicker").datepicker({
-            showOtherMonths: true,
-            selectOtherMonths: true
-        });
-    }
+    $(function () {
+        datepicker_hanhua();
+
+        //日期选择控件汉化
+        function datepicker_hanhua() {
+            $.datepicker.regional["zh-CN"] = { closeText: "关闭", prevText: "&#x3c;上月", nextText: "下月&#x3e;", currentText: "今天", monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"], monthNamesShort: ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"], dayNames: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"], dayNamesShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"], dayNamesMin: ["日", "一", "二", "三", "四", "五", "六"], weekHeader: "周", dateFormat: "yy-mm-dd", firstDay: 1, isRTL: !1, showMonthAfterYear: !0, yearSuffix: "年" }
+            $.datepicker.setDefaults($.datepicker.regional["zh-CN"]);
+            var datePicker = $(".datepicker").datepicker({
+                showOtherMonths: true,
+                selectOtherMonths: true
+            });
+        }
+
+    });
+    
 </script>

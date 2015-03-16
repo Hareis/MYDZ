@@ -140,7 +140,7 @@
                 </div>
                 <!--系统模板-->
                 <div class="sublist">
-                    <div>
+                    <div style="margin-left: -70px;">
                         @{
                             if (ViewData["systemtemper"] != null)
                             {
@@ -253,9 +253,9 @@
                 }
             });
             $.post("/TradeRate/batchUpdateRate.html",
-            {    OidList: $('input[name=Oid]').val(), 
+            { OidList: $('input[name=Oid]').val(),
                 sortid: $("input[type='radio']:checked").attr("data"),
-                IsSystemDefault: seleindex === 0 ? false : true 
+                IsSystemDefault: seleindex === 0 ? false : true
             }, function (data) {
 
             });
