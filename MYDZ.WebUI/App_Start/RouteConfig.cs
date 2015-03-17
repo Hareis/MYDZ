@@ -23,8 +23,7 @@ namespace MYDZ.WebUI.App_Start
                 url: "{action}",
                 defaults: new { controller = "Front", action = "Index", id = UrlParameter.Optional }
             );
-
-
+            
             routes.MapRoute(
                 name: "Order",
                 url: "{action}",

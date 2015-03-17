@@ -85,6 +85,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Auth\AuthController.cs" />
+    <Compile Include="DataAnalysis\DataAnalysisController.cs" />
     <Compile Include="Front\FrontController.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Member\MemberController.cs" />
