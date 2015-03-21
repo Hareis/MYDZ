@@ -51,6 +51,8 @@
     <Compile Include="ClientUser\tbClientUserStatus.cs" />
     <Compile Include="ClientUser\tbClientUserType.cs" />
     <Compile Include="ClientUser\tbFeedback.cs" />
+    <Compile Include="DataAnalysis\Shopdata.cs" />
+    <Compile Include="DataAnalysis\ListShopData.cs" />
     <Compile Include="GoodsImage\ItemJointImg.cs" />
     <Compile Include="GoodsImage\Picture.cs" />
     <Compile Include="GoodsImage\PictureCategory.cs" />

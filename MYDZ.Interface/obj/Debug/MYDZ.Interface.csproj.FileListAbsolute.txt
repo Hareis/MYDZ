@@ -1,0 +1,7 @@
+F:\C#solution\MYDZ\MYDZ\MYDZ.Interface\bin\Debug\MYDZ.Interface.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.Interface\bin\Debug\MYDZ.Interface.pdb
+F:\C#solution\MYDZ\MYDZ\MYDZ.Interface\bin\Debug\MYDZ.Entity.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.Interface\bin\Debug\MYDZ.Entity.pdb
+F:\C#solution\MYDZ\MYDZ\MYDZ.Interface\obj\Debug\MYDZ.Interface.csprojResolveAssemblyReference.cache
+F:\C#solution\MYDZ\MYDZ\MYDZ.Interface\obj\Debug\MYDZ.Interface.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.Interface\obj\Debug\MYDZ.Interface.pdb

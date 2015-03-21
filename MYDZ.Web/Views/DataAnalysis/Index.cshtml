@@ -1,212 +1,142 @@
-﻿@{
+﻿@model MYDZ.Entity.DataAnalysis.ListShopData
+@{
     ViewBag.Title = "数据分析-魔云店长";
     Layout = "~/Views/Shared/_SubMaster.cshtml";
+    string datastring = MYDZ.Tools.Utils.ObjectToJsonStr(ViewData["chartdate"]);
 }
 <link href="@Url.Content("~/js/datepicker/jquery-ui.css")" rel="stylesheet" type="text/css" />
-<script src="@Url.Content("~/js/DataAnalysis/Chart.min.js")" type="text/javascript"></script>
-<div class="templatemo-content-wrapper">
-    <div class="templatemo-content">
-        <ol class="breadcrumb">
-            <li><a href="index.html">Admin Panel</a></li>
-            <li><a href="#">Data Visualization</a></li>
-            <li class="active">Charts</li>
-        </ol>
-        <h1>
-            Data Visualization</h1>
-        <p>
-            Credit goes to <a href="http://www.chartjs.org">chartjs.org</a></p>
-        <div class="templatemo-charts">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            Pie Chart &amp; Doughnut Chart</div>
-                    </div>
-                    <div class="row templatemo-chart-row">
-                        <div class="templatemo-chart-box col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                            <canvas id="templatemo-pie-chart"></canvas>
-                            <h4>
-                                Pie Chart</h4>
-                            <span class="text-muted">Maecenas non</span>
-                        </div>
-                        <div class="templatemo-chart-box col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                            <canvas id="templatemo-doughnut-chart"></canvas>
-                            <h4>
-                                Doughnut Chart</h4>
-                            <span class="text-muted">Sodales orci aliquet</span>
-                        </div>
-                        <div class="templatemo-chart-box col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                            <canvas id="templatemo-radar-chart"></canvas>
-                            <h4>
-                                Radar Chart</h4>
-                            <span class="text-muted">Lorem sed</span>
-                        </div>
-                        <div class="templatemo-chart-box col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                            <canvas id="templatemo-polar-chart"></canvas>
-                            <h4>
-                                Polar Area Chart</h4>
-                            <span class="text-muted">Curabitur</span>
-                        </div>
-                    </div>
+<script src="@Url.Content("~/Highcharts/Options.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Highcharts/highcharts.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Highcharts/exporting.js")" type="text/javascript"></script>
+<style type="text/css">
+    .body_wrap1 ul .span-line-type
+    {
+        border: 1px solid red;
+        float: left;
+        margin-left: 10px;
+        width: 100px;
+        height: 100px;
+    }
+    #container
+    {
+        max-width: 800px;
+        height: 400px;
+        border: 1px solid gray;
+        margin-top: 100px;
+    }
+</style>
+<div class="btn_wrap">
+    <div class="btn_wrap_hd">
+        <span class="title"><i></i>数据查询</span>
+    </div>
+    <div class="btn_wrap_bd">
+        <ul>
+            <li>
+                <label>
+                    交易成功时间：</label></li>
+            <li>
+                <input type="text" name="StartDate" value="" class="datepicker" /></li>
+            <li>_</li>
+            <li>
+                <input type="text" name="EndDate" value="" class="datepicker" />
+            </li>
+        </ul>
+    </div>
+    <div class="btn_wrap_bd">
+        <ul>
+            <li>
+                <label>
+                    买家旺旺：</label></li>
+            <li>
+                <input type="text" name="BuyerNick" value="" class="" />
+            </li>
+        </ul>
+    </div>
+    <div class="btn_wrap_bd clear_border">
+        <ul>
+            <li>
+                <label style="padding-left: 66px;">
+                    &nbsp;</label></li>
+            <li>
+                <button type="submit" hidefocus="true" name="Search">
+                    搜索商品</button></li>
+            <li><a href="/TradeRate/Index.html" hidefocus="hidefocus" class="reset">重置</a> </li>
+        </ul>
+    </div>
+    <div class="body_wrap1">
+        <ul>
+            <li>
+                <div>
+                    <span class="span-line-type">
+                        <label data="OrderPrice">
+                            订单金额</label></span>
                 </div>
+                <div>
+                    <span class="span-line-type">
+                        <label data="TransactionPrice">
+                            成交金额</label></span>
+                </div>
+                <div>
+                    <span class="span-line-type">
+                        <label data="TransactionCount">
+                            成交笔数</label></span>
+                </div>
+                <div>
+                    <span class="span-line-type">
+                        <label data="OrderCount">
+                            订单笔数</label></span>
+                </div>
+                <input type=hidden  class="span-line-type-data" value="@datastring"/>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="fix_body_wrap">
+    <div>
+        <div>
+            <div id="container">
             </div>
-            <div class="row">
-                <div class="col-md-6 col-sm-6">
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            Line Chart</div>
-                        <canvas id="templatemo-line-chart"></canvas>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            Bar Chart</div>
-                        <canvas id="templatemo-bar-chart"></canvas>
-                    </div>
-                </div>
+        </div>
+        <div>
+            <div style="float: right; margin-top: -200px;">
+                <label>
+                    日期选择：</label><br />
+                <input type="date" class="SelectShopDate" title="@(DateTime.Now.Date.ToLongDateString())"  value="@(DateTime.Now.Date)" name="" />
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    // Line chart
-    var randomScalingFactor = function () { return Math.round(Math.random() * 100) };
-    var lineChartData = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-        {
-            label: "My First dataset",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
-        },
-        {
-            label: "My Second dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+    $(function () {
+
+        var chart = null; //图表插件全局变量
+
+        //加载方法
+        OnloadShopDate();
+        selectspantype();
+
+
+
+        function OnloadShopDate() {
+            var typevalue = $(".span-line-type-data").val();
+            if (!$.isEmptyObject(typevalue) && typevalue !== "null") {
+                chart = $('#container').highcharts($.parseJSON(typevalue));
+            } else {
+                $('#container').append("<h2>暂无数据！</h2>");
+            }
         }
-        ]
 
-    } // lineChartData
-
-    var pieChartData = [
-    {
-        value: 300,
-        color: "#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red"
-    },
-    {
-        value: 50,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Green"
-    },
-    {
-        value: 100,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow"
-    }
-    ] // pie chart data
-
-    // radar chart
-    var radarChartData = {
-        labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
-        datasets: [
-        {
-            label: "My First dataset",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 90, 81, 56, 55, 40]
-        },
-        {
-            label: "My Second dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [28, 48, 40, 19, 96, 27, 100]
+        function SetYtitle() {
+            chart.yAxis[0].setTitle({ text: 'New Y axis title' });
+            chart.xAxis[0].setCategories(['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']);
+            chart.series[0].Name = "New Y axis title";
+            chart.series[0].setData([1, 1, 3, 4, 6, 11, 14, 21, 15, 18, 9, 2]);
         }
-        ]
-    }; // radar chart
 
-    // polar area chart
-    var polarAreaChartData = [
-    {
-        value: 300,
-        color: "#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red"
-    },
-    {
-        value: 50,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Green"
-    },
-    {
-        value: 100,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow"
-    },
-    {
-        value: 40,
-        color: "#949FB1",
-        highlight: "#A8B3C5",
-        label: "Grey"
-    },
-    {
-        value: 120,
-        color: "#4D5360",
-        highlight: "#616774",
-        label: "Dark Grey"
-    }
-
-    ];
-
-    window.onload = function () {
-        var ctx_line = document.getElementById("templatemo-line-chart").getContext("2d");
-        var ctx_bar = document.getElementById("templatemo-bar-chart").getContext("2d");
-        var ctx_pie = document.getElementById("templatemo-pie-chart").getContext("2d");
-        var ctx_doughnut = document.getElementById("templatemo-doughnut-chart").getContext("2d");
-        var ctxRadar = document.getElementById("templatemo-radar-chart").getContext("2d");
-        var ctxPolar = document.getElementById("templatemo-polar-chart").getContext("2d");
-
-        window.myLine = new Chart(ctx_line).Line(lineChartData, {
-            responsive: true
-        });
-        window.myBar = new Chart(ctx_bar).Bar(lineChartData, {
-            responsive: true
-        });
-        window.myPieChart = new Chart(ctx_pie).Pie(pieChartData, {
-            responsive: true
-        });
-        window.myDoughnutChart = new Chart(ctx_doughnut).Doughnut(pieChartData, {
-            responsive: true
-        });
-        var myRadarChart = new Chart(ctxRadar).Radar(radarChartData, {
-            responsive: true
-        });
-        var myPolarAreaChart = new Chart(ctxPolar).PolarArea(polarAreaChartData, {
-            responsive: true
-        });
-    }
+        function selectspantype() {
+            $(".span-line-type").click(function () {
+                window.location.href = ("/DataAnalysis/Index.html?selectType=" + $(this).find("label").eq(0).attr("data") + "&SelectDay=" + $(".SelectShopDate").val());
+            });
+        }
+    });
 </script>

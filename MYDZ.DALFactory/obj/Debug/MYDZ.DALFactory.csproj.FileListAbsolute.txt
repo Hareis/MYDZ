@@ -1,0 +1,11 @@
+F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.DALFactory.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.DALFactory.pdb
+F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.Config.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.Interface.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.Entity.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.Config.pdb
+F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.Interface.pdb
+F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.Entity.pdb
+F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\obj\Debug\MYDZ.DALFactory.csprojResolveAssemblyReference.cache
+F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\obj\Debug\MYDZ.DALFactory.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\obj\Debug\MYDZ.DALFactory.pdb

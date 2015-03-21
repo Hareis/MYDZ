@@ -163,6 +163,7 @@
     <Content Include="Global.asax" />
     <Content Include="Highcharts\exporting.js" />
     <Content Include="Highcharts\highcharts.js" />
+    <Content Include="Highcharts\Options.js" />
     <Content Include="images\fenxi.ico" />
     <Content Include="images\AllSet.ico" />
     <Content Include="images\arrow.png" />
@@ -440,6 +441,10 @@
     <ProjectReference Include="..\MYDZ.Interface\MYDZ.Interface.csproj">
       <Project>{4B9BEC02-A073-4A1E-9BA4-7EF935FAA391}</Project>
       <Name>MYDZ.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MYDZ.Tools\MYDZ.Tools.csproj">
+      <Project>{8C1218B3-CACF-4583-A4D1-28051720651E}</Project>
+      <Name>MYDZ.Tools</Name>
     </ProjectReference>
     <ProjectReference Include="..\MYDZ.WebUI\MYDZ.WebUI.csproj">
       <Project>{86637248-BA80-43BC-834C-8B44CCE6E583}</Project>

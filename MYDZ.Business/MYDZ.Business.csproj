@@ -55,6 +55,7 @@
     <Compile Include="DataBase_BLL\ClientUserBLL\BClientUserShop.cs" />
     <Compile Include="DataBase_BLL\ClientUserBLL\BClientUserCredit.cs" />
     <Compile Include="DataBase_BLL\Comm.cs" />
+    <Compile Include="DataBase_BLL\DataAnalysis\BAnalysisOrderData.cs" />
     <Compile Include="DataBase_BLL\GoodsBLL\BDescModuleInfo.cs" />
     <Compile Include="DataBase_BLL\GoodsBLL\BItemImg.cs" />
     <Compile Include="DataBase_BLL\GoodsBLL\BItems.cs" />

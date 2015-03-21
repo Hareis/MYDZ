@@ -45,6 +45,7 @@
     <Compile Include="SqlServer\ClientUser\ClientUser.cs" />
     <Compile Include="SqlServer\ClientUser\ClientUserCredit.cs" />
     <Compile Include="SqlServer\ClientUser\ClientUserShop.cs" />
+    <Compile Include="SqlServer\DataAnalysis\AnalysisOrderData.cs" />
     <Compile Include="SqlServer\Item\DeliveryTime.cs" />
     <Compile Include="SqlServer\Item\DescModuleInfo.cs" />
     <Compile Include="SqlServer\Item\FoodSecurity.cs" />

@@ -1,0 +1,5 @@
+F:\C#solution\MYDZ\MYDZ\MYDZ.Web\bin\MYDZ.Data.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.Web\bin\MYDZ.Data.pdb
+F:\C#solution\MYDZ\MYDZ\MYDZ.Data\obj\Debug\MYDZ.Data.csprojResolveAssemblyReference.cache
+F:\C#solution\MYDZ\MYDZ\MYDZ.Data\obj\Debug\MYDZ.Data.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.Data\obj\Debug\MYDZ.Data.pdb

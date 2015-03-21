@@ -44,6 +44,7 @@
     <Compile Include="ClientUser\IClientUserCredit.cs" />
     <Compile Include="ClientUser\IClientUserLevel.cs" />
     <Compile Include="ClientUser\IClientUserShop.cs" />
+    <Compile Include="DataAnalysis\IAnalysisOrderData.cs" />
     <Compile Include="Item\IDeliveryTime.cs" />
     <Compile Include="Item\IDescModuleInfo.cs" />
     <Compile Include="Item\IFoodSecurity.cs" />

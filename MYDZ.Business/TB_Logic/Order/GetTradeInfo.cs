@@ -380,7 +380,7 @@ namespace MYDZ.Business.TB_Logic.Order
                         Detail.ProductEncoding = !String.IsNullOrEmpty(order.OuterSkuId) ? order.OuterSkuId.Trim() : "";
                         Detail.ProductName = !String.IsNullOrEmpty(order.Title) ? order.Title.Trim() : "";
                         Detail.ProductSku = !String.IsNullOrEmpty(order.SkuPropertiesName) ? order.SkuPropertiesName.Trim() : "";
-                        Detail.ProductId = 0;
+                        Detail.ProductId = Convert.ToInt32(order.NumIid);
                         Detail.ProductProId = 0;
                         Detail.SalesCommissionId = 1;
                         Detail.ProductImg = String.IsNullOrEmpty(order.PicPath) ? "" : order.PicPath.Trim();//商品图片
