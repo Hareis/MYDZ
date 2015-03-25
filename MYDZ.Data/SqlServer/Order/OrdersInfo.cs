@@ -519,7 +519,7 @@ namespace MYDZ.Data.SqlServer.Order
    	                                            ,[OrdersFreight],[OrdersProductTotal],[OrdersDiscount],[OrdersAccounts]
    	                                            ,[OrdersPaid],[OrdersDate],[PayDate],[OrdersInputDate]
    	                                            ,[OrdersStatusId],[OrdersNotes],[OrdersFlag],[OrdersOutNumber]
-   	                                            ,[ServiceNotes],[ServiceFlag],[ShopId]
+   	                                            ,ISNULL([ServiceNotes],''),[ServiceFlag],[ShopId]
                                             from [dbo].[tbOrdersInfo_temp] A 
                                             where   not exists(
                                             select [OrdersOutNumber]

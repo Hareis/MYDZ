@@ -1,8 +1,9 @@
-﻿@model MYDZ.Entity.DataAnalysis.ListShopData
-@{
+﻿@{
     ViewBag.Title = "数据分析-魔云店长";
     Layout = "~/Views/Shared/_SubMaster.cshtml";
-    string datastring = MYDZ.Tools.Utils.ObjectToJsonStr(ViewData["chartdate"]);
+    string datastring = MYDZ.Tools.Utils.ObjectToJsonStr(ViewData["chart_line_date"]);
+    string datastring24 = MYDZ.Tools.Utils.ObjectToJsonStr(ViewData["chart_line_datefor24"]);
+    string dataArea = MYDZ.Tools.Utils.ObjectToJsonStr(ViewData["piedata"]);
 }
 <link href="@Url.Content("~/js/datepicker/jquery-ui.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Highcharts/Options.js")" type="text/javascript"></script>
@@ -17,7 +18,7 @@
         width: 100px;
         height: 100px;
     }
-    #container
+    #container, #containerFor1day,#containerForArea
     {
         max-width: 800px;
         height: 400px;
@@ -106,6 +107,43 @@
         </div>
     </div>
 </div>
+<div class="fix_body_wrap">
+    <div>
+        <div>
+            <ul>
+                @{
+                    if (ViewData["listdetailtop"] != null)
+                    {
+                        foreach (MYDZ.Entity.Order.tbOrdersDetail item in ViewData["listdetailtop"] as List<MYDZ.Entity.Order.tbOrdersDetail>)
+                        {
+                    <li><span>
+                        <img src="@item.ProductImg" width="80px" height="80px" alt="" /></span> <span>@item.ProductPrice</span>
+                        <span>@item.Sums</span> </li>
+                        }
+                    }
+                    else
+                    {
+                    @("暂无数据")
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="fix_body_wrap">
+    <div>
+        <div id="containerFor1day">
+        </div>
+        <input type="hidden" class="span-line-type-data24" name="" value="@datastring24" />
+    </div>
+</div>
+<div class="fix_body_wrap">
+    <div>
+        <div id="containerForArea">
+        </div>
+        <input type="hidden" class="span-line-type-Area" name="" value="@dataArea" />
+    </div>
+</div>
 <script type="text/javascript">
     $(function () {
 
@@ -119,11 +157,21 @@
 
         function OnloadShopDate() {
             var typevalue = $(".span-line-type-data").val();
+            var typevalue24 = $(".span-line-type-data24").val();
+            var typearea = $(".span-line-type-Area").val();
+
+            //一周销售数据
             if (!$.isEmptyObject(typevalue) && typevalue !== "null") {
                 chart = $('#container').highcharts($.parseJSON(typevalue));
             } else {
                 $('#container').append("<h2>暂无数据！</h2>");
             }
+
+            //24小时销售数据
+            $('#containerFor1day').highcharts($.parseJSON(typevalue24));
+
+            //地区访问数据
+            var ctx_pie = $("#containerForArea").highcharts($.parseJSON(typearea));
         }
 
         function SetYtitle() {

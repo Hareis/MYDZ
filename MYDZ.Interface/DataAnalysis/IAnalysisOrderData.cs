@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MYDZ.Entity.DataAnalysis;
 using MYDZ.Entity.Order;
+using System.Collections;
 
 namespace MYDZ.Interface.DataAnalysis
 {
@@ -20,11 +21,16 @@ namespace MYDZ.Interface.DataAnalysis
         /// <summary>
         /// 商品销售量分析
         /// </summary>
-        IList<tbOrdersDetail> ProductAnalysis(int shopId);
+        IList<tbOrdersDetail> ProductAnalysis(int shopId, DateTime StartTime, DateTime EndtTime);
 
         /// <summary>
         /// 订单支付人数
         /// </summary>
-        void payForOrder(int shopId);
+        IList<Shopdata> payForOrder(int shopId, DateTime StartTime, DateTime EndtTime);
+
+        /// <summary>
+        /// 地区购买人数
+        /// </summary>
+        Hashtable GetShopAreaData(int shopId, DateTime StartTime, DateTime EndtTime);
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using MYDZ.Interface.DataAnalysis;
 using MYDZ.Entity.DataAnalysis;
 using MYDZ.Entity.Order;
+using System.Collections;
 
 namespace MYDZ.Business.DataBase_BLL.DataAnalysis
 {
@@ -23,18 +24,26 @@ namespace MYDZ.Business.DataBase_BLL.DataAnalysis
         /// <summary>
         /// 商品销售量分析
         /// </summary>
-        public IList<tbOrdersDetail> ProductAnalysis(int shopId)
+        public IList<tbOrdersDetail> ProductAnalysis(int shopId, DateTime StartTime, DateTime EndtTime)
         {
-            return SetAnalysisOrderData.ProductAnalysis(shopId);
+            return SetAnalysisOrderData.ProductAnalysis(shopId, StartTime, EndtTime);
         }
 
 
         /// <summary>
-        /// 订单支付人数
+        /// 订单支付人数(每小时)
         /// </summary>
-        public void payForOrder(int shopId)
+        public IList<Shopdata> payForOrder(int shopId, DateTime StartTime, DateTime EndtTime)
         {
+            return SetAnalysisOrderData.payForOrder(shopId, StartTime, EndtTime);
+        }
 
+        /// <summary>
+        /// 地区访问人数
+        /// </summary>
+        public Hashtable GetShopAreaData(int shopId, DateTime StartTime, DateTime EndtTime)
+        {
+            return SetAnalysisOrderData.GetShopAreaData(shopId, StartTime, EndtTime);
         }
     }
 }
