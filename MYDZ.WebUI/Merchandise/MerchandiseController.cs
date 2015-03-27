@@ -78,7 +78,14 @@ namespace MYDZ.WebUI.Merchandise
             tbClientUser clientuser = GetUser("UserInfo");
             SellerAuthorize sa = new SellerAuthorize();
             sa = gic.GetAuthorizeItemcat(clientuser.UserShops[0].SessionKey);
-            ViewData["ListCats"] = sa.ItemCats;
+            if (sa != null)
+            {
+                ViewData["ListCats"] = sa.ItemCats;
+            }
+            else
+            {
+                ViewData["ListCats"] = null;
+            }
             return View();
         }
 
@@ -119,6 +126,7 @@ namespace MYDZ.WebUI.Merchandise
             ViewData["DeliveryTemplate"] = DeliveryTemplate;
             return View();
         }
+
         /// <summary>
         /// 商品属性
         /// </summary>
@@ -150,6 +158,7 @@ namespace MYDZ.WebUI.Merchandise
             if (itemid == null) { return Json(new { ErrorMsg = errormsg }); }
             string[] path = goods.ChildPicPath.Split('^');
             if (path == null) { return Json(new { ErrorMsg = "" }); }
+
             ItemJointImg itemjoin;
             for (int i = 0; i < path.Count(); i++)
             {
@@ -289,6 +298,25 @@ namespace MYDZ.WebUI.Merchandise
         public ViewResult Describe()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 价格
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult Price()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 修改商品价格
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult Updateprice()
+        {
+            // 根据选择的ID获取商品信息（价格）, 使用方法 SetupdateGoods(ItemUpdate goods)
+            return Json("");
         }
 
         /// <summary>

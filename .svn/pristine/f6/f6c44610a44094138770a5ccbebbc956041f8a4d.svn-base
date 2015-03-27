@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<DataBaseConfig>
-	<Server>192.168.0.202</Server>
-	<DBName>MHDZ_DATA</DBName>
-	<User>sa</User>
-	<PassWord>4LtNhcxJzBtrRwm9c8m8Yg==</PassWord>
-	<DataBaseType>SQLSERVER</DataBaseType>
-	<Character>Server={Server};database={DBName};user={User};password={PassWord}</Character>
-</DataBaseConfig>

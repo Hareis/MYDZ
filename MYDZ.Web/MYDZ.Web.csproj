@@ -198,6 +198,7 @@
     <Content Include="images\Logistics\ZJS.jpg" />
     <Content Include="images\Logistics\ZTO.jpg" />
     <Content Include="images\Logistics\ZTOBJ.jpg" />
+    <Content Include="images\msg.png" />
     <Content Include="images\radio.png" />
     <Content Include="images\tabbg.gif" />
     <Content Include="images\ToolTip\bottom.gif" />
@@ -411,7 +412,6 @@
     <Content Include="Validation\style.css" />
     <Content Include="Validation\Validform.js" />
     <Content Include="Validation\Validform_v5.3.2_min.js" />
-    <Content Include="Views\OrderManagement\backlogorders.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -556,6 +556,7 @@
     <Content Include="Views\TradeRate\SaveRate.cshtml" />
     <Content Include="Views\TradeRate\SingleRate.cshtml" />
     <Content Include="Views\DataAnalysis\Index.cshtml" />
+    <Content Include="Views\Merchandise\Price.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UploadImgs\" />

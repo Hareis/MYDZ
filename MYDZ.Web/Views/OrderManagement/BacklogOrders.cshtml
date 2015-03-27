@@ -151,7 +151,7 @@
                                                     <a href="@("http://item.taobao.com/item.html?id="+ detail.OutNumberIId + ".html")" target="_blank">@detail.ProductName</a><br />
                                                     <font color="#808080">商家编码：</font><font color="#808080">@detail.ProductEncoding</font><br />
                                                     <font color="#808080">销售属性：</font><font color="#808080">@detail.ProductSku</font><br />
-                                                    <font color="#ff5500">所属店铺：[ @item.Shop.Title ]</font>
+                                                   @* <font color="#ff5500">所属店铺：[ @item.Shop.Title ]</font>*@
                                                     @(detail.IsCanceled ? Html.Raw("<font color='#7C7C7C'>[ 已取消 ]</font>") : Html.Raw(""))
                                                     @(String.IsNullOrEmpty(detail.PackageName) ? Html.Raw("") : Html.Raw("<br /><font color='#808080'>套餐：" + detail.PackageName + "</font>"))
                                                 </td>
