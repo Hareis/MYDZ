@@ -145,11 +145,6 @@ table.ot th div
 {
     position: relative;
 }
-
-.detail_wrap
-{
-    position: relative;
-}
 .detail_div, .DataTable table.ot th div.detail_div
 {
     display: none;

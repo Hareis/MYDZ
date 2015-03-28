@@ -405,9 +405,6 @@
     <Content Include="js\img\uploadify-cancel.png" />
     <Content Include="js\upload\uploadify.css" />
     <Content Include="js\upload\uploadify.swf" />
-    <Content Include="js\zclip\jquery.zclip.js" />
-    <Content Include="js\zclip\jquery.zclip.min.js" />
-    <Content Include="js\zclip\ZeroClipboard.swf" />
     <Content Include="Validation\Error.css" />
     <Content Include="Validation\style.css" />
     <Content Include="Validation\Validform.js" />

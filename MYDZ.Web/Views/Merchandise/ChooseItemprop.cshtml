@@ -32,7 +32,7 @@
     .itemlist li
     {
         width: 200px;
-        white-space:normal;
+        white-space: normal;
     }
     .itemlist ul
     {
@@ -43,7 +43,7 @@
     {
         background-color: gray;
     }
-     .test:hover
+    .test:hover
     {
         background-color: gray;
     }
@@ -57,18 +57,22 @@
             <ol class="itemlist">
                 <li data="0" sortnum="1">
                     <ul class="tool_wrap_bd">
-                        @foreach (MYDZ.Entity.ItemCats.ItemCat item in ViewData["ListCats"] as List<MYDZ.Entity.ItemCats.ItemCat>)
-                        {
-                            if (item.IsParent)
-                            {
+                        @{if (ViewData["ListCats"] != null)
+                          {
+                              foreach (MYDZ.Entity.ItemCats.ItemCat item in ViewData["ListCats"] as List<MYDZ.Entity.ItemCats.ItemCat>)
+                              {
+                                  if (item.IsParent)
+                                  {
                             <li data="@item.Cid" status="Isparent"><a href="javascript:void(0);" class="GoodsCats">@item.Name
-                                <i style="float: right"> + </i></a></li>
-                            }
-                            else
-                            { 
+                                <i style="float: right">+ </i></a></li>
+                                  }
+                                  else
+                                  { 
                             <li data="@item.Cid" status="Notparent"><a href="javascript:void(0);" class="GoodsCats">@item.Name</a>
                             </li>
-                            }
+                                  }
+                              }
+                          }
                         }
                     </ul>
                 </li>
@@ -84,6 +88,6 @@
 </div>
 <script type="text/javascript">
     $(function () {
-        
+
     });
 </script>

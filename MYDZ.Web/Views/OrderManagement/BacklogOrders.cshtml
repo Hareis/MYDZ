@@ -143,15 +143,17 @@
                                               {
                                             <tr>
                                                 <td width="120" height="120">
-                                                    <a href="@(ViewBag.PFID == 1 ? "http://item.taobao.com/item.html?id=" + detail.OutNumberIId + "" : ViewBag.PFID == 3 ? detail.Details : "http://item.jd.com/" + detail.OutNumberIId + ".html")" target="_blank">
+                                                    <a href="@("http://item.taobao.com/item.html?id=" + detail.OutNumberIId)" target="_blank">
                                                         <img src="@detail.ProductImg" class="PImg" />
                                                     </a>
                                                 </td>
                                                 <td style="text-align: left;">
-                                                    <a href="@("http://item.taobao.com/item.html?id="+ detail.OutNumberIId + ".html")" target="_blank">@detail.ProductName</a><br />
-                                                    <font color="#808080">商家编码：</font><font color="#808080">@detail.ProductEncoding</font><br />
-                                                    <font color="#808080">销售属性：</font><font color="#808080">@detail.ProductSku</font><br />
-                                                   @* <font color="#ff5500">所属店铺：[ @item.Shop.Title ]</font>*@
+                                                    <a href="@("http://item.taobao.com/item.html?id=" + detail.OutNumberIId)" target="_blank">@detail.ProductName</a><br />
+                                                    <font color="#808080">商家编码：</font><font color="#808080">@detail.ProductEncoding</font>
+                                                    <br />
+                                                    <font color="#808080">销售属性：</font><font color="#808080">@detail.ProductSku</font>
+                                                    <br />
+                                                    @* <font color="#ff5500">所属店铺：[ @item.Shop.Title ]</font>*@
                                                     @(detail.IsCanceled ? Html.Raw("<font color='#7C7C7C'>[ 已取消 ]</font>") : Html.Raw(""))
                                                     @(String.IsNullOrEmpty(detail.PackageName) ? Html.Raw("") : Html.Raw("<br /><font color='#808080'>套餐：" + detail.PackageName + "</font>"))
                                                 </td>
@@ -201,7 +203,8 @@
                                 </td>
                                 <td width="150">
                                     @item.Status.OrdersStatusName<br />
-                                    <a href="/OrderManagement/OrderDetail.html?param=@item.OrdersNumber" target="_blank">订单详情</a><br />
+                                    <a href="/OrderManagement/OrderDetail.html?param=@item.OrdersNumber" target="_blank">
+                                        订单详情</a><br />
                                     @{
                                     switch (item.Status.OrdersStatusId)
                                     {
@@ -223,7 +226,8 @@
                                     }
                                 </td>
                                 <td width="120">
-                                    <font style="color: #000; font-size: 14px; font-weight: bold;">@item.OrdersAccounts</font><br />
+                                    <font style="color: #000; font-size: 14px; font-weight: bold;">@item.OrdersAccounts</font>
+                                    <br />
                                     (折扣：<font class="discount">@item.OrdersDiscount </font>)<br />
                                     (净重：<font class="Weight">@item.OrdersWeight </font>g)<br />
                                     (<font class="LogisticsName">@item.Logistics.LogisticsName </font>：<font class="Freight">@item.OrdersFreight
@@ -265,9 +269,9 @@
     <input type="hidden" name="ErrorMsg" value="@ViewData["ErrorMsg"]" />
 </div>
 <script type="text/javascript">
-    RefreshOrder();
-   // Ordermark();
-   // Deliver();
+    // RefreshOrder();
+    // Ordermark();
+    // Deliver();
 
     function Deliver() {
         this.Page = {
@@ -286,14 +290,14 @@
     }
 
 
-    function RefreshOrder() {
+    function RefreshOrder11() {
         setInterval(function () {
             // $.get("/OrderManagement/BacklogOrders.html" + " #table_wrap_child>*", {}, function (data) {
             $.get("/OrderManagement/BacklogOrders.html", {}, function (data) {
                 //$("#table_wrap_child").empty().append(data.responseText);
                 PopWindow.Controller.Init({ type: "prompt", opacity: 0, width: 352, height: 198, title: "成功刷新一次！" });
-               // Ordermark();
-            },"html");
+                // Ordermark();
+            }, "html");
         }, 1000 * 60 * 5);
     }
 

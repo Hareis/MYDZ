@@ -44,7 +44,7 @@
         如果您需要全部打印清单，请将打印数量设置为0。</p>
 </div>
 <div class="table_form">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Delivery", "OrderManagement", FormMethod.Post, new { id = "", onSubmit = "return submitOnce(this)" }))
     {
         <div class="MsgWrap @(ViewBag.Status == 1 ? "SuccessWrap" : "")" @(ViewBag.Status > -1 ? Html.Raw("style='display:block;'") : Html.Raw(""))>
             <i></i><span>@(ViewBag.Status > -1 ? ViewBag.Status == 1 ? "保存数据成功" : "保存数据失败" : "")</span></div>
@@ -99,10 +99,8 @@
                     </tbody>
                 </table>
             </div>
-            <span class="table_float">
-            <a hidefocus="true" href="javascript:void()" class="add">添加物流</a>
-            @*<a hidefocus="true" href="javascript:void()" class="add"></a>*@
-            </span>
+            <span class="table_float"><a hidefocus="true" href="javascript:void()" class="add">添加物流</a>
+                @*<a hidefocus="true" href="javascript:void()" class="add"></a>*@ </span>
         </div>
         <div class="table_action">
             <button type="submit" hidefocus="true">
@@ -112,4 +110,5 @@
     }
 </div>
 <script type="text/javascript">
+
 </script>

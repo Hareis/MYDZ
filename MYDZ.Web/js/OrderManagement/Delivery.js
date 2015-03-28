@@ -73,7 +73,6 @@ var Delivery = function () {
             } else {
                 tr.before(target);
             }
-
             this.VerifySort();
         },
         VerifySort: function () {

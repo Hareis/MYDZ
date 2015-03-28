@@ -164,7 +164,7 @@ namespace MYDZ.Common
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            if (filterContext.RouteData.Values["controller"].ToString() != "Auth")
+            if (!filterContext.RouteData.Values["controller"].ToString().Equals("Auth"))
             {
                 SessionManger.CheckSessionState("UserInfo");
             }
