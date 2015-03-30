@@ -188,7 +188,7 @@ namespace MYDZ.Common
                     if (HttpContext.Current.Session[SessionName] == null)
                     {
                         HttpContext.Current.Response.Redirect("/Auth/RestLogin.html", true);
-                        HttpContext.Current.Response.End();
+                        return;
                     }
                 }
             }

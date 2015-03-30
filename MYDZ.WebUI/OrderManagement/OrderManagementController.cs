@@ -24,12 +24,7 @@ namespace MYDZ.WebUI.OrderManagement
     public class OrderManagementController : BaseController
     {
         InitTradeInfo iti = new InitTradeInfo();
-
-              
-
-       
-
-
+        
         /// <summary>
         /// 首页
         /// </summary>

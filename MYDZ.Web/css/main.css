@@ -94,6 +94,10 @@ div, ol, ul, li, dl, dt, dd
 {
     margin-left: 5px;
 }
+.master_wrap
+{
+  min-height:550px;  
+    }
 
 /****************************Header样式****************************/
 
