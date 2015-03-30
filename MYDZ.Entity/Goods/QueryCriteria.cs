@@ -144,5 +144,10 @@ namespace MYDZ.Entity.Goods
         /// 起始的修改时间
         /// </summary>
         public Nullable<DateTime> StartModified { get; set; }
+
+        /// <summary>
+        /// 商品列表
+        /// </summary>
+        public string GoodsIdList { get; set; }
     }
 }

@@ -109,7 +109,7 @@
                     <label>
                         商品类目：</label></li>
                 <li>
-                    <select id="SPLMs" name="Cid" style=" width:200px;">
+                    <select id="SPLMs" name="Cid" style="width: 200px;">
                         <option>全部商品类目</option>
                         @foreach (MYDZ.Entity.Shop.ShopCat itemA in ViewData["DPLM"] as List<MYDZ.Entity.Shop.ShopCat>)
                         {
@@ -159,8 +159,7 @@
                             <option value="@itemA.Cid">@itemA.Name</option>}
                         }
                     </select>
-                    
-                    </li>
+                </li>
             </ul>
         </div>
         <div class="btn_wrap_bd clear_border">
@@ -203,7 +202,7 @@
                         <input type="hidden" name="ListGoodId" value="" />
                     </li>
                     <li><a href="javascript:void();" class="BatchUnShelve">批量下架</a></li>
-                    <li ><a href="javascript:void();" class="BatchEdit">批量修改 &nbsp;<i></i></a>
+                    <li><a href="javascript:void();" class="BatchEdit">批量修改 &nbsp;<i></i></a>
                         <ul class="Nomargin">
                             <li><a href="javascript:void(0);" data="Price">金额</a></li>
                             <li><a href="javascript:void(0);" data="Freight">运费</a></li>

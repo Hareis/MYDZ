@@ -59,27 +59,28 @@ namespace MYDZ.Business.Business_Logic.Goods
             IList<Item> list = new List<Item>();
             try
             {
-                if (ListNumIids.Trim().Length >= 1 && !string.IsNullOrEmpty(ListNumIids) && CommonFunc.CheckListGoodsId(ListNumIids))
-                {
-                    list = getgoods.GetListItems(sessionKey, ListNumIids);
-                    if (list == null)
+                if (!string.IsNullOrEmpty(ListNumIids))
+                    if (ListNumIids.Trim().Length >= 1 && CommonFunc.CheckListGoodsId(ListNumIids))
                     {
-                        string[] listgoodsid = ListNumIids.Split(',');
-                        Item goods;
-                        IList<Item> list1;
-                        foreach (string item in listgoodsid)
+                        list = getgoods.GetListItems(sessionKey, ListNumIids);
+                        if (list == null)
                         {
-                            if (string.IsNullOrEmpty(item)) { return null; }
-                            goods = new Item();
-                            list1 = new List<Item>();
-                            list1 = getgoods.Getitem(sessionKey, item);
-                            if (list1 != null)
+                            string[] listgoodsid = ListNumIids.Split(',');
+                            Item goods;
+                            IList<Item> list1;
+                            foreach (string item in listgoodsid)
                             {
-                                list.Add(list1[0]);
+                                if (string.IsNullOrEmpty(item)) { return null; }
+                                goods = new Item();
+                                list1 = new List<Item>();
+                                list1 = getgoods.Getitem(sessionKey, item);
+                                if (list1 != null)
+                                {
+                                    list.Add(list1[0]);
+                                }
                             }
                         }
                     }
-                }
             }
             catch (Exception)
             {

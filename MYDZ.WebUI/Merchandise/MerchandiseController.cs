@@ -535,8 +535,19 @@ namespace MYDZ.WebUI.Merchandise
             List<PictureCategory> list = new List<PictureCategory>();
             list = sgi.GetPictureCategory(PicCategory, clientuser.UserShops[0].SessionKey);
             PictureCategory picc;
-
-            return "1837616344513";
+            if (list != null)
+            {
+                picc = new PictureCategory();
+                picc = list[0];
+                Result = picc.PictureCategoryId.ToString();
+            }
+            else
+            {
+                picc = new PictureCategory();
+                picc = sgi.AddImageCategroy(clientuser.UserShops[0].SessionKey, PictureCategoryName, "0");
+                Result = picc.PictureCategoryId.ToString();
+            }
+            return Result;
         }
 
         /// <summary>

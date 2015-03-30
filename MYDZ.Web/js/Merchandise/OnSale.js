@@ -315,14 +315,18 @@
             var str = $(this).attr("data");
             var checkedList = [];
             checkedList = RetunrGoodsId();
-            if (str === null) {
-                return false;
-            } else if (str === "HotDot" || str === "Price") {
-                PopWindow.Controller.Init({ type: "window", opacity: 0, width: 500, height: 220, url: "/Merchandise/" + str + ".html?item=" + encodeURI(checkedList), title: "批量修改" + $(this).text() });
-            } else if (str === "Describe") {
-                PopWindow.Controller.Init({ type: "window", opacity: 0, width: 700, height: 350, url: "/Merchandise/" + str + ".html?item=" + encodeURI(checkedList), title: "批量修改" + $(this).text() });
-            } else if (checkedList.length != 0) {
-                PopWindow.Controller.Init({ type: "window", opacity: 0, width: 405, height: 200, url: "/Merchandise/" + str + ".html?item=" + encodeURI(checkedList), title: "批量修改" + $(this).text() });
+            if (checkedList.length !== 0) {
+                if (str === null) {
+                    return false;
+                } else if (str === "Price") {
+                    PopWindow.Controller.Init({ type: "window", opacity: 0, width: 500, height: 220, url: "/Merchandise/" + str + ".html?item=" + encodeURI(checkedList), title: "批量修改" + $(this).text() });
+                } else if (str === "HotDot") {
+                    PopWindow.Controller.Init({ type: "window", opacity: 0, width: 500, height: 220, url: "/Merchandise/" + str + ".html?item=" + encodeURI(checkedList), title: "批量修改" + $(this).text() });
+                } else if (str === "Describe") {
+                    PopWindow.Controller.Init({ type: "window", opacity: 0, width: 700, height: 350, url: "/Merchandise/" + str + ".html?item=" + encodeURI(checkedList), title: "批量修改" + $(this).text() });
+                } else {
+                    PopWindow.Controller.Init({ type: "window", opacity: 0, width: 405, height: 200, url: "/Merchandise/" + str + ".html?item=" + encodeURI(checkedList), title: "批量修改" + $(this).text() });
+                }
             } else {
                 PopWindow.Controller.Init({ type: "prompt", opacity: 0, width: 352, height: 198, title: "请至少选中一件商品！" });
             }
