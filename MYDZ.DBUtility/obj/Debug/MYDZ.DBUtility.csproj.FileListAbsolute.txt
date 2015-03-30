@@ -1,0 +1,11 @@
+F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\MYDZ.DBUtility.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\MYDZ.DBUtility.pdb
+F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\MYDZ.Config.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\MYDZ.Tools.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\Newtonsoft.Json.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\MYDZ.Config.pdb
+F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\MYDZ.Tools.pdb
+F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\Newtonsoft.Json.xml
+F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\obj\Debug\MYDZ.DBUtility.csprojResolveAssemblyReference.cache
+F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\obj\Debug\MYDZ.DBUtility.dll
+F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\obj\Debug\MYDZ.DBUtility.pdb
