@@ -283,14 +283,14 @@ namespace MYDZ.WebUI.DataAnalysis
         [HttpPost]
         public JsonResult OnloadDatainfo(string selectType, string SelectDay = null)
         {
-            IList<string> bb = new List<string>() { "aa", "bb", "cc" };
+            /*IList<string> bb = new List<string>() { "aa", "bb", "cc" };
 
             for (var i = 0; i < 7; i++)
             {
                 string aa = bb.FirstOrDefault((e) => { return e == "aa"; });
 
 
-            }
+            }*/
             return Json("");
         }
 
