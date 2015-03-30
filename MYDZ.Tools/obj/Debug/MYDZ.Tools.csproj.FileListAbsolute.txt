@@ -1,9 +1,0 @@
-F:\C#solution\MYDZ\MYDZ\MYDZ.Tools\bin\Debug\MYDZ.Tools.dll
-F:\C#solution\MYDZ\MYDZ\MYDZ.Tools\bin\Debug\MYDZ.Tools.pdb
-F:\C#solution\MYDZ\MYDZ\MYDZ.Tools\bin\Debug\MYDZ.Config.dll
-F:\C#solution\MYDZ\MYDZ\MYDZ.Tools\bin\Debug\Newtonsoft.Json.dll
-F:\C#solution\MYDZ\MYDZ\MYDZ.Tools\bin\Debug\MYDZ.Config.pdb
-F:\C#solution\MYDZ\MYDZ\MYDZ.Tools\bin\Debug\Newtonsoft.Json.xml
-F:\C#solution\MYDZ\MYDZ\MYDZ.Tools\obj\Debug\MYDZ.Tools.csprojResolveAssemblyReference.cache
-F:\C#solution\MYDZ\MYDZ\MYDZ.Tools\obj\Debug\MYDZ.Tools.dll
-F:\C#solution\MYDZ\MYDZ\MYDZ.Tools\obj\Debug\MYDZ.Tools.pdb

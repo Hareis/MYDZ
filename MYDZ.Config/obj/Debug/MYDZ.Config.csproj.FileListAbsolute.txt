@@ -1,4 +1,0 @@
-F:\C#solution\MYDZ\MYDZ\MYDZ.Config\bin\Debug\MYDZ.Config.dll
-F:\C#solution\MYDZ\MYDZ\MYDZ.Config\bin\Debug\MYDZ.Config.pdb
-F:\C#solution\MYDZ\MYDZ\MYDZ.Config\obj\Debug\MYDZ.Config.dll
-F:\C#solution\MYDZ\MYDZ\MYDZ.Config\obj\Debug\MYDZ.Config.pdb
