@@ -317,7 +317,7 @@
             checkedList = RetunrGoodsId();
             if (str === null) {
                 return false;
-            } else if (str === "HotDot") {
+            } else if (str === "HotDot" || str === "Price") {
                 PopWindow.Controller.Init({ type: "window", opacity: 0, width: 500, height: 220, url: "/Merchandise/" + str + ".html?item=" + encodeURI(checkedList), title: "批量修改" + $(this).text() });
             } else if (str === "Describe") {
                 PopWindow.Controller.Init({ type: "window", opacity: 0, width: 700, height: 350, url: "/Merchandise/" + str + ".html?item=" + encodeURI(checkedList), title: "批量修改" + $(this).text() });

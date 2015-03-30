@@ -310,16 +310,6 @@ namespace MYDZ.WebUI.Merchandise
         }
 
         /// <summary>
-        /// 修改商品价格
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult Updateprice()
-        {
-            // 根据选择的ID获取商品信息（价格）, 使用方法 SetupdateGoods(ItemUpdate goods)
-            return Json("");
-        }
-
-        /// <summary>
         /// 运费
         /// </summary>
         /// <returns></returns>
@@ -364,7 +354,7 @@ namespace MYDZ.WebUI.Merchandise
         /// 批量修改商品信息
         /// </summary>
         /// <returns></returns>
-        public Task<ActionResult> SetupdateGoods(ItemUpdate goods)
+        public Task<JsonResult> SetupdateGoods(ItemUpdate goods)
         {
             tbClientUser clientuser = GetUser("UserInfo");
             string ErrorMsg = string.Empty;
@@ -374,7 +364,7 @@ namespace MYDZ.WebUI.Merchandise
                 goodsinfo.simpleupdategoods(clientuser.UserShops[0].SessionKey, goods, out errorMsg);
                 AsyncManager.Timeout = 5000;
                 AsyncManager.Parameters["content"] = errorMsg;
-            }).ContinueWith<ActionResult>(task =>
+            }).ContinueWith<JsonResult>(task =>
             {
                 List<string> errorMsg = (List<string>)AsyncManager.Parameters["content"];
                 return Json(new { ErrorMsg = errorMsg });
@@ -532,6 +522,7 @@ namespace MYDZ.WebUI.Merchandise
                 return Json(new { ErrorMsg = errorMsg });
             });
         }
+
         /// <summary>
         /// 检查图片空间
         /// </summary>
@@ -544,20 +535,10 @@ namespace MYDZ.WebUI.Merchandise
             List<PictureCategory> list = new List<PictureCategory>();
             list = sgi.GetPictureCategory(PicCategory, clientuser.UserShops[0].SessionKey);
             PictureCategory picc;
-            //if (list != null)
-            //{
-            //    picc = new PictureCategory();
-            //    picc = list[0];
-            //    Result = picc.PictureCategoryId.ToString();
-            //}
-            //else
-            //{
-            //    picc = new PictureCategory();
-            //    picc = sgi.AddImageCategroy(clientuser.UserShops[0].SessionKey, PictureCategoryName, "0");
-            //    Result = picc.PictureCategoryId.ToString();
-            //}
-            return "1837616344513"; //Result;
+
+            return "1837616344513";
         }
+
         /// <summary>
         /// 上传图片
         /// </summary>
@@ -610,6 +591,7 @@ namespace MYDZ.WebUI.Merchandise
             }
             return result;
         }
+
         /// <summary>
         /// 查找在线商品
         /// </summary>

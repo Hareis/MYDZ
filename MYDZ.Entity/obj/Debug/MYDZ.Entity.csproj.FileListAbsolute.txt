@@ -2,3 +2,7 @@ F:\C#solution\MYDZ\MYDZ\MYDZ.Entity\bin\Debug\MYDZ.Entity.dll
 F:\C#solution\MYDZ\MYDZ\MYDZ.Entity\bin\Debug\MYDZ.Entity.pdb
 F:\C#solution\MYDZ\MYDZ\MYDZ.Entity\obj\Debug\MYDZ.Entity.dll
 F:\C#solution\MYDZ\MYDZ\MYDZ.Entity\obj\Debug\MYDZ.Entity.pdb
+E:\C#solution\MYDZ\MYDZ\MYDZ.Entity\bin\Debug\MYDZ.Entity.dll
+E:\C#solution\MYDZ\MYDZ\MYDZ.Entity\bin\Debug\MYDZ.Entity.pdb
+E:\C#solution\MYDZ\MYDZ\MYDZ.Entity\obj\Debug\MYDZ.Entity.dll
+E:\C#solution\MYDZ\MYDZ\MYDZ.Entity\obj\Debug\MYDZ.Entity.pdb

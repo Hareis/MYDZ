@@ -5,3 +5,10 @@ F:\C#solution\MYDZ\MYDZ\MYDZ.Interface\bin\Debug\MYDZ.Entity.pdb
 F:\C#solution\MYDZ\MYDZ\MYDZ.Interface\obj\Debug\MYDZ.Interface.csprojResolveAssemblyReference.cache
 F:\C#solution\MYDZ\MYDZ\MYDZ.Interface\obj\Debug\MYDZ.Interface.dll
 F:\C#solution\MYDZ\MYDZ\MYDZ.Interface\obj\Debug\MYDZ.Interface.pdb
+E:\C#solution\MYDZ\MYDZ\MYDZ.Interface\bin\Debug\MYDZ.Interface.dll
+E:\C#solution\MYDZ\MYDZ\MYDZ.Interface\bin\Debug\MYDZ.Interface.pdb
+E:\C#solution\MYDZ\MYDZ\MYDZ.Interface\bin\Debug\MYDZ.Entity.dll
+E:\C#solution\MYDZ\MYDZ\MYDZ.Interface\bin\Debug\MYDZ.Entity.pdb
+E:\C#solution\MYDZ\MYDZ\MYDZ.Interface\obj\Debug\MYDZ.Interface.csprojResolveAssemblyReference.cache
+E:\C#solution\MYDZ\MYDZ\MYDZ.Interface\obj\Debug\MYDZ.Interface.dll
+E:\C#solution\MYDZ\MYDZ\MYDZ.Interface\obj\Debug\MYDZ.Interface.pdb

@@ -9,3 +9,14 @@ F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.Entity.pdb
 F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\obj\Debug\MYDZ.DALFactory.csprojResolveAssemblyReference.cache
 F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\obj\Debug\MYDZ.DALFactory.dll
 F:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\obj\Debug\MYDZ.DALFactory.pdb
+E:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.DALFactory.dll
+E:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.DALFactory.pdb
+E:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.Config.dll
+E:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.Interface.dll
+E:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.Entity.dll
+E:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.Config.pdb
+E:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.Interface.pdb
+E:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\bin\Debug\MYDZ.Entity.pdb
+E:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\obj\Debug\MYDZ.DALFactory.csprojResolveAssemblyReference.cache
+E:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\obj\Debug\MYDZ.DALFactory.dll
+E:\C#solution\MYDZ\MYDZ\MYDZ.DALFactory\obj\Debug\MYDZ.DALFactory.pdb
