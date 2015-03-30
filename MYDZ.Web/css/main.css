@@ -94,7 +94,7 @@ div, ol, ul, li, dl, dt, dd
 {
     margin-left: 5px;
 }
-   
+
 /****************************Header样式****************************/
 
 /****************************Tool样式****************************/
@@ -103,6 +103,7 @@ div, ol, ul, li, dl, dt, dd
     width: 1200px;
     margin: 10px auto;
     zoom: 1;
+    min-height: 610px;
 }
 .master_wrap:after
 {
@@ -122,8 +123,6 @@ div, ol, ul, li, dl, dt, dd
     float: right;
     width: 1000px;
 }
-
-
 .tool_wrap
 {
     width: 188px;
