@@ -1,0 +1,116 @@
+﻿@model IList<MYDZ.Entity.Goods.Item>
+@{
+    Layout = null;
+    int pagesize = 10;
+    int totalnum = int.Parse(ViewData["total"].ToString());
+    int totalPage = totalnum % pagesize == 0 ? int.Parse((totalnum / pagesize).ToString()) : int.Parse((totalnum / pagesize).ToString()) + 1;
+
+}
+<table class="data_table" cellpadding="0" cellspacing="0" border="0" style="margin-top: -2px;
+    margin-bottom: 20px;">
+    <tr align="center">
+        <th style="width: 30px;" class="Ischeckbox">
+            <label class="checkbox">
+                <span>
+                    <input name="chk_all" type="checkbox" hidefocus="true">
+                </span>
+            </label>
+        </th>
+        <th style="width: 50px;">
+            图片
+        </th>
+        <th style="width: 100px;">
+            商家编码
+        </th>
+        <th style="width: 250px;">
+            商品标题
+        </th>
+        <th style="width: 88px;">
+            价格(￥)
+        </th>
+        <th style="width: 88px;">
+            库存(件)
+        </th>
+        <th style="width: 88px;" class="Iscaozuo">
+            操作
+        </th>
+    </tr>
+    @{ if (Model == null)
+       {        
+        <tr>
+            <td colspan="8">
+                <h2 style="text-align: center; margin: 10px;">
+                    Sorry,暂时未获取到店铺数据！</h2>
+            </td>
+        </tr>        
+       }
+       else
+       {
+           foreach (MYDZ.Entity.Goods.Item item in Model)
+           {
+        <tr class="data_table_item">
+            <td class="Ischeckbox">
+                <label class="checkbox">
+                    <span>
+                        <input name="CheckboxGoods"  data-out-id="@(string.IsNullOrEmpty(item.OuterId) ? "test" + item.GetHashCode() : item.OuterId)" value="@item.NumIid" type="checkbox" hidefocus="false">
+                    </span>
+                </label>
+            </td>
+            <td>
+                @{
+               string url = null;
+               if (string.IsNullOrEmpty(item.PicUrl))
+               {
+                   url = "../../images/NoImage.ico";
+               }
+               else
+               {
+                   url = item.PicUrl + "_50x50.jpg";
+               }
+                }
+                <a class="table_img" target="_blank" href="javascript:void(0);">
+                    <img src='@url' alt=""  style="width:40px; height:40px; margin:2px;"/>
+                </a>
+            </td>
+            <td>
+                <p>
+                    <label>@item.OuterId</label></p>
+            </td>
+            <td>
+                <div class="item-title-div">
+                    <div class="product-title-div">
+                        <a href="@("http://item.taobao.com/item.html?id=" + item.NumIid)" target="_blank">@(item.Title)</a></div>
+                </div>
+            </td>
+            <td class="">
+                <div class="item-price-div">
+                    <p>
+                        <a href="javascript:void(0);">@item.Price</a></p>
+                </div>
+            </td>
+            <td class="">
+                <div class="item-stoke-div">
+                    <p>
+                        <a href="javascript:void(0);">@item.Num</a></p>
+                </div>
+            </td>
+            <td class="Iscaozuo">
+                <div>
+                    <p>
+                        <a class="Choice" href="javascript:void(0);">选择</a> <a class="NotChoice" href="javascript:void(0);"
+                            style="display: none;">不选择</a>
+                    </p>
+                </div>
+            </td>
+        </tr>
+           }
+       }
+    }
+</table>
+<script type="text/javascript"> 
+    var PageConfig = {
+	   PageIndex : 1,
+	   MaxPageNumber : @totalPage,
+	   MaxRowNumber : @ViewData["total"]
+	}; 
+</script>

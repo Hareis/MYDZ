@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ump>
+  <class>
+    <name>DecreaseMoneyOrDiscount</name>
+    <code>MoYunOnlineTool+ DateTime.Now.ToString()</code>
+    <Toold></Toold>
+    <desc>限时打折促销工具</desc>
+  </class>
+  <class>
+    <name>ItemCountOverOrAmountOver</name>
+    <code>MoYunOnlineTool+ DateTime.Now.ToString()</code>
+    <Toold></Toold>
+    <desc>满件或满元减钱打折送礼促销工具</desc>
+  </class>
+  <class>
+    <name>CommonActivity</name>
+    <code></code>
+    <Toold></Toold>
+    <desc>公共方法，创建活动主体</desc>
+  </class>
+  <class>
+    <name>UMPGet</name>
+    <code></code>
+    <Toold></Toold>
+    <desc>涉及到UMP的取数据</desc>
+  </class>
+  <class>
+    <name>UMPSet.cs</name>
+    <code></code>
+    <Toold></Toold>
+    <desc>涉及到UMP的设置方面</desc>
+  </class>
+  <class>
+    <name></name>
+    <code></code>
+    <Toold></Toold>
+    <desc></desc>
+  </class>
+</ump>

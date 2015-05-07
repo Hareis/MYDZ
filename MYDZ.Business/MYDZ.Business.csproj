@@ -43,11 +43,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>SDK\TopSdk.dll</HintPath>
     </Reference>
+    <Reference Include="UMPSDKPHP">
+      <HintPath>..\..\..\UMPSDKPHP\UMPSDKPHP\bin\Debug\UMPSDKPHP.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business_Logic\GoodsImage\SetGoodsPicturecs.cs" />
     <Compile Include="Business_Logic\Goods\InitGoodsInfo.cs" />
     <Compile Include="Business_Logic\ItemCats\GetItemCat.cs" />
+    <Compile Include="Business_Logic\Marking\MarkingGet.cs" />
+    <Compile Include="Business_Logic\Marking\MarkingSet.cs" />
     <Compile Include="Business_Logic\Order\InitTradeInfo.cs" />
     <Compile Include="Business_Logic\Shop\InitShopInfo.cs" />
     <Compile Include="Business_Logic\TradeRates\InitTraderates.cs" />
@@ -99,8 +104,74 @@
     <Compile Include="TB_Logic\InitUser\UserIP.cs" />
     <Compile Include="TB_Logic\ItemCats\GetItemCats.cs" />
     <Compile Include="TB_Logic\Order\GetTradeInfo.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\commonClass\Range.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\PromotionmiscItemActivityAddRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\PromotionmiscMjsActivityAddRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\TmallPromotagTagApplyRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\TmallPromotagTagFindRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\TmallPromotagTagRemovetagRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\TmallPromotagTaguserJudgeRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\TmallPromotagTaguserRemoveRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\TmallPromotagTaguserSaveRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpActivitiesGetRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpActivityAddRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpActivityDeleteRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpActivityGetRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpActivityUpdateRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpDetailAddRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpDetailDeleteRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpDetailGetRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpDetailsGetRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpDetailUpdateRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpMbbGetbycodeRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpMbbGetbyidRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpMbbsGetRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpRangeAddRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpRangeDeleteRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpRangeGetRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpToolAddRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpToolDeleteRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpToolGetRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpToolsGetRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Request\UmpToolUpdateRequest.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\PromotionmiscItemActivityAddResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\PromotionmiscMjsActivityAddResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\TmallPromotagTagApplyResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\TmallPromotagTagFindResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\TmallPromotagTagRemovetagResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\TmallPromotagTaguserJudgeResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\TmallPromotagTaguserRemoveResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\TmallPromotagTaguserSaveResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpActivitiesGetResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpActivityAddResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpActivityDeleteResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpActivityGetResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpActivityUpdateResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpDetailAddResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpDetailDeleteResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpDetailGetResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpDetailsGetResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpDetailUpdateResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpMbbGetbycodeResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpMbbGetbyidResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpMbbsGetResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpRangeAddResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpRangeDeleteResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpRangeGetResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpToolAddResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpToolDeleteResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpToolGetResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpToolsGetResponse.cs" />
+    <Compile Include="TB_Logic\SDK_UMP\Response\UmpToolUpdateResponse.cs" />
     <Compile Include="TB_Logic\Shop\GetShop.cs" />
     <Compile Include="TB_Logic\TradeRates\GetTraderates.cs" />
+    <Compile Include="TB_Logic\UMP\CommonActivity.cs" />
+    <Compile Include="TB_Logic\UMP\DecreaseMoneyOrDiscount.cs" />
+    <Compile Include="TB_Logic\UMP\FirstPreferentialPrice.cs" />
+    <Compile Include="TB_Logic\UMP\LimitedPurchase.cs" />
+    <Compile Include="TB_Logic\UMP\ItemCountOverOrAmountOver.cs" />
+    <Compile Include="TB_Logic\UMP\UMPGet.cs" />
+    <Compile Include="TB_Logic\UMP\UMPSet.cs" />
     <Compile Include="UseEnum.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +203,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="TB_Logic\SDK\TopSdk.dll" />
+    <Content Include="TB_Logic\UMP\类描述文件.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

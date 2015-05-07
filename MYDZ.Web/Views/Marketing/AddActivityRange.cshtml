@@ -1,0 +1,131 @@
+﻿@{
+    ViewBag.Title = "AddActivityRange";
+    Layout = null;    
+}
+<script src="@Url.Content("~/js/select2_locale_zh-CN.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/Marketing/AddActivityRange.js")" type="text/javascript"></script>
+<style type="text/css">
+    .item-title-div p
+    {
+        text-align: left;
+        margin-left: 3px;
+    }
+    table.data_table th
+    {
+        height: 36px;
+        background: #F2F2F2;
+        border-color: #BBBBBB;
+        border-width: 1px 1px 1px 0px;
+        border-style: solid;
+        text-align: center;
+        font: normal 12px '宋体';
+        line-height: 36px;
+        text-shadow: 0 1px 0 #fff;
+    }
+    table.data_table td
+    {
+        border-color: #BBBBBB;
+        border-width: 0px 1px 1px 0px;
+        border-style: solid;
+        text-align: center;
+        font: normal 12px '宋体';
+        text-shadow: 0 1px 0 #fff;
+    }
+    .tiptop
+    {
+        position: absolute;
+        border: #F1E38B 1px solid;
+        background: #FFFAE3;
+        height: 22px;
+        line-height: 22px;
+        top: 2px;
+        left: 105px;
+        width: 460px;
+        padding: 0px 10px;
+        color: #333;
+        text-shadow: white 1px 1px 1px;
+    }
+    .selectproduct
+    {
+        width: 700px;
+        max-width: 700px;
+        height: auto;
+    }
+    .selectproduct .table_hd
+    {
+        width: 70px;
+    }
+    .selectproduct .table_bd input[type=text]
+    {
+        width: 150px;
+        margin-left: 10px;
+    }
+    .product-title-div
+    {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+        margin-left: 3px;
+        width: 230px;
+        height: 42px;
+    }
+</style>
+<div class="btn_wrap btn_wrap-div2">
+    <div class="btn_wrap_hd" style="width: 845px;">
+        <span class="title"><i></i>限时折扣--选择商品</span>
+    </div>
+    <div class="btn_wrap_bd" style="width: 845px;">
+       @* <div class="table_item">
+            <span class="table_hd"><span class="require"></span>活动范围：</span>
+            <div class="table_bd kaiqiquandian">
+                <label class="radio checked">
+                    <span>
+                        <input name="canyu" class="fanwei" checked="checked" type="radio" value="1" hidefocus="true"></span><em>部分参与</em></label>
+                <label class="radio">
+                    <span>
+                        <input name="canyu" class="fanwei" type="radio" value="0" hidefocus="true"></span><em>部分不参与</em></label>
+            </div>
+            <div class="table_bd" style="margin-left: 23px;">
+                <div class="tiptop" style="width: 230px;">
+                    <div class="">
+                    </div>
+                    <span>商品的参与范围(默认部分参与!)</span>
+                </div>
+            </div>
+        </div>*@
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>&nbsp;</span>
+            <div class="table_bd">
+                <div class="selectproduct">
+                    <div id="data_table-div">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>已选择:</span>
+            <div class="table_bd">
+                <input type="hidden" name="IdList" id="YXSP" style="width: 470px;" datatype="*" nullmsg="请选择参加活动的商品" />
+                <div class="msg_info">
+                    <span class="Validform_checktip"></span><i></i>
+                </div>
+            </div>
+            <div class="table_bd" style="margin-left: -70px;">
+                <div class="tiptop" style="width: 170px;">
+                    <div class="rotated-triangle">
+                    </div>
+                    <span>已选择商品(一次最多50个!)</span>
+                </div>
+            </div>
+        </div>
+        <div class="table_item">
+            <span class="table_hd"><span class="require"></span>&nbsp;</span>
+            <div class="table_bd">
+                <input type="button" data="" name="createactivitityinput" class="createactivitity"
+                    value="保存并创建活动" />
+            </div>
+        </div>
+    </div>
+</div>
+<input type=hidden Id="IscheckboxA" value="@ViewData["Ischeckbox"]" />
+<input type=hidden Id="IscaozuoA" value="@ViewData["Iscaozuo"]" />

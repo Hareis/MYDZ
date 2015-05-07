@@ -9,14 +9,3 @@ F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\Newtonsoft.Json.xml
 F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\obj\Debug\MYDZ.DBUtility.csprojResolveAssemblyReference.cache
 F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\obj\Debug\MYDZ.DBUtility.dll
 F:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\obj\Debug\MYDZ.DBUtility.pdb
-E:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\MYDZ.DBUtility.dll
-E:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\MYDZ.DBUtility.pdb
-E:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\MYDZ.Config.dll
-E:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\MYDZ.Tools.dll
-E:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\Newtonsoft.Json.dll
-E:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\MYDZ.Config.pdb
-E:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\MYDZ.Tools.pdb
-E:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\bin\Debug\Newtonsoft.Json.xml
-E:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\obj\Debug\MYDZ.DBUtility.csprojResolveAssemblyReference.cache
-E:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\obj\Debug\MYDZ.DBUtility.dll
-E:\C#solution\MYDZ\MYDZ\MYDZ.DBUtility\obj\Debug\MYDZ.DBUtility.pdb

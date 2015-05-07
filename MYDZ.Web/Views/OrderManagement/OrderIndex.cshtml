@@ -2,18 +2,7 @@
     ViewBag.Title = "订单处理 - 魔云店长";
     Layout = "~/Views/Shared/_SubMaster.cshtml";
 }
-@*
-<link href="@Url.Content("~/css/front/Order.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/css/Page.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/css/lhgcalendar.css")" rel="stylesheet" type="text/css" />
-<script src="@Url.Content("~/js/lhgcalendar.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/js/MaskLayer.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/js/reveal.js")" type="text/javascript"></script>
-<link href="@Url.Content("~/css/reveal.css")" rel="stylesheet" type="text/css" />
-<script src="@Url.Content("~/js/Expressions.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/js/jquery.nicescroll.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/js/Page.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/js/front/Order.js?v=1.0")" type="text/javascript"></script>*@
+
 <link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/css/Order.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/css/OrderIndex.css")" rel="stylesheet" type="text/css" />
@@ -527,8 +516,7 @@
             $.datepicker.setDefaults($.datepicker.regional["zh-CN"]);
             var datePicker = $(".datepicker").datepicker({
                 showOtherMonths: true,
-                selectOtherMonths: true,
-                showButtonPanel: true
+                selectOtherMonths: true
             });
         }
 

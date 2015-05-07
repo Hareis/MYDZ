@@ -149,5 +149,10 @@ namespace MYDZ.Entity.Goods
         /// 商品列表
         /// </summary>
         public string GoodsIdList { get; set; }
+
+        /// <summary>
+        /// 商家编码
+        /// </summary>
+        public string OuterId { get; set; }
     }
 }

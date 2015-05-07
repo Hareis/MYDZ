@@ -78,11 +78,11 @@ jQuery.fn.Pager = function (Setting) {
 
             if (PageSetting.Mini.Enabled) {
                 if (PageSetting.Mini.HasPrev) {
-                    ul.append("<li><a href=\"javascript:void();\" data-index=\"" + Page.prevPage + "\"><span>" + PageSetting.PrevName + "</span></a></li>");
+                    ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + Page.prevPage + "\"><span>" + PageSetting.PrevName + "</span></a></li>");
                 }
 
                 if (PageSetting.Mini.HasNext) {
-                    ul.append("<li><a href=\"javascript:void();\" data-index=\"" + Page.nextPage + "\"><span>" + PageSetting.NextName + "</span></a></li>");
+                    ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + Page.nextPage + "\"><span>" + PageSetting.NextName + "</span></a></li>");
                 }
 
                 return;
@@ -94,11 +94,11 @@ jQuery.fn.Pager = function (Setting) {
 
             if (Page.prevPage > 0) {
                 if (PageSetting.FirstName != "") {//绘制第一页
-                    ul.append("<li><a href=\"javascript:void();\" data-index=\"1\"><span>" + PageSetting.FirstName + "</span></a></li>");
+                    ul.append("<li><a href=\"javascript:void(0);\" data-index=\"1\"><span>" + PageSetting.FirstName + "</span></a></li>");
                 }
 
                 if (PageSetting.PrevName != "") {//绘制上一页
-                    ul.append("<li><a href=\"javascript:void();\" data-index=\"" + Page.prevPage + "\"><span>" + PageSetting.PrevName + "</span></a></li>");
+                    ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + Page.prevPage + "\"><span>" + PageSetting.PrevName + "</span></a></li>");
                 }
             }
 
@@ -107,7 +107,7 @@ jQuery.fn.Pager = function (Setting) {
                     if (PageSetting.PageIndex == i) {
                         ul.append("<li><span class=\"Current\"><font>" + i + "</font></span></li>");
                     } else {
-                        ul.append("<li><a href=\"javascript:void();\" data-index=\"" + i + "\"><span class=\"Number\">" + i + "</span></a></li>");
+                        ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + i + "\"><span class=\"Number\">" + i + "</span></a></li>");
                     }
                 }
             } else {
@@ -116,14 +116,14 @@ jQuery.fn.Pager = function (Setting) {
                         if (PageSetting.PageIndex == i) {
                             ul.append("<li><span class=\"Current\"><font>" + i + "</font></span></li>");
                         } else {
-                            ul.append("<li><a href=\"javascript:void();\" data-index=\"" + i + "\"><span class=\"Number\">" + i + "</span></a></li>");
+                            ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + i + "\"><span class=\"Number\">" + i + "</span></a></li>");
                         }
                     }
 
                     ul.append("<li>...</li>");
 
                     for (var i = PageSetting.MaxPageNumber - PageSetting.PointNumber; i < PageSetting.MaxPageNumber; i++) {
-                        ul.append("<li><a href=\"javascript:void();\" data-index=\"" + parseInt(i + 1) + "\"><span class=\"Number\">" + parseInt(i + 1) + "</span></a></li>");
+                        ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + parseInt(i + 1) + "\"><span class=\"Number\">" + parseInt(i + 1) + "</span></a></li>");
                     }
                 } else {
                     if (PageSetting.PageIndex >= PageSetting.ItemNumber && PageSetting.PageIndex < PageSetting.ItemNumber + PageSetting.PointNumber) {
@@ -131,24 +131,24 @@ jQuery.fn.Pager = function (Setting) {
                             if (PageSetting.PageIndex == i) {
                                 ul.append("<li><span class=\"Current\"><font>" + i + "</font></span></li>");
                             } else {
-                                ul.append("<li><a href=\"javascript:void();\" data-index=\"" + i + "\"><span class=\"Number\">" + i + "</span></a></li>");
+                                ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + i + "\"><span class=\"Number\">" + i + "</span></a></li>");
                             }
                         }
 
                         if (PageSetting.MaxPageNumber <= PageSetting.PageIndex + Step + PageSetting.PointNumber) {
                             for (var i = PageSetting.PageIndex + Step; i < PageSetting.MaxPageNumber; i++) {
-                                ul.append("<li><a href=\"javascript:void;\" data-index=\"" + parseInt(i + 1) + "\"><span class=\"Number\">" + parseInt(i + 1) + "</span></a></li>");
+                                ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + parseInt(i + 1) + "\"><span class=\"Number\">" + parseInt(i + 1) + "</span></a></li>");
                             }
                         } else {
                             ul.append("<li>...</li>");
 
                             for (var i = PageSetting.MaxPageNumber - PageSetting.PointNumber; i < PageSetting.MaxPageNumber; i++) {
-                                ul.append("<li><a href=\"javascript:void();\" data-index=\"" + parseInt(i + 1) + "\"><span class=\"Number\">" + parseInt(i + 1) + "</span></a></li>");
+                                ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + parseInt(i + 1) + "\"><span class=\"Number\">" + parseInt(i + 1) + "</span></a></li>");
                             }
                         }
                     } else {
                         for (var i = 1; i <= PageSetting.PointNumber; i++) {
-                            ul.append("<li><a href=\"javascript:void();\" data-index=\"" + i + "\"><span class=\"Number\">" + i + "</span></a></li>");
+                            ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + i + "\"><span class=\"Number\">" + i + "</span></a></li>");
                         }
 
                         ul.append("<li>...</li>");
@@ -158,7 +158,7 @@ jQuery.fn.Pager = function (Setting) {
                                 if (PageSetting.PageIndex == i) {
                                     ul.append("<li><span class=\"Current\"><font>" + i + "</font></span></li>");
                                 } else {
-                                    ul.append("<li><a href=\"javascript:void();\" data-index=\"" + i + "\"><span class=\"Number\">" + i + "</span></a></li>");
+                                    ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + i + "\"><span class=\"Number\">" + i + "</span></a></li>");
                                 }
                             }
                         } else {
@@ -166,14 +166,14 @@ jQuery.fn.Pager = function (Setting) {
                                 if (PageSetting.PageIndex == i) {
                                     ul.append("<li><span class=\"Current\"><font>" + i + "</font></span></li>");
                                 } else {
-                                    ul.append("<li><a href=\"javascript:void();\" data-index=\"" + i + "\"><span class=\"Number\">" + i + "</span></a></li>");
+                                    ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + i + "\"><span class=\"Number\">" + i + "</span></a></li>");
                                 }
                             }
 
                             ul.append("<li>...</li>");
 
                             for (var i = PageSetting.MaxPageNumber - PageSetting.PointNumber; i < PageSetting.MaxPageNumber; i++) {
-                                ul.append("<li><a href=\"javascript:void();\" data-index=\"" + parseInt(i + 1) + "\"><span class=\"Number\">" + parseInt(i + 1) + "</span></a></li>");
+                                ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + parseInt(i + 1) + "\"><span class=\"Number\">" + parseInt(i + 1) + "</span></a></li>");
                             }
                         }
                     }
@@ -182,11 +182,11 @@ jQuery.fn.Pager = function (Setting) {
 
             if (Page.nextPage <= PageSetting.MaxPageNumber) {
                 if (PageSetting.NextName != "") {//绘制下一页
-                    ul.append("<li><a href=\"javascript:void();\" data-index=\"" + Page.nextPage + "\"><span>" + PageSetting.NextName + "</span></a></li>");
+                    ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + Page.nextPage + "\"><span>" + PageSetting.NextName + "</span></a></li>");
                 }
 
                 if (PageSetting.LastName != "") {//绘制最后页
-                    ul.append("<li><a href=\"javascript:void();\" data-index=\"" + PageSetting.MaxPageNumber + "\"><span>" + PageSetting.LastName + "</span></a></li>");
+                    ul.append("<li><a href=\"javascript:void(0);\" data-index=\"" + PageSetting.MaxPageNumber + "\"><span>" + PageSetting.LastName + "</span></a></li>");
                 }
             }
 

@@ -19,7 +19,6 @@
         });
     }
     function hoverShow() {
-
         $(".table_wrap").delegate(".data_table_item", "mouseover", function () {
             $(this).find(".editdiv").each(
                 function (i, item) {

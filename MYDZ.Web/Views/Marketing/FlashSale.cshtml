@@ -1,0 +1,162 @@
+﻿@{
+    ViewBag.Title = "限时抢购";
+    Layout = "~/Views/Shared/_SubMaster.cshtml";
+}
+<link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
+
+<link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/select2.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/PopWindow.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Validation/Validform_v5.3.2_min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Validation/Validform.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/LayDate/laydate.js")"type="text/javascript"></script>
+<link href="@Url.Content("~/css/CommonStyle.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/Marketing/CommonScript.js")"type="text/javascript"></script>
+
+@using (Html.BeginForm("FlashSale", "Marketing", FormMethod.Post, new { id = "QueryCriteria" }))
+{
+    <div class="btn_wrap btn_wrap-div1">
+        <div class="btn_wrap_hd" style="width: 845px;">
+            <span class="title"><i></i>限时抢购--设置参数</span>
+        </div>
+        <div class="btn_wrap_bd">
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>活动名称：</span>
+                <div class="table_bd">
+                    <div>
+                        <input type="text" name="Name" value="" datatype="*1-5" nullmsg="请键入活动名称" errormsg="活动名称最多允许输入5个字符（包括空格）" />
+                        <div class="msg_info">
+                            <span class="Validform_checktip"></span><i></i>
+                        </div>
+                    </div>
+                    <div class="markingtarget">
+                        <ul class="SelectItem" style="font-size: 14px;" data="target">
+                            <li><a href="javascript:void(0);">卖家促销</a> </li>
+                            <li><a href="javascript:void(0);">限时促销</a> </li>
+                            <li><a href="javascript:void(0);">最后一天</a> </li>
+                            <li><a href="javascript:void(0);">新品促销</a> </li>
+                            <li><a href="javascript:void(0);">今日特价</a> </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="table_bd" style="margin-left: -231px;">
+                    <div class="tiptop" style="width: 200px;">
+                        <div class="rotated-triangle">
+                        </div>
+                        <span>包括文字、字符，5字以内！</span>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>开始日期：</span>
+                <div class="table_bd">
+                    <div>
+                        <input type="text" name="StartTime" id="datepicker-start" value="" datatype="*1-30"
+                            readonly="readonly" class="iptdate datepicker laydate-icon" nullmsg="请选择开始时间" />
+                        <div class="msg_info">
+                            <span class="Validform_checktip"></span><i></i>
+                        </div>
+                    </div>
+                </div>
+                <input type="text" class="tetxline" readonly="readonly" style="height: 39px; border-width: 1px 1px 1px 0px;" />
+                <div class="table_bd">
+                    <div>
+                        <div class="markingDate" style="margin-left: 55px;">
+                            <ul class="SelectItem" style="font-size: 14px; margin-top: 10px;" data="day">
+                                <li data="3"><a href="javascript:void(0);">3天</a> </li>
+                                <li data="5"><a href="javascript:void(0);">5天</a> </li>
+                                <li data="7"><a href="javascript:void(0);">7天</a> </li>
+                                <li data="15"><a href="javascript:void(0);">15天</a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>结束日期：</span>
+                <div class="table_bd">
+                    <div>
+                        <input type="text" name="EndTime" id="datepicker-end" name="Title" value="" datatype="*1-30"
+                            readonly="readonly" class="iptdate datepicker laydate-icon" nullmsg="请选择结束时间" />
+                        <div class="msg_info">
+                            <span class="Validform_checktip"></span><i></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>活动范围：</span>
+                <div class="table_bd">
+                    <div class="kaiqiquandian">
+                        <label class="radio checked">
+                            <span>
+                                <input name="ParticipateRange" class="quandian" type="radio" value="1" hidefocus="true">
+                            </span><em>部分商品参与</em>
+                        </label>
+                        <label class="radio">
+                            <span>
+                                <input name="ParticipateRange" type="radio" value="0" hidefocus="true" class="quandian">
+                            </span><em>全部参与</em>
+                        </label>
+                    </div>
+                </div>
+                <div class="table_bd" style="margin-left: -50px;">
+                    <div class="tiptop" style="width: 200px;">
+                        <div class="rotated-triangle">
+                        </div>
+                        <span>开启全店后,全店商品优惠相应折扣.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>限购数量：</span>
+                <div class="table_bd">
+                    <div class="">
+                        <input type="text" name="ItemCount"  datatype="/^\d+(\.\d+)?$/" nullmsg="请输入限购数量"
+                            errormsg="除数字以外的字符不能输入" />
+                            <div class="msg_info">
+                            <span class="Validform_checktip"></span><i></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>商品运费：</span>
+                <div class="table_bd yunfei">
+                    <label class="checkbox" style="margin-top: 6px">
+                        <span>
+                            <input name="yunfei" class="IsFreePost" type="checkbox" hidefocus="true"/>
+                        </span><em>包邮</em>
+                    </label>
+                    <input type="hidden" name="IsFreePost" value="" />
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>不包邮地区：</span>
+                <div class="table_bd exclude_area">
+                  <a href="javascript:void(0);" id="choicearea" style="color:Blue;">去选择</a>
+                  <input type="hidden" name="ExcludeArea" value="" />
+                </div>
+                <div class="table_bd" style="margin-left:10px;">
+                  <a href="javascript:void(0);">已选择<label id="itemcount">0</label>项</a>
+                </div>
+                <div class="table_bd" style="margin-left: 83px;">
+                    <div class="tiptop" style="width: 170px; margin-left:-62px;">
+                        <div class="rotated-triangle">
+                        </div>
+                        <span>全国包邮可不选中(非必选)!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>&nbsp;</span>
+                <div class="table_bd">
+                    <input type="button" id="CreateActivity" name="" value="创建活动" />
+                    <input type="button" id="SaveActivity" name="" value="保存活动,下一步" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn_wrap btn_wrap-div2">
+    </div> 
+}

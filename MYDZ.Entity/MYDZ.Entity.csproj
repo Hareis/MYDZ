@@ -40,6 +40,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UMPSDKPHP">
+      <HintPath>..\..\..\UMPSDKPHP\UMPSDKPHP\bin\Debug\UMPSDKPHP.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientUser\tbClientUser.cs" />
@@ -82,6 +85,14 @@
     <Compile Include="Goods\Skus.cs" />
     <Compile Include="Goods\TopFee.cs" />
     <Compile Include="Goods\Video.cs" />
+    <Compile Include="Marketing\CommonActivityEntity.cs" />
+    <Compile Include="Marketing\DMOD_Detail.cs" />
+    <Compile Include="Marketing\ICOOAO_Detail.cs" />
+    <Compile Include="Marketing\LP_Detail.cs" />
+    <Compile Include="Marketing\PromotionmiscItem.cs" />
+    <Compile Include="Marketing\PromotionmiscMjs.cs" />
+    <Compile Include="Marketing\PromotionTag.cs" />
+    <Compile Include="Marketing\PromotionTagQuery.cs" />
     <Compile Include="Menu\tbMenuInfo.cs" />
     <Compile Include="Menu\tbRoleInfo.cs" />
     <Compile Include="Order\Area.cs" />
@@ -132,6 +143,7 @@
     <Compile Include="Traderate\traderateAddQueryCls.cs" />
     <Compile Include="Traderate\tradeRateQueryCls.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

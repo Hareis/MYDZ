@@ -1,0 +1,415 @@
+﻿@{
+    ViewBag.Title = "限时打折";
+    Layout = "~/Views/Shared/_SubMaster.cshtml";
+}
+<link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Validation/style.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/select2.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/PopWindow.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Validation/Validform_v5.3.2_min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Validation/Validform.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/LayDate/laydate.js")"type="text/javascript"></script>
+<style>
+    #ui-datepicker-div
+    {
+        z-index: 5px;
+    }
+    .btn_wrap_item, .btn_wrap_hd
+    {
+        zoom: 1;
+        position: relative;
+        border-bottom: 0px;
+    }
+    .tiptop
+    {
+        position: absolute;
+        border: #F1E38B 1px solid;
+        background: #FFFAE3;
+        height: 22px;
+        line-height: 22px;
+        top: 2px;
+        left: 105px;
+        width: 460px;
+        padding: 0px 10px;
+        color: #333;
+        text-shadow: white 1px 1px 1px;
+    }
+    .markingtarget
+    {
+        margin-top: 10px;
+    }
+    .markingtarget .current span, .markingDate .current span
+    {
+        background-color: #F58F1F;
+        line-height: 26px;
+        font-size: 14px;
+        padding: 0px 10px;
+        display: block;
+        white-space: nowrap;
+        color: White;
+    }
+    .tetxline
+    {
+        width: 50px;
+        height: 40px;
+        z-index: -2;
+        margin-left: -45px;
+        margin-top: 14px;
+        position: absolute;
+        border-width: 1px 1px 1px 0px;
+    }
+    .title
+    {
+        border-bottom: 1px solid #dbdbdb;
+    }
+    .btn_wrap-div1, .btn_wrap-div2
+    {
+        display: block;
+    }
+    #CreateActivity
+    {
+        display: none;
+    }
+</style>
+@using (Html.BeginForm("LimitedTimeDiscount", "Marketing", FormMethod.Post, new { id = "QueryCriteria" }))
+{ 
+    <div class="btn_wrap btn_wrap-div1">
+        <div class="btn_wrap_hd" style="width: 845px;">
+            <span class="title"><i></i>限时折扣--设置参数</span>
+        </div>
+        <div class="btn_wrap_bd">
+            <p style="float: right; font-size: 14px; color: #4682b4; margin-top: 10px;">
+                <a href="javascript:void(0);">[修改]</a></p>
+        </div>
+        <div class="btn_wrap_bd" style="width: 845px; border-bottom: 0px;">
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>活动名称：</span>
+                <div class="table_bd">
+                    <div>
+                        <input type="text" name="Name" value="" datatype="*1-5" nullmsg="请键入活动名称" errormsg="活动名称最多允许输入5个字符（包括空格）" />
+                        <div class="msg_info">
+                            <span class="Validform_checktip"></span><i></i>
+                        </div>
+                    </div>
+                    <div class="markingtarget">
+                        <ul class="SelectItem" style="font-size: 14px;" data="target">
+                            <li><a href="javascript:void(0);">卖家促销</a></li>
+                            <li><a href="javascript:void(0);">限时促销</a></li>
+                            <li><a href="javascript:void(0);">最后一天</a></li>
+                            <li><a href="javascript:void(0);">新品促销</a></li>
+                            <li><a href="javascript:void(0);">今日特价</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="table_bd" style="margin-left: -231px;">
+                    <div class="tiptop" style="width: 200px;">
+                        <div class="rotated-triangle">
+                        </div>
+                        <span>包括文字、字符，5字以内！</span>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>开始日期：</span>
+                <div class="table_bd">
+                    <div>
+                        <input type="text" name="StartTime" id="datepicker-start" value="" datatype="*1-30"
+                            readonly="readonly" class="iptdate datepicker laydate-icon" nullmsg="请选择开始时间" />
+                        <div class="msg_info">
+                            <span class="Validform_checktip"></span><i></i>
+                        </div>
+                    </div>
+                </div>
+                <input type="text" class="tetxline" readonly="readonly" style="height: 39px; border-width: 1px 1px 1px 0px;" />
+                <div class="table_bd">
+                    <div>
+                        <div class="markingDate" style="margin-left: 55px;">
+                            <ul class="SelectItem" style="font-size: 14px; margin-top: 10px;" data="day">
+                                <li data="3"><a href="javascript:void(0);">3天</a></li>
+                                <li data="5"><a href="javascript:void(0);">5天</a></li>
+                                <li data="7"><a href="javascript:void(0);">7天</a></li>
+                                <li data="15"><a href="javascript:void(0);">15天</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>结束日期：</span>
+                <div class="table_bd">
+                    <div>
+                        <input type="text" name="EndTime" id="datepicker-end" name="Title" value="" datatype="*1-30"
+                            readonly="readonly" class="iptdate datepicker laydate-icon" nullmsg="请选择结束时间" />
+                        <div class="msg_info">
+                            <span class="Validform_checktip"></span><i></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>活动范围：</span>
+                <div class="table_bd">
+                    <div class="kaiqiquandian">
+                        <label class="radio checked">
+                            <span>
+                                <input name="Isquandian" class="quandian" type="radio" value="1" hidefocus="true"></span><em>部分商品参与</em></label>
+                        <label class="radio">
+                            <span>
+                                <input name="Isquandian" type="radio" value="0" hidefocus="true" class="quandian"></span><em>全部参与</em></label>
+                    </div>
+                </div>
+                <div class="table_bd" style="margin-left: -50px;">
+                    <div class="tiptop" style="width: 200px;">
+                        <div class="rotated-triangle">
+                        </div>
+                        <span>开启全店后,全店商品优惠相应折扣.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>优惠方式：</span>
+                <div class="table_bd">
+                    <div class="way">
+                        <label class="radio">
+                            <span>
+                                <input name="IsDiscount" type="radio" hidefocus="true"></span><em>打折</em></label>
+                        <label class="radio">
+                            <span>
+                                <input name="IsDecreaseMoney" type="radio" hidefocus="true"></span><em>减钱</em></label>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>商品打折：</span>
+                <div class="table_bd">
+                    <div class="">
+                        <input type="text" name="DiscountRate" value="1000" datatype="/^\d+(\.\d+)?$/" nullmsg="请输入活动折扣"
+                            errormsg="除数字、小数点以外的字符不能输入" />
+                    </div>
+                </div>
+                <div class="table_bd" style="margin-left: -50px;">
+                    <div class="tiptop" style="width: 200px;">
+                        <div class="rotated-triangle">
+                        </div>
+                        <span>商品的折扣. 注意：800表示8折。</span>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>商品减钱：</span>
+                <div class="table_bd">
+                    <div class="kaiqiquandian">
+                        <input type="text" name="DecreaseAmount" value="0" datatype="/^\d+(\.\d+)?$/" nullmsg="请输入金额"
+                            errormsg="除数字、小数点以外的字符不能输入" />
+                    </div>
+                </div>
+                <div class="table_bd" style="margin-left: -50px;">
+                    <div class="tiptop" style="width: 200px;">
+                        <div class="rotated-triangle">
+                        </div>
+                        <span>减钱的金额. 注意：100表示1元。</span>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item" style="display: none;">
+                <span class="table_hd"><span class="require"></span>优惠人群：</span>
+                <div class="table_bd">
+                    <div class="btn_wrap_item " style="padding: 0px;">
+                        <ul class="SelectItem" data="renqun">
+                            <li class="current"><span>全部</span></li>
+                            <li><a href="javascript:void(0);">普通会员</a></li>
+                            <li><a href="javascript:void(0);">高级会员</a></li>
+                            <li><a href="javascript:void(0);">VIP会员</a></li>
+                            <li><a href="javascript:void(0);">至尊VIP会员</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>&nbsp;</span>
+                <div class="table_bd">
+                    <input type="button" id="CreateActivity" name="" value="创建活动" />
+                    <input type="button" id="SaveActivity" name="" value="保存活动,下一步" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn_wrap btn_wrap-div2">
+    </div>   
+}
+<script type="text/javascript">
+
+    selecttarget();
+    Onloadlaydate();
+    isquandian();
+    Initsubmitfrom();
+    SaveActivity();
+    savedata();
+    CreateActivity();
+    changecheckbox();
+
+    var iste = false;
+    var formObj;
+    //加载日期控件
+    function Onloadlaydate() {
+        options = {
+            elem: '#datepicker-start', //需显示日期的元素选择器
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+            istime: true, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            issure: true, //是否显示确认
+            festival: false, //是否显示节日
+            min: '1900-01-01 00:00:00', //最小日期
+            max: '2099-12-31 23:59:59', //最大日期
+            start: laydate.now(),    //开始日期
+            fixed: false, //是否固定在可视区域
+            zIndex: 999, //css z-index
+            choose: function (dates) { //选择好日期的回调
+            }
+        };
+        laydate(options);
+        options.elem = "#datepicker-end";
+        laydate(options);
+        laydate.skin('blue');
+    }
+
+    // 选择项
+    function selecttarget() {
+        $(".SelectItem a").click(function () {
+            $(this).parent().siblings().each(function (i, item) {
+                if ($(this).hasClass("current")) {
+                    var html1 = $(item).text();
+                    $(item).removeClass("current").html("<a href=\"javascript:void();\">" + html1 + "</a>");
+                    return false;
+                }
+            });
+            var html2 = $(this).text();
+            JudgingTypes(this);
+            $(this).parent().html("<span>" + html2 + "</span>").addClass("current").bind("click", function () { selecttarget(); });
+        });
+    }
+
+    //判断类型
+    function JudgingTypes(item) {
+        var att = $(item).parent().parent().attr("data");
+        switch (att) {
+            case "target":
+                selectmarkingtarget(item);
+                break;
+            case "day":
+                selectmarkingday(item);
+                break;
+            default:
+                return;
+                break;
+        }
+    }
+
+    //选择促销标签
+    function selectmarkingtarget(item) {
+        var temp = $(item);
+        temp.parents(".table_item").eq(0).find("input[name=Name]").val(temp.text());
+    }
+
+    //选择促销日期间隔
+    function selectmarkingday(item) {
+        var temp = new Date();
+        var temp1 = temp;
+
+        //将日期类型转换为指定的格式
+        var strtdate = DatetimeFormat(temp1);
+
+        //为结束日期加上选择的间隔 例：间隔3天
+        temp.setDate(temp.getDate() + parseInt($(item).parent().attr("data")));
+
+        //将日期类型转换为指定的格式
+        var enddate = DatetimeFormat(temp);
+
+        //获取传进来的对象
+        var tep = $(item);
+        var parents = tep.parents(".table_item").eq(0);
+
+        //下面是为文本框赋值
+        parents.find("input[name=StartTime]").val(strtdate);
+        parents.next().eq(0).find("input[name=EndTime]").val(enddate);
+
+    }
+
+    //是否开启全店
+    function isquandian() {
+        $(".kaiqiquandian label").click(function () {
+            if (!$(this).hasClass("checked")) {
+                $(this).addClass("checked").siblings().eq(0).removeClass("checked").find("input[name=quandian]").eq(0).attr("checked", null);
+                $("#CreateActivity").toggle();
+                $("#SaveActivity").toggle();
+                if ($(this).find("input[name=Isquandian]").val() == 0) {
+                    $(".btn_wrap-div2").empty();
+                }
+            }
+        });
+    }
+    //优惠方式
+    function changecheckbox() {
+        $(".way label").click(function () {
+            if (!$(this).hasClass("checked")) {
+                $(this).addClass("checked").siblings().eq(0).removeClass("checked");
+                $(this).find("input").val($(this).hasClass("checked"));
+                $(this).siblings().find("input").val(!$(this).hasClass("checked"));
+            }
+        });
+    }
+    //直接创建活动
+    function CreateActivity() {
+        $("#CreateActivity").click(function () {
+            iste = false;
+            $("#QueryCriteria").submit();
+        });
+    }
+    //保存活动，选择活动商品
+    function SaveActivity() {
+        $("#SaveActivity").click(function () {
+            iste = true;
+            $("#QueryCriteria").submit();
+        });
+    }
+    //加载后来的保存按钮
+    function savedata() {
+        $(".btn_wrap-div2").delegate("input[name=createactivitityinput]", "click", function () {
+            iste = false;
+            $("#QueryCriteria").submit();
+        })
+    }
+    //初始化表单
+    function Initsubmitfrom() {
+        formObj = Validform.Controller.Init({
+            form: "#QueryCriteria",
+            beforeSubmit: function () {
+                if (iste === true) {
+                    $(".btn_wrap-div2").empty().load("/Marketing/AddActivityRange.html?Ischeckbox=true", function (data) { });
+                    return false;
+                } else {
+                    PopWindow.Controller.Init({ type: "loading", opacity: 0 });
+                }
+            }
+        }).config({
+            ajaxPost: true,
+            callback: function (data) {
+                PopWindow.Controller.Clear();
+            }
+        });
+    }
+
+    //格式化为 yyyy-MM-dd hh:mm:ss
+    function DatetimeFormat(date) {
+        var d = date instanceof Date && date !== null ? date : new Date();
+        var vYear = d.getFullYear()
+        var vMon = d.getMonth() + 1
+        var vDay = d.getDate();
+        var h = d.getHours();
+        var m = d.getMinutes();
+        var se = 0; //  d.getSeconds();
+        return vYear + "-" + (vMon < 10 ? "0" + vMon : vMon) + "-" + (vDay < 10 ? "0" + vDay : vDay) + " " + (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m) + ":" + (se < 10 ? "0" + se : se);
+    }
+</script>

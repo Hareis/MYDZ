@@ -24,6 +24,7 @@ namespace MYDZ.Business.Business_Logic.Goods
             IList<Item> list = getgoods.SearchInventoryByCriteria(token, ref TotalNum, Query);
             return list;
         }
+
         /// <summary>
         /// 查询出售中的商品
         /// </summary>

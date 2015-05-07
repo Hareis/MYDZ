@@ -1,0 +1,135 @@
+﻿    #ui-datepicker-div
+    {
+        z-index: 5px;
+    }
+    .btn_wrap_item, .btn_wrap_hd
+    {
+        zoom: 1;
+        position: relative;
+        border-bottom: 0px;
+    }
+    .tiptop
+    {
+        position: absolute;
+        border: #F1E38B 1px solid;
+        background: #FFFAE3;
+        height: 22px;
+        line-height: 22px;
+        top: 2px;
+        left: 105px;
+        width: 460px;
+        padding: 0px 10px;
+        color: #333;
+        text-shadow: white 1px 1px 1px;
+    }
+    .markingtarget
+    {
+        margin-top: 10px;
+    }
+    .markingtarget .current span, .markingDate .current span
+    {
+        background-color: #F58F1F;
+        line-height: 26px;
+        font-size: 14px;
+        padding: 0px 10px;
+        display: block;
+        white-space: nowrap;
+        color: White;
+    }
+    .tetxline
+    {
+        width: 50px;
+        height: 40px;
+        z-index: -2;
+        margin-left: -45px;
+        margin-top: 14px;
+        position: absolute;
+        border-width: 1px 1px 1px 0px;
+    }
+    .title
+    {
+        border-bottom: 1px solid #dbdbdb;
+    }
+    .btn_wrap-div1, .btn_wrap-div2
+    {
+        display: block;
+    }
+    #CreateActivity
+    {
+        display: none;
+    }
+    
+    .selected_wrap
+    {
+        height: 32px;
+        overflow: hidden;
+    }
+    .selected_wrap li
+    {
+        float: left;
+        display: inline-block;
+    }
+    .selected_wrap li span
+    {
+        display: inline-block;
+        line-height: 32px;
+        padding-left: 4px;
+        color: #000;
+    }
+    .selected_wrap li a
+    {
+        display: block;
+        height: 18px;
+        border: #167EFB 1px solid;
+        text-decoration: none;
+        color: #167EFB;
+        margin: 6px 0px 0px 4px;
+        padding: 0px 12px 0px 0px;
+        outline: none;
+        position: relative;
+    }
+    .selected_wrap li a font
+    {
+        font-size: 12px;
+        line-height: 18px;
+        padding: 0px 5px;
+        cursor: pointer;
+    }
+    .selected_wrap li a i, .selected_wrap li a i:after
+    {
+        display: block;
+        width: 11px;
+        height: 2px;
+        background: #167EFB;
+        font-size: 0;
+        line-height: 0;
+        border-radius: 4px;
+    }
+    .selected_wrap li a i
+    {
+        position: absolute;
+        right: 3px;
+        top: 8px;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+    }
+    .selected_wrap li a i:after
+    {
+        content: '.';
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        color: #D91200;
+        z-index: 2;
+    }
+    .selected_wrap li a:hover
+    {
+    }
+    .selected_wrap li a:hover i, .selected_wrap li a:hover i:after
+    {
+        background: #D91200;
+    }
+    .tiaojian-checkboc-label
+    {
+        margin-left: 50px;
+        margin-top: 8px;
+    }
