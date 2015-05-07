@@ -1,0 +1,79 @@
+﻿@model MYDZ.Entity.Marketing.PromotionTagQuery
+@{
+    ViewBag.Title = "标签管理";
+    Layout = "~/Views/Shared/_SubMaster.cshtml";
+}
+<link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Validation/style.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/select2.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/PopWindow.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Validation/Validform_v5.3.2_min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Validation/Validform.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/LayDate/laydate.js")"type="text/javascript"></script>
+<link href="@Url.Content("~/css/CommonStyle.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/Marketing/CommonScript.js")"type="text/javascript"></script>
+@using (Html.BeginForm("FlashSale", "Marketing", FormMethod.Post, new { id = "QueryCriteria" }))
+{
+    <div class="btn_wrap btn_wrap-div1">
+        <div class="btn_wrap_hd" style="width: 845px;">
+            <span class="title"><i></i>标签管理</span>
+        </div>
+        <div class="btn_wrap_bd">
+            <div>
+                <p>
+                    <a href="javascript:void(0)" style="color: Blue;">+添加标签</a></p>
+                <table>
+                    <tr>
+                        <th style="">
+                            编号
+                        </th>
+                        <th>
+                            标签名
+                        </th>
+                        <th>
+                            过期日期
+                        </th>
+                        <th>
+                            操作
+                        </th>
+                    </tr>
+                    @{
+    if (Model != null)
+    { 
+                        <tr>
+                            <td colspan="4">
+                                Sorry,未发现您已有的添加的优惠标签！
+                            </td>
+                        </tr>
+    }
+    else
+    {
+        int i=0;
+        foreach (var item in Model.TagList)
+        {
+                        <tr>
+                            <td>
+                            @i
+                            </td>
+                            <td>
+                            @item.TagName
+                            </td>
+                            <td>
+                            @item.EndTime
+                            </td>
+                            <td>
+                            <a href="javascript:void(0)" class="addtag">添加</a>
+                            <a href="javascript:void(0)" class="removetag">删除</a>
+                            </td>
+                        </tr>
+            i++;
+        }
+    }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="btn_wrap btn_wrap-div2">
+    </div> 
+}
