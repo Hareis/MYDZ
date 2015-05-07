@@ -17,19 +17,19 @@ namespace MYDZ.Business.TB_Logic.SDK_UMP.Request
         /// <summary>
         /// 标签名称。 注意在UMP中使用新人群标签top变成大写的“NEW_” 如：老标签是top1234，新标签是NEW_1234 。
         /// </summary>
-        public int TagName { get; set; }
+        public string TagName { get; set; }
         /// <summary>
         /// 标签用途描述
         /// </summary>
-        public int TagDesc { get; set; }
+        public string TagDesc { get; set; }
         /// <summary>
         /// 标签开始时间
         /// </summary>
-        public int StartTime { get; set; }
+        public string StartTime { get; set; }
         /// <summary>
         /// 标签结束时间
         /// </summary>
-        public int EndTime { get; set; }
+        public string EndTime { get; set; }
 
         public string GetApiName()
         {

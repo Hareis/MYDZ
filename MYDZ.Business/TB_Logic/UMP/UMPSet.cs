@@ -452,6 +452,168 @@ namespace MYDZ.Business.TB_Logic.UMP
                 return 0;
             }
         }
-        
+        /// <summary>
+        /// 优惠标签申请 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="SessionKey"></param>
+        /// <param name="Errormsg"></param>
+        /// <returns></returns>
+        internal long PromotagTagApply(PromotionTag item, string SessionKey, out string Errormsg)
+        {
+            Errormsg = null;
+            ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret, "json");
+            TmallPromotagTagApplyRequest req = new TmallPromotagTagApplyRequest();
+            req.TagName = item.TagName;
+            req.TagDesc = item.TagDesc;
+            req.StartTime = item.StartTime.ToString("yyyy-MM-dd hh:mm:ss");
+            req.EndTime = item.EndTime.ToString("yyyy-MM-dd hh:mm:ss");
+            TmallPromotagTagApplyResponse response = client.Execute(req, SessionKey);
+            if (!response.IsError)
+            {
+                return response.TagId;
+            }
+            else
+            {
+                Errormsg = response.SubErrMsg;
+                return 0;
+            }
+
+        }
+
+        /// <summary>
+        /// 用户标签判断接口
+        /// </summary>
+        /// <param name="TagId"></param>
+        /// <param name="NickName"></param>
+        /// <param name="SessionKey"></param>
+        /// <param name="Errormsg"></param>
+        /// <returns></returns>
+        internal bool PromotagTaguserJudge(long TagId, string NickName, string SessionKey, out string Errormsg)
+        {
+            Errormsg = null;
+            ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret, "json");
+            TmallPromotagTaguserJudgeRequest req = new TmallPromotagTaguserJudgeRequest();
+            req.TagId = TagId;
+            req.Nick = NickName;
+            TmallPromotagTaguserJudgeResponse response = client.Execute(req, SessionKey);
+            if (!response.IsError)
+            {
+                return response.IsSuccess;
+            }
+            else
+            {
+                Errormsg = response.SubErrMsg;
+                return false;
+            }
+
+        }
+        /// <summary>
+        ///  给用户移除优惠标签
+        /// </summary>
+        /// <param name="TagId"></param>
+        /// <param name="NickName"></param>
+        /// <param name="SessionKey"></param>
+        /// <param name="Errormsg"></param>
+        /// <returns></returns>
+        internal bool PromotagTaguserRemove(long TagId, string NickName, string SessionKey, out string Errormsg)
+        {
+            Errormsg = null;
+            ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret, "json");
+            TmallPromotagTaguserRemoveRequest req = new TmallPromotagTaguserRemoveRequest();
+            req.TagId = TagId;
+            req.Nick = NickName;
+            TmallPromotagTaguserRemoveResponse response = client.Execute(req, SessionKey);
+            if (!response.IsError)
+            {
+                return response.IsSuccess;
+            }
+            else
+            {
+                Errormsg = response.SubErrMsg;
+                return false;
+            }
+        }
+        /// <summary>
+        /// 给用户打上优惠标签 
+        /// </summary>
+        /// <param name="TagId"></param>
+        /// <param name="NickName"></param>
+        /// <param name="SessionKey"></param>
+        /// <param name="Errormsg"></param>
+        /// <returns></returns>
+        internal bool PromotagTaguserSave(long TagId, string NickName, string SessionKey, out string Errormsg)
+        {
+            Errormsg = null;
+            ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret, "json");
+            TmallPromotagTaguserSaveRequest req = new TmallPromotagTaguserSaveRequest();
+            req.TagId = TagId;
+            req.Nick = NickName;
+            TmallPromotagTaguserSaveResponse response = client.Execute(req, SessionKey);
+            if (!response.IsError)
+            {
+                return response.IsSuccess;
+            }
+            else
+            {
+                Errormsg = response.SubErrMsg;
+                return false;
+            }
+        }
+        /// <summary>
+        /// 删除标签定义 
+        /// </summary>
+        /// <param name="TagId"></param>
+        /// <param name="SessionKey"></param>
+        /// <param name="Errormsg"></param>
+        /// <returns></returns>
+        internal bool PromotagTagRemovetag(long TagId, string SessionKey, out string Errormsg)
+        {
+            Errormsg = null;
+            ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret, "json");
+            TmallPromotagTagRemovetagRequest req = new TmallPromotagTagRemovetagRequest();
+            req.TagId = TagId;
+            TmallPromotagTagRemovetagResponse response = client.Execute(req, SessionKey);
+            if (!response.IsError)
+            {
+                return response.IsSuccess;
+            }
+            else
+            {
+                Errormsg = response.SubErrMsg;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 查询标签接口 
+        /// </summary>
+        /// <param name="PageNo"></param>
+        /// <param name="PageSize"></param>
+        /// <param name="SessionKey"></param>
+        /// <param name="TagName"></param>
+        /// <param name="TagId"></param>
+        /// <param name="Errormsg"></param>
+        /// <returns></returns>
+        internal PromotionTagQuery PromotagTagFind(long PageNo, int PageSize, string SessionKey, string TagName = null, int TagId = 0, out string Errormsg)
+        {
+            Errormsg = null;
+            ITopClient client = new DefaultTopClient(StaticSystemConfig.soft.ApiURL, StaticSystemConfig.soft.AppKey, StaticSystemConfig.soft.AppSecret, "json");
+            TmallPromotagTagFindRequest req = new TmallPromotagTagFindRequest();
+            req.PageNo = PageNo;
+            req.PageSize = PageSize;
+            req.TagName = TagName;
+            req.TagId = TagId;
+            TmallPromotagTagFindResponse response = client.Execute(req, SessionKey);
+            if (!response.IsError)
+            {
+                return response.QueryResult;
+            }
+            else
+            {
+                Errormsg = response.SubErrMsg;
+                return null;
+            }
+        }
     }
 }

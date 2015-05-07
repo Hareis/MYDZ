@@ -585,6 +585,8 @@
     <Content Include="Views\Marketing\PurchaseLimit.cshtml" />
     <Content Include="Views\Marketing\FirstPreferentialPiece.cshtml" />
     <Content Include="Views\Marketing\excludearea.cshtml" />
+    <Content Include="Views\Marketing\TagsManagement.cshtml" />
+    <Content Include="Views\Marketing\Listtags.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UploadImgs\" />

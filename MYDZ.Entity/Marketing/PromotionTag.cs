@@ -31,11 +31,11 @@ namespace MYDZ.Entity.Marketing
         /// 标签开始时间
         /// </summary>
         [XmlElement("start_time")]
-        public string StartTime { get; set; }
+        public DateTime StartTime { get; set; }
         /// <summary>
         /// 标签结束时间
         /// </summary>
         [XmlElement("end_time")]
-        public string EndTime { get; set; }
+        public DateTime EndTime { get; set; }
     }
 }

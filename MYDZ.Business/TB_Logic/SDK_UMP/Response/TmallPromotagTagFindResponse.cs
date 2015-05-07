@@ -14,6 +14,6 @@ namespace MYDZ.Business.TB_Logic.SDK_UMP.Response
         /// 查询结果类型
         /// </summary>
         [XmlElement("query_result")]
-        public PromotionTagQuery query_result { get; set; }
+        public PromotionTagQuery QueryResult { get; set; }
     }
 }

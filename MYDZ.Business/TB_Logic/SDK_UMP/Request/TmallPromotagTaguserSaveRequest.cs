@@ -14,7 +14,7 @@ namespace MYDZ.Business.TB_Logic.SDK_UMP.Request
         /// <summary>
         /// 标签ID
         /// </summary>
-        public int TagId { get; set; }
+        public long TagId { get; set; }
         /// <summary>
         /// 买家昵称
         /// </summary>

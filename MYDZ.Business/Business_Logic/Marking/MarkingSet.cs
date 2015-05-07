@@ -181,5 +181,84 @@ namespace MYDZ.Business.Business_Logic.Marking
         {
             return US.PromotionmiscMjsActivityAdd(item, SessionKey, out Errormsg);
         }
+
+
+        
+        /// <summary>
+        /// 优惠标签申请 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="SessionKey"></param>
+        /// <param name="Errormsg"></param>
+        /// <returns></returns>
+        public long PromotagTagApply(PromotionTag item, string SessionKey, out string Errormsg)
+        {
+            return US.PromotagTagApply(item, SessionKey, out Errormsg);
+        }
+          /// <summary>
+        /// 用户标签判断接口
+        /// </summary>
+        /// <param name="TagId"></param>
+        /// <param name="NickName"></param>
+        /// <param name="SessionKey"></param>
+        /// <param name="Errormsg"></param>
+        /// <returns></returns>
+        public bool PromotagTaguserJudge(long TagId, string NickName, string SessionKey, out string Errormsg)
+        {
+            return US.PromotagTaguserJudge(TagId, NickName, SessionKey, out Errormsg);
+        }
+        
+        /// <summary>
+        ///  给用户移除优惠标签
+        /// </summary>
+        /// <param name="TagId"></param>
+        /// <param name="NickName"></param>
+        /// <param name="SessionKey"></param>
+        /// <param name="Errormsg"></param>
+        /// <returns></returns>
+        public bool PromotagTaguserRemove(long TagId, string NickName, string SessionKey, out string Errormsg)
+        {
+            return US.PromotagTaguserRemove(TagId, NickName, SessionKey, out Errormsg);
+        }
+
+        /// <summary>
+        /// 给用户打上优惠标签 
+        /// </summary>
+        /// <param name="TagId"></param>
+        /// <param name="NickName"></param>
+        /// <param name="SessionKey"></param>
+        /// <param name="Errormsg"></param>
+        /// <returns></returns>
+        public bool PromotagTaguserSave(long TagId, string NickName, string SessionKey, out string Errormsg)
+        {
+            return US.PromotagTaguserSave(TagId, NickName, SessionKey, out Errormsg);
+        }
+
+         /// <summary>
+        /// 删除标签定义 
+        /// </summary>
+        /// <param name="TagId"></param>
+        /// <param name="SessionKey"></param>
+        /// <param name="Errormsg"></param>
+        /// <returns></returns>
+        public bool PromotagTagRemovetag(long TagId, string SessionKey, out string Errormsg)
+        {
+            return US.PromotagTagRemovetag(TagId, SessionKey, out Errormsg);
+        }
+
+        /// <summary>
+        /// 查询标签接口 
+        /// </summary>
+        /// <param name="PageNo"></param>
+        /// <param name="PageSize"></param>
+        /// <param name="SessionKey"></param>
+        /// <param name="TagName"></param>
+        /// <param name="TagId"></param>
+        /// <param name="Errormsg"></param>
+        /// <returns></returns>
+        public PromotionTagQuery PromotagTagFind(long PageNo, int PageSize, string SessionKey, string TagName = null, int TagId = 0, out string Errormsg)
+        {
+            return US.PromotagTagFind(PageNo, PageSize, SessionKey, TagName, TagId, out Errormsg);
+        }
     }
 }

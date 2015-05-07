@@ -71,7 +71,6 @@ namespace MYDZ.WebUI.Marketing
         }
 
 
-
         /// <summary>
         /// 满就送页面
         /// </summary>
@@ -196,7 +195,7 @@ namespace MYDZ.WebUI.Marketing
         [HttpPost]
         public JsonResult SpecifiedGoodsDelivery(PromotionmiscMjs item, string IdList)
         {
-            item.IsAmountOver=false;
+            item.IsAmountOver = false;
             item.IsItemCountOver = false;
             item.IsUserTag = false;
             item.IsDecreaseMoney = false;
@@ -237,6 +236,60 @@ namespace MYDZ.WebUI.Marketing
         public ViewResult SpecifiedBuyerDelivery()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 指定用户送
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult SpecifiedBuyerDelivery(PromotionmiscMjs item, string IdList, string ListNickName)
+        {
+            if (string.IsNullOrEmpty(ListNickName))
+            {
+                string[] lists = ListNickName.Split('#');
+                foreach (var itemA in lists)
+                {
+
+                }
+            }
+
+
+            item.IsAmountOver = false;
+            item.IsItemCountOver = false;
+            item.IsUserTag = false;
+            item.IsDecreaseMoney = false;
+            item.IsDiscount = false;
+            item.IsSendGift = true;
+            item.Type = 1;
+            item.ParticipateRange = 1;
+            item.IsUserTag = true;
+            item.IsShopMember = false;
+            string errormsg = null;
+            bool result = false;
+            tbClientUser clientuser = GetUser("UserInfo");
+            try
+            {
+                long activitityid = MS.PromotionmiscMjsActivityAdd(item, clientuser.UserShops[0].SessionKey, out errormsg);
+                //部分商品参与
+                if (item.ParticipateRange != 0)
+                {
+                    if (activitityid > 0 && string.IsNullOrEmpty(errormsg))
+                    {
+                        result = MS.AddRange(Convert.ToInt32(activitityid), IdList, clientuser.UserShops[0].SessionKey, out errormsg);
+                    }
+                }
+                else
+                {
+                    result = true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return Json(new { Result = result, ErrorMs = errormsg });
+
         }
 
         /// <summary>
@@ -310,6 +363,33 @@ namespace MYDZ.WebUI.Marketing
         public ViewResult excludearea()
         {
             return View(MG.GetAreas());
+        }
+
+        /// <summary>
+        /// 优惠标签管理页面
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult TagsManagement()
+        {
+
+            return View();
+        }
+
+        /// <summary>
+        /// 优惠标签列表
+        /// </summary>
+        /// <param name="PageNo"></param>
+        /// <param name="PageSize"></param>
+        /// <param name="TagName"></param>
+        /// <param name="TagId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ViewResult Listtags(long PageNo, int PageSize, string TagName = null, int TagId = 0)
+        {
+            string SessionKey = null;
+            string errormsg = null;
+            PromotionTagQuery temp = MS.PromotagTagFind(PageNo, PageSize, SessionKey, TagName, TagId, out errormsg);
+            return View(temp);
         }
 
         /*******************************************************************/

@@ -14,7 +14,7 @@ namespace MYDZ.Business.TB_Logic.SDK_UMP.Request
         /// <summary>
         /// 需要删除的标签id
         /// </summary>
-        public int TagId { get; set; }
+        public long TagId { get; set; }
 
         public string GetApiName()
         {
