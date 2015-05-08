@@ -5,6 +5,7 @@ using System.Text;
 using MYDZ.Config;
 using System.Collections;
 using System.Text.RegularExpressions;
+using UMPSDKPHP.marketing;
 
 namespace MYDZ.Business
 {
@@ -38,6 +39,21 @@ namespace MYDZ.Business
                 return Result;
             }
 
+        }
+
+        /// <summary>
+        /// 拼接数组
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static  List<ParameterValue> array(params ParameterValue[] list)
+        {
+            List<ParameterValue> newlist = new List<ParameterValue>();
+            foreach (var item in list)
+            {
+                newlist.Add(item);
+            }
+            return newlist;
         }
     }
 }

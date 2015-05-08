@@ -24,7 +24,7 @@ namespace MYDZ.WebUI.OrderManagement
     public class OrderManagementController : BaseController
     {
         InitTradeInfo iti = new InitTradeInfo();
-
+        
         /// <summary>
         /// 首页
         /// </summary>
@@ -935,7 +935,6 @@ namespace MYDZ.WebUI.OrderManagement
             catch { }
 
             Response.Redirect("/OrderManagement/OrderConfig.html", true);
-
         }
 
         /// <summary>
@@ -1133,51 +1132,6 @@ namespace MYDZ.WebUI.OrderManagement
         [HttpPost]
         public ActionResult BacklogOrders(TradesSoldGet TradesSold, string PostType, TradeQueryClass TQC)
         {
-            #region 错误代码注释
-            // tbClientUser clientuser = GetUser("UserInfo");
-            //string ErrorMsg = null;
-            //try
-            //{
-
-            //    /*
-            //    if (TradesSold.StartCreated == null)
-            //    {
-            //        TradesSold.StartCreated = Convert.ToDateTime(DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd HH:mm:ss"));
-            //    }
-            //    if (TradesSold.EndCreated == null)
-            //    {
-            //        TradesSold.EndCreated = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            //    }
-            //    switch (PostType)
-            //    {
-            //        case "Query":
-            //            if (!string.IsNullOrEmpty(Tid))
-            //            {
-            //                ViewData["ListOrdersInfo"] = null;//iti.GetTrade(clientuser.UserShops[0].SessionKey, Tid, out ErrorMsg);
-            //            }
-            //            else
-            //            {
-            //                ViewData["ListOrdersInfo"] = null;// iti.GetTradesSold(clientuser.UserShops[0].SessionKey, TradesSold, out ErrorMsg); ;
-            //            }
-            //            break;
-            //        case "Change":
-            //            ViewData["ListOrdersInfo"] = null;//iti.GetTradesSold(clientuser.UserShops[0].SessionKey, TradesSold, out ErrorMsg);
-            //            break;
-            //        case "Refresh":
-            //            ViewData["ListOrdersInfo"] = null;// iti.GetTradesSoldIncrement(clientuser.UserShops[0].SessionKey, TradesSold, out ErrorMsg);
-            //            break;
-            //        default:
-            //            ViewData["ListOrdersInfo"] = null;
-            //            break;
-            //    }*/
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
-            #endregion
-
             tbClientUser User = GetUser("UserInfo");
             int MaxRow = 0;
             int MaxPage = 0;
@@ -1746,30 +1700,34 @@ namespace MYDZ.WebUI.OrderManagement
         [HttpPost]
         public ActionResult Delivery(List<StoreLogistics> LogisticsList)
         {
-            bool IsOk = false;
-            tbClientUser clientuser = GetUser("UserInfo");
-            if (clientuser != null)
+            if (LogisticsList != null)
             {
-                try
+                bool IsOk = false;
+                tbClientUser clientuser = GetUser("UserInfo");
+                if (clientuser != null)
                 {
-                    int ShopId = clientuser.UserShops[0].Shop.ShopId;
-                    if (ShopId > 0)
+                    try
                     {
-                        int count = 1;
-                        for (var i = LogisticsList.Count - 1; i >= 0; i--)
+                        int ShopId = clientuser.UserShops[0].Shop.ShopId;
+                        if (ShopId > 0)
                         {
-                            LogisticsList[i].ShopId = ShopId;
-                            LogisticsList[i].Sort = count;
-                            count++;
+                            int count = 1;
+                            for (var i = LogisticsList.Count - 1; i >= 0; i--)
+                            {
+                                LogisticsList[i].ShopId = ShopId;
+                                LogisticsList[i].Sort = count;
+                                count++;
+                            }
+                            IsOk = MYDZ.Business.DataBase_BLL.Order.BStoreLogistics.Insert(LogisticsList);
                         }
-                        IsOk = MYDZ.Business.DataBase_BLL.Order.BStoreLogistics.Insert(LogisticsList);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
                     }
                 }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
             }
+            Response.Redirect("/OrderManagement/Delivery.html", true);
             return View();
         }
 
@@ -2265,7 +2223,6 @@ namespace MYDZ.WebUI.OrderManagement
                             PrintNumber++;
                             GItems.Add(String.Join(" ", GStrs));
                         }
-
                         sb.Append(String.Join("<br />", GItems));
                     }
                     break;

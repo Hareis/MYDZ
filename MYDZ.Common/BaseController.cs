@@ -164,7 +164,7 @@ namespace MYDZ.Common
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            if (filterContext.RouteData.Values["controller"].ToString() != "Auth")
+            if (!filterContext.RouteData.Values["controller"].ToString().Equals("Auth"))
             {
                 SessionManger.CheckSessionState("UserInfo");
             }
@@ -185,18 +185,18 @@ namespace MYDZ.Common
             {
                 if (!string.IsNullOrEmpty(SessionName))
                 {
-                    if (HttpContext.Current.Session[SessionName] == null )
+                    if (HttpContext.Current.Session[SessionName] == null)
                     {
-                        HttpContext.Current.Response.Write("<script language=javascript>if(parent){parent.location.href= '/Auth/RestLogin.html';}else{window.location.href='/Management/Login.html'}</script> ");
-                        HttpContext.Current.Response.End();
+                        HttpContext.Current.Response.Redirect("/Auth/RestLogin.html", true);
+                        return;
                     }
                 }
             }
             catch (Exception)
-            {                
+            {
                 throw;
             }
-            
+
         }
 
         /// <summary>
@@ -206,10 +206,7 @@ namespace MYDZ.Common
         /// <param name="data">数据</param>
         internal static void SetSession(string SessionName, object data)
         {
-            //if (HttpContext.Current.Session[SessionName] == null)
-            //{
-                HttpContext.Current.Session[SessionName] = data;
-            //}
+            HttpContext.Current.Session[SessionName] = data;
         }
         /// <summary>
         /// 获取Session

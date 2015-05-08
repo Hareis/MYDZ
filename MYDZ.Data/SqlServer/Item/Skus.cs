@@ -182,7 +182,7 @@ namespace MYDZ.Data.SqlServer.Item
             strSql.Append("select SkusID, Properties, PropertiesName, Quantity, SkuDeliveryTime, SkuId, SkuSpecId, [Status], WithHoldQuantity, Barcode, ChangeProp, Created, Iid, Modified, NumIid, OuterId, Price ,SPZL,SPJC,CBJ");
             strSql.Append(" from Skus where SkusID=@SkusID ");
             SqlParameter[] parameters = {
-					new SqlParameter("@SkusID", SqlDbType.Int,4)
+					new SqlParameter("@SkusID", SqlDbType.Float,4)
             };
             parameters[0].Value = Int64.Parse(SkusId);
             return DBHelper.ExecuteIList<Entity.Goods.Skus>(CommandType.Text, strSql.ToString(), parameters);

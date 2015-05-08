@@ -13,7 +13,7 @@ namespace MYDZ.Entity.DataAnalysis
         /// <summary>
         /// 日期
         /// </summary>
-        public DateTime Paydate { get; set; }
+        public string Paydate { get; set; }
 
         /// <summary>
         /// 订单金额

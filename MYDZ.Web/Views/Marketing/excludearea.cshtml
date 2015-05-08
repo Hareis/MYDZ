@@ -1,0 +1,231 @@
+﻿@model List<MYDZ.Entity.Order.Area>
+@{
+    Layout = null;
+}
+<link href="@Url.Content("~/css/main.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/css/control.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/jquery-1.11.1.min.js")" type="text/javascript"></script>
+<style type="text/css">
+    ul li
+    {
+        list-style: none;
+    }
+    .parent1 li
+    {
+        min-height: 26px;
+        float: left;
+        margin: 2px 5px 0px 2px;
+        padding-top: 5px;
+    }
+    .parent1 .parent1-li
+    {
+        height: auto;
+        border: 1px solid;
+        width: 700px;
+    }
+    .parent1
+    {
+        min-height: 26px;
+        height: auto;
+    }
+    .parent-li a
+    {
+        background-color: #4682b4;
+        color: white;
+        height: 26px;
+        padding: 4px 3px;
+        text-decoration: initial;
+    }
+    .parent0
+    {
+        height: auto;
+        clear: both;
+        padding-top: 5px;
+    }
+    .body-div
+    {
+        display: list-item;
+        height: 420px;
+        overflow-y: auto;
+        width: 730px;
+        overflow-x: hidden;
+    }
+    .shengfen-a
+    {
+        color: white;
+        background-color: #F58F1F;
+        padding: 3px 5px;
+        border: 1px solid #F58F1F;
+        height: 26px;
+        line-height: 26px;
+        text-align: center;
+    }
+    .tiptop
+    {
+        border: #F1E38B 1px solid;
+        background: #FFFAE3;
+        height: 22px;
+        line-height: 22px;
+        top: 2px;
+        left: 105px;
+        width: 710px;
+        padding: 0px 10px;
+        color: #333;
+        text-shadow: white 1px 1px 1px;
+    }
+    
+    
+    .selected_wrap
+    {
+        height: auto;
+       min-height: 32px;
+        overflow: hidden;
+    }
+    .selected_wrap li
+    {
+        float: left;
+        display: inline-block;
+    }
+    .selected_wrap li span
+    {
+        display: inline-block;
+        line-height: 32px;
+        padding-left: 4px;
+        color: #000;
+    }
+    .selected_wrap li a
+    {
+        display: block;
+        height: 18px;
+        border: #167EFB 1px solid;
+        text-decoration: none;
+        color: #167EFB;
+        margin: 6px 0px 0px 4px;
+        padding: 0px 12px 0px 0px;
+        outline: none;
+        position: relative;
+    }
+    .selected_wrap li a font
+    {
+        font-size: 12px;
+        line-height: 18px;
+        padding: 0px 5px;
+        cursor: pointer;
+    }
+    .selected_wrap li a i, .selected_wrap li a i:after
+    {
+        display: block;
+        width: 11px;
+        height: 2px;
+        background: #167EFB;
+        font-size: 0;
+        line-height: 0;
+        border-radius: 4px;
+    }
+    .selected_wrap li a i
+    {
+        position: absolute;
+        right: 3px;
+        top: 8px;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+    }
+    .selected_wrap li a i:after
+    {
+        content: '.';
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        color: #D91200;
+        z-index: 2;
+    }
+    .selected_wrap li a:hover
+    {
+    }
+    .selected_wrap li a:hover i, .selected_wrap li a:hover i:after
+    {
+        background: #D91200;
+    }
+    .queding
+    {
+        float: right;
+        margin-right: 50px;
+        margin-top: 10px; 
+    }
+</style>
+<div>
+    <div class="tiptop">
+        <div class="rotated-triangle">
+        </div>
+        <span><font style="color: red;">注意：</font>不包邮：偏远地区选中省份即可！选中完成后关闭弹出页面即可！</span>
+    </div>
+    <div>
+        已选择：
+        <ul class="selected_wrap">
+            @* <li><a href="javascript:void(0);"><span><font>cesss</font></span><span><i></i></span></a></li>*@
+        </ul>
+    </div>
+    <div class="body-div">
+        <ul style="min-height: 205px; height: auto; padding: 0px;">
+            @{if (Model != null)
+              {
+                  //中国 的省
+                  var parent0 = Model.Where(p => p.ParentId == 1).ToList();
+                  foreach (var item1 in parent0)
+                  {
+                      //省
+                      var parent1 = Model.Where(p => p.ParentId == item1.Id).ToList();
+                <li class="parent0"><span>
+                    <ul class="parent1">
+                        <li class="parent1-li"><a href="javascript:void(0)" class="shengfen-a" data="@item1.Id">@(item1.Name)</a>
+                            <ul>
+                                @foreach (var item2 in parent1)
+                                {
+                                    //市
+                                    var parent2 = Model.Where(o => o.ParentId == item2.Id).ToList();
+                                    <li><a href="javascript:void(0)" class="shiji-a" data="@item2.Id">@item2.Name</a></li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </span></li>                              
+                  }
+              } 
+            }
+        </ul>
+    </div>
+    <div>
+    <input type="button" name="queding" class="queding" value="确定"/>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        excludarea();
+        deletegift();
+
+        ///拼接不包邮地区
+        function excludarea() {
+            var CodeStr = [];
+            var NameStr = [];
+            $("li a").click(function () {
+                CodeStr.push($(this).eq(0).attr("data"));
+                NameStr.push($(this).eq(0).html());
+                $(".selected_wrap").append("<li><a href='javascript:void(0);'><span><font>" + $(this).eq(0).html() + "</font></span><i></i></a></li>")
+            });
+
+            //关闭页面后发送数据
+            $(".queding").click(function () {
+                var data = {};
+                data.result = CodeStr.join("*") + "#" + NameStr.join("*");
+                data.count = CodeStr.length;
+                window.parent.PopWindow.Controller.Clear(data);
+            });
+        }
+
+        //删除地区
+        function deletegift() {
+            $(".selected_wrap").delegate("li i", "click", function () {
+                $(this).parent().parent().remove();
+            });
+        }
+    });
+</script>

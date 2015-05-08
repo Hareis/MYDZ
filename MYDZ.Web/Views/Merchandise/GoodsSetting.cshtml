@@ -204,8 +204,6 @@
 </div>
 <div>
     <div class="table_wrap">
-    </div>
-    <div class="page_box">
         <table class="data_table" cellpadding="0" cellspacing="0" border="0">
             <tr align="center" style="text-align: center;">
                 <th style="width: 31px;">
@@ -229,7 +227,7 @@
                     操作
                 </th>
             </tr>
-            @{ if ((ViewData["listSkus"] as IList<MYDZ.Entity.Goods.Skus>).Count()>0)
+            @{ if ((ViewData["listSkus"] as IList<MYDZ.Entity.Goods.Skus>).Count() > 0)
                {        
                 <tr>
                     <td colspan="8">
@@ -240,14 +238,16 @@
                }
                else
                {
-                   foreach (MYDZ.Entity.Goods.Item item in Model)
+                   if (Model != null)
                    {
-                       if (ViewData["listSkus"] != null)
+                       foreach (MYDZ.Entity.Goods.Item item in Model)
                        {
-                           foreach (MYDZ.Entity.Goods.Skus skus in ViewData["listSkus"] as IList<MYDZ.Entity.Goods.Skus>)
+                           if (ViewData["listSkus"] != null)
                            {
-                               if (skus.NumIid == item.NumIid)
+                               foreach (MYDZ.Entity.Goods.Skus skus in ViewData["listSkus"] as IList<MYDZ.Entity.Goods.Skus>)
                                {
+                                   if (skus.NumIid == item.NumIid)
+                                   {
                 <tr class="data_table_item">
                     <td>
                         <label class="checkbox">
@@ -258,15 +258,15 @@
                     </td>
                     <td>
                         @{
-                             string url = null;
-                             if (string.IsNullOrEmpty(item.PicUrl))
-                             {
-                                 url = "../../images/NoImage.ico";
-                             }
-                             else
-                             {
-                                 url = item.PicUrl + "_80x80.jpg";
-                             }
+                                       string url = null;
+                                       if (string.IsNullOrEmpty(item.PicUrl))
+                                       {
+                                           url = "../../images/NoImage.ico";
+                                       }
+                                       else
+                                       {
+                                           url = item.PicUrl + "_80x80.jpg";
+                                       }
                         }
                         <a class="table_img" target="_blank" href="javascript:void();">
                             <img src='@url' alt="" />
@@ -277,19 +277,19 @@
                             <label class="outerGoodsID goodstitle">
                                 @item.Title</label>
                             @{
-                                   if (skus.PropertiesName != null)
-                                   {
-                                       string[] PropertiesNames = skus.PropertiesName.Split(';');
-                                       if (PropertiesNames != null)
+                                       if (skus.PropertiesName != null)
                                        {
-                                           foreach (string Pnameitem in PropertiesNames)
+                                           string[] PropertiesNames = skus.PropertiesName.Split(';');
+                                           if (PropertiesNames != null)
                                            {
-                                               string[] Pnameitems = Pnameitem.Replace("分类", "").Split(':');
+                                               foreach (string Pnameitem in PropertiesNames)
+                                               {
+                                                   string[] Pnameitems = Pnameitem.Replace("分类", "").Split(':');
                                 <br />
                                 <label class="" data="">@Pnameitems[2]:<a href="javascript:void(0)">@Pnameitems[3]</a></label>
+                                               }
                                            }
                                        }
-                                   }
                             }
                             @*<div>
                                 <a href="javascript:void();" class="splitwords">
@@ -318,18 +318,21 @@
                             <a href="javascript:void();" class="saveset">保存设置</a></p>
                     </td>
                 </tr>
-                               }
-                               else
-                               {
+                                   }
+                                   else
+                                   {
 
+                                   }
                                }
+
                            }
-
                        }
                    }
                }
             }
         </table>
+    </div>
+    <div class="page_box">
     </div>
 </div>
 <script type="text/javascript">

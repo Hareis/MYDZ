@@ -18,7 +18,7 @@
 
         var PrintContentList = [
             { id: 1, name: "序号", width: 30, content: ["1.", "2.", "3."] },
-            { id: 2, name: "商品图片", width: 70, content: ["../../Images/Goods/1.jpg", "../../Images/Goods/2.jpg", "../../Images/Goods/3.jpg"] },
+            { id: 2, name: "商品图片", width: 70, content: ["../../images/goods/1.jpg", "../../images/goods/2.jpg", "../../images/goods/3.jpg"] },
             { id: 3, name: "商品名称", width: 0, content: ["春装新款女装秋冬修身A字打底裙翻领 长袖中长款连衣裙子", "春装新款女装秋冬修身A字打底裙翻领 长袖中长款连衣裙子", "春装新款女装秋冬修身A字打底裙翻领 长袖中长款连衣裙子"] },
             { id: 4, name: "商家编码", width: 100, content: ["Q334286", "Q334286", "Q334286"] },
             { id: 5, name: "商品简称", width: 100, content: ["打底裙", "打底裙", "打底裙"] },
@@ -194,7 +194,7 @@
                 return;
             }
 
-            if (parseInt(ids) == 44) {
+            if (parseInt(ids) == 43) {
                 if (obj != null) {
                     fid = 160;
                     font = 160;
@@ -206,7 +206,6 @@
                 var family = $("select[name=font] option[value=" + fid + "]").text();
                 position_conrainer.append('<div class="map-position" style="left:' + left + 'px;top:' + top + 'px;width:' + width + 'px;height:' + height + 'px;"><div class="map-position-bg"></div><span class="link-number-text" style="font-family:\'' + family + '\';font-size:' + font + 'px;font-weight:' + (eval(bold) ? "700" : "normal") + ';text-align:' + (align == 1 ? "left" : align == 2 ? "center" : align == 3 ? "right" : "left") + ';">' + name + '</span><span class="edit" title="设置" data-id="' + ids + '" data-fid="' + fid + '" data-font="' + font + '" data-bold="' + bold + '" data-item="' + item + '" data-param="' + param + '" data-align="' + align + '">+</span><span class="delete" title="删除">X</span><span class="resize"></span></div>');
             }
-
             bind_map_event();
             define_css();
         }
@@ -457,13 +456,13 @@
                     txt = "商品详情";
                 }
 
-                if (id == 19) {
+                if (id == 18) {
                     tr_items.eq(0).show();
                 }
 
                 tr_items.eq(0).find("input").val(txt);
 
-                if (id == 44) {
+                if (id == 43) {
                     diaglog.find("tr").hide();
                     tr_items.eq(0).find("input").val("图片");
                     tr_items.eq(3).add(tr_items.eq(4)).add(tr_items.eq(5)).show();
@@ -649,7 +648,7 @@
                 }
 
                 var id = parseInt($(GlobalObj).attr("data-id"));
-                if (id == 19) {
+                if (id == 18) {
                     $(GlobalObj).prev().text(custom.val().Trim());
                 }
                 if (id == 0) {
@@ -657,7 +656,7 @@
                     $(GlobalObj).prev().empty().append(CreateProductsTable(IdList, font.val().Trim(), fontSize.val().Trim(), bold, parseInt(align.val().Trim())).join(''));
                 }
 
-                if (id == 44) {
+                if (id == 43) {
                     var tr_imgs = diaglog.find("tr.tr_width,tr.tr_height,tr.tr_url");
                     var img_width = diaglog.find("input[name=img_w]");
                     var img_height = diaglog.find("input[name=img_h]");

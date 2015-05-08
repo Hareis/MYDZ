@@ -78,7 +78,14 @@ namespace MYDZ.WebUI.Merchandise
             tbClientUser clientuser = GetUser("UserInfo");
             SellerAuthorize sa = new SellerAuthorize();
             sa = gic.GetAuthorizeItemcat(clientuser.UserShops[0].SessionKey);
-            ViewData["ListCats"] = sa.ItemCats;
+            if (sa != null)
+            {
+                ViewData["ListCats"] = sa.ItemCats;
+            }
+            else
+            {
+                ViewData["ListCats"] = null;
+            }
             return View();
         }
 
@@ -119,6 +126,7 @@ namespace MYDZ.WebUI.Merchandise
             ViewData["DeliveryTemplate"] = DeliveryTemplate;
             return View();
         }
+
         /// <summary>
         /// 商品属性
         /// </summary>
@@ -150,6 +158,7 @@ namespace MYDZ.WebUI.Merchandise
             if (itemid == null) { return Json(new { ErrorMsg = errormsg }); }
             string[] path = goods.ChildPicPath.Split('^');
             if (path == null) { return Json(new { ErrorMsg = "" }); }
+
             ItemJointImg itemjoin;
             for (int i = 0; i < path.Count(); i++)
             {
@@ -292,6 +301,15 @@ namespace MYDZ.WebUI.Merchandise
         }
 
         /// <summary>
+        /// 价格
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult Price()
+        {
+            return View();
+        }
+
+        /// <summary>
         /// 运费
         /// </summary>
         /// <returns></returns>
@@ -336,7 +354,7 @@ namespace MYDZ.WebUI.Merchandise
         /// 批量修改商品信息
         /// </summary>
         /// <returns></returns>
-        public Task<ActionResult> SetupdateGoods(ItemUpdate goods)
+        public Task<JsonResult> SetupdateGoods(ItemUpdate goods)
         {
             tbClientUser clientuser = GetUser("UserInfo");
             string ErrorMsg = string.Empty;
@@ -346,7 +364,7 @@ namespace MYDZ.WebUI.Merchandise
                 goodsinfo.simpleupdategoods(clientuser.UserShops[0].SessionKey, goods, out errorMsg);
                 AsyncManager.Timeout = 5000;
                 AsyncManager.Parameters["content"] = errorMsg;
-            }).ContinueWith<ActionResult>(task =>
+            }).ContinueWith<JsonResult>(task =>
             {
                 List<string> errorMsg = (List<string>)AsyncManager.Parameters["content"];
                 return Json(new { ErrorMsg = errorMsg });
@@ -504,6 +522,7 @@ namespace MYDZ.WebUI.Merchandise
                 return Json(new { ErrorMsg = errorMsg });
             });
         }
+
         /// <summary>
         /// 检查图片空间
         /// </summary>
@@ -516,20 +535,21 @@ namespace MYDZ.WebUI.Merchandise
             List<PictureCategory> list = new List<PictureCategory>();
             list = sgi.GetPictureCategory(PicCategory, clientuser.UserShops[0].SessionKey);
             PictureCategory picc;
-            //if (list != null)
-            //{
-            //    picc = new PictureCategory();
-            //    picc = list[0];
-            //    Result = picc.PictureCategoryId.ToString();
-            //}
-            //else
-            //{
-            //    picc = new PictureCategory();
-            //    picc = sgi.AddImageCategroy(clientuser.UserShops[0].SessionKey, PictureCategoryName, "0");
-            //    Result = picc.PictureCategoryId.ToString();
-            //}
-            return "1837616344513"; //Result;
+            if (list != null)
+            {
+                picc = new PictureCategory();
+                picc = list[0];
+                Result = picc.PictureCategoryId.ToString();
+            }
+            else
+            {
+                picc = new PictureCategory();
+                picc = sgi.AddImageCategroy(clientuser.UserShops[0].SessionKey, PictureCategoryName, "0");
+                Result = picc.PictureCategoryId.ToString();
+            }
+            return Result;
         }
+
         /// <summary>
         /// 上传图片
         /// </summary>
@@ -582,6 +602,7 @@ namespace MYDZ.WebUI.Merchandise
             }
             return result;
         }
+
         /// <summary>
         /// 查找在线商品
         /// </summary>

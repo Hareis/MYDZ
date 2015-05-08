@@ -88,6 +88,7 @@
     <Compile Include="DataAnalysis\DataAnalysisController.cs" />
     <Compile Include="Front\FrontController.cs" />
     <Compile Include="Global.cs" />
+    <Compile Include="Marketing\MarketingController.cs" />
     <Compile Include="Member\MemberController.cs" />
     <Compile Include="Merchandise\MerchandiseController.cs" />
     <Compile Include="Merchandise\UploadImg.ashx.cs">

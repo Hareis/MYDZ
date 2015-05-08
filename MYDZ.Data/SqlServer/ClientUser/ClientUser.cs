@@ -24,7 +24,7 @@ namespace MYDZ.Data.SqlServer.ClientUser
             strSql.Append("insert into tbClientUser(");
             strSql.Append("TbUserId,ParentId,UserNick,GenderId,CreditId,TypeId,HasMorePic,ItemImgNum,ItemImgSize,PropImgNum,PropImgSize,AutoRepost,PromotedType,StatusId,LevelId,AlipayBind,Protection,Avatar,LiangPin,SignFoods,HasShop,IsLightning,HasSubStock,GoldenSeller,Subscribe,VerMarket,OnlineGaming,EmailNum,SMSNum,Currency,Validity,InputDate)");
             strSql.Append(" values (");
-            strSql.Append("@TbUserId,@ParentId,@UserNick,@GenderId,@CreditId,@TypeId,@HasMorePic,@ItemImgNum,@ItemImgSize,@PropImgNum,@PropImgSize,@AutoRepost,@PromotedType,@StatusId,@LevelId,@AlipayBind,@Protection,@Avatar,@LiangPin,@SignFoods,@HasShop,@IsLightning,@HasSubStock,@GoldenSeller,@Subscribe,@VerMarket,@OnlineGaming,@EmailNum,@SMSNum,@Currency,@Validity,@InputDate)");
+            strSql.Append("@TbUserId,@ParentId,@UserNick,@GenderId,@CreditId,@TypeId,@HasMorePic,@ItemImgNum,@ItemImgSize,@PropImgNum,@PropImgSize,@AutoRepost,@PromotedType,@StatusId,@LevelId,@AlipayBind,@Protection,isnull(@Avatar,''),@LiangPin,@SignFoods,@HasShop,@IsLightning,@HasSubStock,@GoldenSeller,@Subscribe,@VerMarket,@OnlineGaming,@EmailNum,@SMSNum,@Currency,@Validity,@InputDate)");
             strSql.Append(";select @@IDENTITY");
             SqlParameter[] parameters = {
 					new SqlParameter("@TbUserId", SqlDbType.Int,4),
@@ -128,7 +128,7 @@ namespace MYDZ.Data.SqlServer.ClientUser
             strSql.Append("LevelId=@LevelId,");
             strSql.Append("AlipayBind=@AlipayBind,");
             strSql.Append("Protection=@Protection,");
-            strSql.Append("Avatar=@Avatar,");
+            strSql.Append("Avatar=isnull(@Avatar,''),");
             strSql.Append("LiangPin=@LiangPin,");
             strSql.Append("SignFoods=@SignFoods,");
             strSql.Append("HasShop=@HasShop,");

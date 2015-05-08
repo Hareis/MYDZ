@@ -43,9 +43,9 @@ namespace MYDZ.Business.TB_Logic.Shop
             shopinfo.Score.ScoreId = ScoreId;
             if (shop.ShopScore != null)
             {
-                shopinfo.Score.ItemScore = shop.ShopScore.ItemScore;
-                shopinfo.Score.ServiceScore = shop.ShopScore.ServiceScore;
-                shopinfo.Score.DeliveryScore = shop.ShopScore.DeliveryScore;
+                shopinfo.Score.ItemScore = shop.ShopScore.ItemScore == null ? "0" : shop.ShopScore.ItemScore.ToString();
+                shopinfo.Score.ServiceScore = shop.ShopScore.ServiceScore == null ? "0" : shop.ShopScore.ServiceScore.ToString();
+                shopinfo.Score.DeliveryScore = shop.ShopScore.DeliveryScore == null ? "0" : shop.ShopScore.DeliveryScore.ToString();
             }
             shopinfo.TbShopId = (int)shop.Sid;
             shopinfo.Title = shop.Title;

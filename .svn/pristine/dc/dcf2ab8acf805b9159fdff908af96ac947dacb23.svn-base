@@ -1,3 +1,0 @@
-﻿$(function () {
-    $("select").select2({ placeholder: "默认查询所有店铺分类商品，最多允许选择32个店铺分类" });
-});

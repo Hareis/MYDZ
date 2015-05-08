@@ -1,0 +1,308 @@
+﻿@{
+    ViewBag.Title = "满减";
+    Layout = "~/Views/Shared/_SubMaster.cshtml";
+}
+<link href="@Url.Content("~/css/select2.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Validation/style.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/select2.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/PopWindow.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Validation/Validform_v5.3.2_min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Validation/Validform.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/LayDate/laydate.js")"type="text/javascript"></script>
+<link href="@Url.Content("~/css/CommonStyle.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/js/Marketing/CommonScript.js")"type="text/javascript"></script>
+
+@using (Html.BeginForm("OverToSend", "Marketing", FormMethod.Post, new { id = "QueryCriteria" }))
+{
+    <div class="btn_wrap btn_wrap-div1">
+        <div class="btn_wrap_hd" style="width: 845px;">
+            <span class="title"><i></i>满减--设置参数</span>
+        </div>
+        <div class="btn_wrap_bd">
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>活动名称：</span>
+                <div class="table_bd">
+                    <div>
+                        <input type="text" name="Name" value="" datatype="*1-5" nullmsg="请键入活动名称" errormsg="活动名称最多允许输入5个字符（包括空格）" />
+                        <div class="msg_info">
+                            <span class="Validform_checktip"></span><i></i>
+                        </div>
+                    </div>
+                    <div class="markingtarget">
+                        <ul class="SelectItem" style="font-size: 14px;" data="target">
+                            <li><a href="javascript:void(0);">卖家促销</a> </li>
+                            <li><a href="javascript:void(0);">限时促销</a> </li>
+                            <li><a href="javascript:void(0);">最后一天</a> </li>
+                            <li><a href="javascript:void(0);">新品促销</a> </li>
+                            <li><a href="javascript:void(0);">今日特价</a> </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="table_bd" style="margin-left: -231px;">
+                    <div class="tiptop" style="width: 200px;">
+                        <div class="rotated-triangle">
+                        </div>
+                        <span>包括文字、字符，5字以内！</span>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>开始日期：</span>
+                <div class="table_bd">
+                    <div>
+                        <input type="text" name="StartTime" id="datepicker-start" value="" datatype="*1-30"
+                            readonly="readonly" class="iptdate datepicker laydate-icon" nullmsg="请选择开始时间" />
+                        <div class="msg_info">
+                            <span class="Validform_checktip"></span><i></i>
+                        </div>
+                    </div>
+                </div>
+                <input type="text" class="tetxline" readonly="readonly" style="height: 39px; border-width: 1px 1px 1px 0px;" />
+                <div class="table_bd">
+                    <div>
+                        <div class="markingDate" style="margin-left: 55px;">
+                            <ul class="SelectItem" style="font-size: 14px; margin-top: 10px;" data="day">
+                                <li data="3"><a href="javascript:void(0);">3天</a> </li>
+                                <li data="5"><a href="javascript:void(0);">5天</a> </li>
+                                <li data="7"><a href="javascript:void(0);">7天</a> </li>
+                                <li data="15"><a href="javascript:void(0);">15天</a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>结束日期：</span>
+                <div class="table_bd">
+                    <div>
+                        <input type="text" name="EndTime" id="datepicker-end" name="Title" value="" datatype="*1-30"
+                            readonly="readonly" class="iptdate datepicker laydate-icon" nullmsg="请选择结束时间" />
+                        <div class="msg_info">
+                            <span class="Validform_checktip"></span><i></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>活动类型：</span>
+                <div class="table_bd " id="huodongleixing">
+                    <label class="radio">
+                        <span>
+                            <input name="huodong" type="radio" data="1" value="1" hidefocus="true">
+                        </span><em>店铺级别</em>
+                    </label>
+                    <label class="radio">
+                        <span>
+                            <input name="huodong" type="radio" data="2" value="2" hidefocus="true">
+                        </span><em>商品级别</em>
+                    </label>
+                    <input type="hidden" name="Type" value="" />
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>优惠条件：</span>
+                <div class="table_bd " id="youhuitiaojian">
+                    <label class="radio">
+                        <span>
+                            <input name="IsAmountOver" type="radio" value="false" hidefocus="true">
+                        </span><em>满元</em>
+                    </label>
+                    <label class="radio">
+                        <span>
+                            <input name="IsItemCountOver" type="radio" value="false" hidefocus="true">
+                        </span><em>满件</em>
+                    </label>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>满元金额：</span>
+                <div class="table_bd">
+                    <input type="text" name="TotalPrice" value=" " style="width:50px;"/>
+                </div>
+                <div class="table_bd tiaojian-checkboc-label">
+                    <label class="checkbox">
+                        <span>
+                            <input name="IsAmountMultiple" type="checkbox" value="false" hidefocus="true">
+                        </span><em>上不封顶</em>
+                    </label>
+                </div>
+                <div class="table_bd" style="margin-left: -50px;">
+                    <div class="tiptop" style="width: 200px; height: 84px;">
+                        <div class="rotated-triangle">
+                        </div>
+                        <span><font style="color: red;">注意：</font>选中 "上不封顶": 例如 满100元减10元，当满200时，则减20元....;不选中，则最多减少相应输入的金额.<font
+                            style="color: red;">满件件数同理</font></span>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>满件件数：</span>
+                <div class="table_bd">
+                    <input type="text" name="ItemCount" value=" " style="width:50px;" />
+                </div>
+                <div class="table_bd tiaojian-checkboc-label">
+                    <label class="checkbox">
+                        <span>
+                            <input name="IsItemMultiple" type="checkbox" value="false" hidefocus="true">
+                        </span><em>上不封顶</em>
+                    </label>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>活动范围：</span>
+                <div class="table_bd">
+                    <div class="kaiqiquandian">
+                        <label class="radio checked">
+                            <span>
+                                <input name="Isquandian" class="quandian" type="radio" value="1" hidefocus="true">
+                            </span><em>部分商品参与</em>
+                        </label>
+                        <label class="radio">
+                            <span>
+                                <input name="Isquandian" type="radio" value="0" hidefocus="true" class="quandian">
+                            </span><em>全店商品参与</em>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>优惠方式：</span>
+                <div class="table_bd">
+                    <div class="way">
+                        <label class="radio">
+                            <span>
+                                <input name="IsDiscount" type="radio" hidefocus="true">
+                            </span><em>打折</em>
+                        </label>
+                        <label class="radio">
+                            <span>
+                                <input name="IsDecreaseMoney" type="radio" hidefocus="true">
+                            </span><em>减钱</em>
+                        </label>
+                        <label class="radio">
+                            <span>
+                                <input name="IsSendGift" type="radio" hidefocus="true">
+                            </span><em>送礼物</em>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>商品打折：</span>
+                <div class="table_bd">
+                    <div class="">
+                        <input type="text" name="DiscountRate" value="1000" datatype="/^\d+(\.\d+)?$/" nullmsg="请输入活动折扣"
+                            errormsg="除数字、小数点以外的字符不能输入" />
+                    </div>
+                </div>
+                <div class="table_bd" style="margin-left: -50px;">
+                    <div class="tiptop" style="width: 200px;">
+                        <div class="rotated-triangle">
+                        </div>
+                        <span>商品的折扣. 注意：800表示8折。</span>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>商品减钱：</span>
+                <div class="table_bd">
+                    <div class="kaiqiquandian">
+                        <input type="text" name="DecreaseAmount" value="0" datatype="/^\d+(\.\d+)?$/" nullmsg="请输入金额"
+                            errormsg="除数字、小数点以外的字符不能输入" />
+                    </div>
+                </div>
+                <div class="table_bd" style="margin-left: -50px;">
+                    <div class="tiptop" style="width: 200px;">
+                        <div class="rotated-triangle">
+                        </div>
+                        <span>减钱的金额. 注意：100表示1元。</span>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>赠送礼品：</span>
+                <div class="table_bd">
+                    <input type="text" name="GiftName" value="" placeholder="礼品名称" />
+                </div>
+                <div class="table_bd">
+                    <p>
+                        <a href="javascript:void(0);" class="chooicgoods" style="color: Blue; margin-left: 20px;">
+                            去选择礼物！ </a>
+                    </p>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>已选赠品：</span>
+                <div class="table_bd">
+                    <ul class="selected_wrap">
+                        @*<li><a href="javascript:void(0);"><span><font>cesss</font></span><i></i></a></li>*@
+                    </ul>
+                </div>
+                <input type="hidden" name="GiftId" value="" />
+                <input type="hidden" name="GiftUrl" value="" />
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>商品运费：</span>
+                <div class="table_bd yunfei">
+                    <label class="checkbox" style="margin-top: 6px">
+                        <span>
+                            <input name="yunfei" class="IsFreePost" type="checkbox" hidefocus="true" />
+                        </span><em>包邮</em>
+                    </label>
+                    <input type="hidden" name="IsFreePost" value="" />
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>不包邮地区：</span>
+                <div class="table_bd exclude_area">
+                    <a href="javascript:void(0);" id="choicearea" style="color: Blue;">去选择</a>
+                    <input type="hidden" name="ExcludeArea" value="" />
+                </div>
+                <div class="table_bd" style="margin-left: 10px;">
+                    <a href="javascript:void(0);">已选择<label id="itemcount">0</label>项</a>
+                </div>
+                <div class="table_bd" style="margin-left: 22px;">
+                    <div class="tiptop" style="width: 170px;">
+                        <div class="rotated-triangle">
+                        </div>
+                        <span>全国包邮可不选中(非必选)!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>店铺会员：</span>
+                <div class="table_bd huiyuan">
+                    <label class="checkbox" style="margin-top: 8px">
+                        <span>
+                            <input name="IsShopMember" type="checkbox" hidefocus="true">
+                        </span><em>启用会员</em>
+                    </label>
+                </div>
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>会员等级：</span>
+                <div class="table_bd">
+                    <div class="btn_wrap_item " style="padding: 0px;">
+                        <ul class="SelectItem" data="renqun">
+                            <li class="current" data="0"><span>全部</span> </li>
+                            <li data="1"><a href="javascript:void(0);">普通会员</a> </li>
+                            <li data="2"><a href="javascript:void(0);">高级会员</a> </li>
+                            <li data="3"><a href="javascript:void(0);">VIP会员</a> </li>
+                            <li data="4"><a href="javascript:void(0);">至尊VIP会员</a> </li>
+                        </ul>
+                    </div>
+                </div>
+                <input type="hidden" name="ShopMember" value="0" />
+            </div>
+            <div class="table_item">
+                <span class="table_hd"><span class="require"></span>&nbsp;</span>
+                <div class="table_bd">
+                    <input type="button" id="CreateActivity" name="" value="创建活动" />
+                    <input type="button" id="SaveActivity" name="" value="保存活动,下一步" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn_wrap btn_wrap-div2">
+    </div> 
+}

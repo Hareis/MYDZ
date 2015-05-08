@@ -24,6 +24,7 @@ namespace MYDZ.Business.Business_Logic.Goods
             IList<Item> list = getgoods.SearchInventoryByCriteria(token, ref TotalNum, Query);
             return list;
         }
+
         /// <summary>
         /// 查询出售中的商品
         /// </summary>
@@ -59,27 +60,28 @@ namespace MYDZ.Business.Business_Logic.Goods
             IList<Item> list = new List<Item>();
             try
             {
-                if (ListNumIids.Trim().Length >= 1 && !string.IsNullOrEmpty(ListNumIids) && CommonFunc.CheckListGoodsId(ListNumIids))
-                {
-                    list = getgoods.GetListItems(sessionKey, ListNumIids);
-                    if (list == null)
+                if (!string.IsNullOrEmpty(ListNumIids))
+                    if (ListNumIids.Trim().Length >= 1 && CommonFunc.CheckListGoodsId(ListNumIids))
                     {
-                        string[] listgoodsid = ListNumIids.Split(',');
-                        Item goods;
-                        IList<Item> list1;
-                        foreach (string item in listgoodsid)
+                        list = getgoods.GetListItems(sessionKey, ListNumIids);
+                        if (list == null)
                         {
-                            if (string.IsNullOrEmpty(item)) { return null; }
-                            goods = new Item();
-                            list1 = new List<Item>();
-                            list1 = getgoods.Getitem(sessionKey, item);
-                            if (list1 != null)
+                            string[] listgoodsid = ListNumIids.Split(',');
+                            Item goods;
+                            IList<Item> list1;
+                            foreach (string item in listgoodsid)
                             {
-                                list.Add(list1[0]);
+                                if (string.IsNullOrEmpty(item)) { return null; }
+                                goods = new Item();
+                                list1 = new List<Item>();
+                                list1 = getgoods.Getitem(sessionKey, item);
+                                if (list1 != null)
+                                {
+                                    list.Add(list1[0]);
+                                }
                             }
                         }
                     }
-                }
             }
             catch (Exception)
             {
@@ -128,31 +130,67 @@ namespace MYDZ.Business.Business_Logic.Goods
         /// <returns></returns>
         public void simpleupdategoods(string token, ItemUpdate goods, out List<string> errorMsgs)
         {
-            errorMsgs = new List<string>();
-            if (CommonFunc.CheckListGoodsId(goods.ListGoodsId))
+            try
             {
-                string[] ListGoodsId = goods.ListGoodsId.Split(',');
-                bool result = false;
-                List<string> listerrorMsgs = new List<string>();
-                string errorMsg;
-                foreach (string itemId in ListGoodsId)
+                IList<Item> listitems = null;
+                errorMsgs = new List<string>();
+                if (CommonFunc.CheckListGoodsId(goods.ListGoodsId))
                 {
-                    if (string.IsNullOrEmpty(itemId)) { return; }
-                    errorMsg = null;
-                    goods.NumIid = long.Parse(itemId);
-
-                    result = setgoods.UpdateGoodsPrice(token, goods, out errorMsg);
-                    if (result == false)
+                    string[] ListGoodsId = goods.ListGoodsId.Split(',');
+                    bool result = false;
+                    List<string> listerrorMsgs = new List<string>();
+                    string errorMsg;
+                    foreach (string itemId in ListGoodsId)
                     {
-                        string str;
-                        str = "商品ID: " + goods.NumIid + ",状态: ";
-                        str += result == true ? "更新成功" : "更新失败";
-                        str += ",失败原因：";
-                        str += errorMsg;
-                        listerrorMsgs.Add(str);
+                        if (string.IsNullOrEmpty(itemId)) { return; }
+                        errorMsg = null;
+                        goods.NumIid = long.Parse(itemId);
+
+                        if (goods.Updatedtype.Equals("BatchPrice"))
+                        {
+                            string[] strs = goods.repalcword.Split(',');
+                            double cheng = Convert.ToDouble(strs[0].Split(':')[1]);
+                            double jia = Convert.ToDouble(strs[1].Split(':')[1]);
+                            double jian = Convert.ToDouble(strs[2].Split(':')[1]);
+                            listitems = new List<Item>();
+                            listitems = getgoods.Getitem(token, itemId);
+                            if (listitems.Count > 0)
+                            {
+                                switch (goods.repalcedword)
+                                {
+                                    case "0":
+                                        goods.Price = (double.Parse(listitems[0].Price) * (cheng) / 100 + jia - jian).ToString();
+                                        break;
+                                    case "1":
+                                        goods.Price = (double.Parse(listitems[0].Price) * (cheng) / 100 + jia - jian).ToString("0.0");
+                                        break;
+                                    case "2":
+                                        goods.Price = (double.Parse(listitems[0].Price) * (cheng) / 100 + jia - jian).ToString("0");
+                                        break;
+                                    default:
+                                        goods.Price = (double.Parse(listitems[0].Price) * (cheng) / 100 + jia - jian).ToString();
+                                        break;
+                                }
+                            }
+                        }
+                        result = setgoods.UpdateGoodsPrice(token, goods, out errorMsg);
+                        if (result == false)
+                        {
+                            string str;
+                            str = "商品ID: " + goods.NumIid + ",状态: ";
+                            str += result == true ? "更新成功" : "更新失败";
+                            str += ",失败原因：";
+                            str += errorMsg;
+                            listerrorMsgs.Add(str);
+                        }
                     }
+                    errorMsgs = listerrorMsgs;
                 }
-                errorMsgs = listerrorMsgs;
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 

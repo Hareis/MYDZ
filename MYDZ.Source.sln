@@ -23,13 +23,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MYDZ.Tools", "MYDZ.Tools\MY
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MYDZ.WebUI", "MYDZ.WebUI\MYDZ.WebUI.csproj", "{86637248-BA80-43BC-834C-8B44CCE6E583}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{296451AE-5FAC-4E14-B137-27EAE9065086}"
-	ProjectSection(SolutionItems) = preProject
-		Local.testsettings = Local.testsettings
-		MYDZ.Source.vsmdi = MYDZ.Source.vsmdi
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = MYDZ.Source.vsmdi

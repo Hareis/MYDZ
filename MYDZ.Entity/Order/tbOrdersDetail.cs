@@ -12,6 +12,11 @@ namespace MYDZ.Entity.Order
     public class tbOrdersDetail
     {
         /// <summary>
+        /// 销量数
+        /// </summary>
+        public float Sums { get; set; }
+
+        /// <summary>
         /// 订单明细编号
         /// </summary>
         public int OrdersDetailId { get; set; }

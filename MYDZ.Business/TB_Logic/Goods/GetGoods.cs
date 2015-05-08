@@ -207,31 +207,34 @@ namespace MYDZ.Business.TB_Logic.Goods
             List<Top.Api.Domain.DeliveryTemplate> list = new List<Top.Api.Domain.DeliveryTemplate>();
             list = response.DeliveryTemplates;
             List<DeliveryTemplate> result = new List<DeliveryTemplate>();
-            foreach (Top.Api.Domain.DeliveryTemplate item in list)
+            if (list != null)
             {
-                DeliveryTemplate dt = new DeliveryTemplate();
-                dt.Address = item.Address;
-                dt.Assumer = item.Assumer;
-                dt.ConsignAreaId = item.ConsignAreaId;
-                dt.Created = item.Created;
-                dt.FeeList = new List<TopFee>();
-                foreach (Top.Api.Domain.TopFee child in item.FeeList)
+                foreach (Top.Api.Domain.DeliveryTemplate item in list)
                 {
-                    TopFee ft = new TopFee();
-                    ft.AddFee = child.AddFee;
-                    ft.AddStandard = child.AddStandard;
-                    ft.Destination = child.Destination;
-                    ft.ServiceType = child.ServiceType;
-                    ft.StartFee = child.ServiceType;
-                    ft.StartStandard = child.StartStandard;
-                    dt.FeeList.Add(ft);
+                    DeliveryTemplate dt = new DeliveryTemplate();
+                    dt.Address = item.Address;
+                    dt.Assumer = item.Assumer;
+                    dt.ConsignAreaId = item.ConsignAreaId;
+                    dt.Created = item.Created;
+                    dt.FeeList = new List<TopFee>();
+                    foreach (Top.Api.Domain.TopFee child in item.FeeList)
+                    {
+                        TopFee ft = new TopFee();
+                        ft.AddFee = child.AddFee;
+                        ft.AddStandard = child.AddStandard;
+                        ft.Destination = child.Destination;
+                        ft.ServiceType = child.ServiceType;
+                        ft.StartFee = child.ServiceType;
+                        ft.StartStandard = child.StartStandard;
+                        dt.FeeList.Add(ft);
+                    }
+                    dt.Modified = item.Modified;
+                    dt.Name = item.Name;
+                    dt.Supports = item.Supports;
+                    dt.TemplateId = item.TemplateId;
+                    dt.Valuation = item.Valuation;
+                    result.Add(dt);
                 }
-                dt.Modified = item.Modified;
-                dt.Name = item.Name;
-                dt.Supports = item.Supports;
-                dt.TemplateId = item.TemplateId;
-                dt.Valuation = item.Valuation;
-                result.Add(dt);
             }
             return result;
         }
